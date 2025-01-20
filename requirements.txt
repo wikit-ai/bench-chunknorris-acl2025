@@ -1,0 +1,12 @@
+--index-url https://download.pytorch.org/whl/cu124
+torch
+torchaudio
+torchvision
+sentence-transformers==3.3.1
+openparse==0.7.0
+docling==2.15.1
+pydantic==2.10.5
+datasets==3.2.0
+streamlit==1.41.1
+chroma-cache @ git+https://github.com/Lyon-NLP/chroma_cache
+chunknorris @ git+https://github.com/wikit-ai/chunknorris
