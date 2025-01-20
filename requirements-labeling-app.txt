@@ -1,0 +1,5 @@
+sentence-transformers==3.3.1
+datasets==3.2.0
+streamlit==1.41.1
+chromacache @ git+https://github.com/Lyon-NLP/chroma_cache
+chunknorris @ git+https://github.com/wikit-ai/chunknorris

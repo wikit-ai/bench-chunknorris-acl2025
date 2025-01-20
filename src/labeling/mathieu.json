@@ -1,0 +1,134 @@
+[
+    {
+        "source_file": "dummy",
+        "query": "dummy",
+        "target_page": 0,
+        "target_passage": "dummy"
+    },
+    {
+        "source_file": "uksi_20200438_en.pdf",
+        "query": "dummy",
+        "target_page": 0,
+        "target_passage": "dummy"
+    },
+    {
+        "source_file": "uksi_20200438_en.pdf",
+        "query": "What does \"new account\" mean according to the international tax compliance from 2020 ?",
+        "target_page": 2,
+        "target_passage": "“new account” means a financial account maintained by a reporting financial institution opened on or after 13th May 2020"
+    },
+    {
+        "source_file": "uksi_20200438_en.pdf",
+        "query": "Under which conditions can the funds of a non-registered pension arrengements be obtained before the age of 55 ?",
+        "target_page": 2,
+        "target_passage": "non-registered pension arrangements where the annual contributions are limited to £50,000 and funds contributed cannot be accessed before the age of 55 except in circumstances of serious ill health"
+    },
+    {
+        "source_file": "1001.2648.pdf",
+        "query": "Where can I consult the Impact note of the international tax complience regulation of 2015 ?",
+        "target_page": 3,
+        "target_passage": "A Tax Information and Impact Note covering the International Tax Compliance Regulations 2015 was published on 18th March 2015 and is available on the HMRC website at https:\/\/www.gov.uk\/government\/publications\/tax-administration-regulations-to-implement-the- uks-automatic-exchange-of-information-agreements"
+    },
+    {
+        "source_file": "1001.2648.pdf",
+        "query": "What is the source of inaccuracy of the MSA3 model at high ionic concentrations ?",
+        "target_page": 3,
+        "target_passage": "At high concentration (about 1 mol l−1), the MSA3 overestimates the free energy"
+    },
+    {
+        "source_file": "1001.2538.pdf",
+        "query": "dummy",
+        "target_page": 0,
+        "target_passage": "dummy"
+    },
+    {
+        "source_file": "uksi_20210582_en.pdf",
+        "query": "In the health regulation regarding coronavirus, what is considered a \"device\" ?",
+        "target_page": 3,
+        "target_passage": "means an in vitro diagnostic medical device within the meaning given in regulation 2(1) of the Medical Devices Regulations 2002"
+    },
+    {
+        "source_file": "uksi_20210582_en.pdf",
+        "query": "Regarding the regulation of Enforcement of requirement to self-isolate concerning travel and coronavirus, who are considered an \"authorised persons\" ?",
+        "target_page": 19,
+        "target_passage": "For the purposes of this regulation, “authorised person” means— (a) a constable; (b) for the purposes of paragraphs (2) and (3) only, an immigration officer; or (c) a person designated by the Secretary of State for the purposes of this regulation."
+    },
+    {
+        "source_file": "uksi_20210582_en.pdf",
+        "query": "What is the expiracy date of the regulation regarding travel during the coronavirus pandemic made in 2021 ?",
+        "target_page": 31,
+        "target_passage": "These Regulations expire at the end of 16th May 2022."
+    },
+    {
+        "source_file": "wikipedia2.pdf",
+        "query": "Who first suggested the notions of \"hard\" and \"easy\" problems regarding consciousness ?",
+        "target_page": 1,
+        "target_passage": "The terms \"hard problem\" and \"easy problems\" were coined by the philosopher David Chalmers"
+    },
+    {
+        "source_file": "wikipedia2.pdf",
+        "query": "What is David Chalmer's definition of \"consciousness\" ?",
+        "target_page": 2,
+        "target_passage": "Chalmers uses Thomas Nagel's definition of consciousness: \"the feeling of what it is like to be something.\""
+    },
+    {
+        "source_file": "wikipedia2.pdf",
+        "query": "What is the role of the PhilPapers organization ?",
+        "target_page": 6,
+        "target_passage": " PhilPapers is an organization that archives academic philosophy papers and periodically surveys professional philosophers about their views."
+    },
+    {
+        "source_file": "1001.0510.pdf",
+        "query": "What explains mostly the physical behavior that occurs in region iii of thin films ?",
+        "target_page": 5,
+        "target_passage": "The observed behaviour in region iii) can be reason- ably attributed to the decreasing relevance of the con- tribution to the total energy of the system coming from the competitive interactions among NNN planes as the film thickness decreases"
+    },
+    {
+        "source_file": "1001.0510.pdf",
+        "query": "Where are located the magnetic ions in the lattice of the studied layers ?",
+        "target_page": 2,
+        "target_passage": "the magnetic ions are located on the sites of a body-centered tetragonal (BCT) lattice"
+    },
+    {
+        "source_file": "1001.0510.pdf",
+        "query": "What is the minimum number of spin layers in a film before a correct bulk is reached ?",
+        "target_page": 1,
+        "target_passage": "For n > 16, n being the number of spin layers in the film, a correct bulk limit is reached"
+    },
+    {
+        "source_file": "NYSE_JWN_2014.pdf",
+        "query": "What the rough sales amount of the nordstrom.com website ?",
+        "target_page": 3,
+        "target_passage": "$2 billion in nordstrom.com sales"
+    },
+    {
+        "source_file": "NYSE_JWN_2014.pdf",
+        "query": "How many employees did Nordstrom count in 2014 ?",
+        "target_page": 17,
+        "target_passage": "During 2014, we employed approximately 67,000 employees on a full- or part-time basis."
+    },
+    {
+        "source_file": "NYSE_JWN_2014.pdf",
+        "query": "How many stores did Nordstrom posses at the end of 2014 ?",
+        "target_page": 22,
+        "target_passage": "Number of stores, end of year : 292"
+    },
+    {
+        "source_file": "1001.2538.pdf",
+        "query": "What type of nanostructured material works notably well to build gas nanosensors ?",
+        "target_page": 1,
+        "target_passage": "carbon nanotubes (CNT) [2] have been shown to work remarkably well as de- tectors of small gas molecules"
+    },
+    {
+        "source_file": "1001.2538.pdf",
+        "query": "What seems to be a great technique to ensure vacancies are formed in carbon nanotubes (CNT) ?",
+        "target_page": 4,
+        "target_passage": "Furthermore, it has been shown that CNT vacan- cies, which are needed for the metallic doping, may be formed in a controlled way by irradiation by Ar ion"
+    },
+    {
+        "source_file": "NYSE_HNI_2003.pdf",
+        "query": "How many employees did HON Industries count in 2003 ?",
+        "target_page": 15,
+        "target_passage": "Members (employees) at year-end : 8,926"
+    }
+]
