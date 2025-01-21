@@ -15,12 +15,10 @@ class OpenParsePipeline(AbsPipeline):
         ):
 
         self.pipeline = processing.BasicIngestionPipeline()
-
         self.parser = DocumentParser(
             processing_pipeline=self.pipeline,
             table_args=OpenParsePipeline._get_table_args(table_strategy)
         )
-
         self.parsed_result = None
 
     @timeit
@@ -38,7 +36,7 @@ class OpenParsePipeline(AbsPipeline):
         return self.parsed_result
 
 
-    def chunk(self):
+    def _chunk(self):
         raise NotImplementedError()
 
 
