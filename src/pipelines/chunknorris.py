@@ -1,4 +1,5 @@
 import logging
+from typing import Literal
 
 
 from chunknorris.chunkers.tools import Chunk as ChunkNorrisChunk
@@ -15,13 +16,14 @@ logger = logging.getLogger()
 logger.setLevel(level=logging.WARNING)
 
 class ChunkNorrisPipeline(AbsPipeline):
-    """Uses chunknorris"""
+    """Uses chunknorris package"""
     def __init__(self):
+        super().__init__()
+
         self.parser = PdfParser(use_ocr="never")
         self.chunker = MarkdownChunker()
         self.pipeline = PdfPipeline(self.parser, self.chunker)
 
-        self.parsing_result = None
 
     @timeit
     def parse_file(self, filepath:str) -> MarkdownDoc:
@@ -34,14 +36,13 @@ class ChunkNorrisPipeline(AbsPipeline):
             MarkdownDoc: the output of the parser.
         """
         self.parsing_result = self.pipeline.parser.parse_file(filepath)
-
         return self.parsing_result
-    
-    def to_markdown(self):
+
+    def to_markdown(self) -> str:
         return self.parser.to_markdown()
 
     @timeit
-    def _chunk(self) -> list[ChunkNorrisChunk]:
+    def _chunk_using_default_chunker(self) -> list[ChunkNorrisChunk]:
         """Get the chunks.
 
         Returns:
@@ -51,7 +52,7 @@ class ChunkNorrisPipeline(AbsPipeline):
         return self.pipeline._get_chunks_using_strategy()
 
 
-    def _process_chunking_output(self, chunks :list[ChunkNorrisChunk]) -> list[Chunk]:
+    def _process_default_chunker_output(self, chunks :list[ChunkNorrisChunk]) -> list[Chunk]:
         """Formats the chunks from chunknorris's object to Chunk object
 
         Args:
@@ -68,8 +69,8 @@ class ChunkNorrisPipeline(AbsPipeline):
                 )
             for chunk in chunks
         ]
-    
 
-    def set_device(self):
+
+    def set_device(self, device: Literal["cuda", "cpu"]):
         """Doesn't apply to chunknorris"""
         pass

@@ -8,8 +8,8 @@ from docling_core.transforms.chunker.base import BaseChunk
 
 from transformers import AutoTokenizer
 
-from ..components import Chunk
 from .abs_pipeline import AbsPipeline
+from ..components import Chunk
 from ..utils import timeit
 
 class DoclingPipeline(AbsPipeline):
@@ -17,13 +17,17 @@ class DoclingPipeline(AbsPipeline):
             self,
             tokenizer_model: str = "sentence-transformers/all-MiniLM-L6-v2",
             ):
+        super().__init__()
+
         self.set_parser("cuda")
         self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_model)
-        self.chunker = HybridChunker(
+        self.parsing_result = None
+
+    @property
+    def default_chunker(self):
+        return HybridChunker(
             tokenizer = self.tokenizer,
             )
-
-        self.parsing_result = None
 
 
     def set_parser(self, device: Literal["cuda", "cpu"]):
@@ -77,25 +81,20 @@ class DoclingPipeline(AbsPipeline):
         Returns:
             str: the markdown string
         """
-        if self.parsing_result is None:
-            raise RuntimeError("You must parse a file before calling 'to_markdown()'")
         return self.parsing_result.document.export_to_markdown()
 
 
     @timeit
-    def _chunk(self) -> list[BaseChunk]:
+    def _chunk_using_default_chunker(self) -> list[BaseChunk]:
         """Gets the chunks.
 
         Returns:
             list[Chunk]: a list of chunks
         """
-        if self.parsing_result is None:
-            raise RuntimeError("You must parse a file before calling 'chunk()'")
-
-        return self.chunker.chunk(self.parsing_result.document)
+        return self.default_chunker.chunk(self.parsing_result.document)
 
 
-    def _process_chunking_output(self, chunks:list[BaseChunk]) -> list[Chunk]:
+    def _process_default_chunker_output(self, chunks:list[BaseChunk]) -> list[Chunk]:
         """Formats the chunks from docling's object to Chunk object
 
         Args:
@@ -106,7 +105,7 @@ class DoclingPipeline(AbsPipeline):
         """
         return [
             Chunk(
-                text=self.chunker.serialize(chunk),
+                text=self.default_chunker.serialize(chunk),
                 page_start=DoclingPipeline._get_origin_page_of_chunk(chunk, "min"),
                 page_end=DoclingPipeline._get_origin_page_of_chunk(chunk, "max")
                 )
