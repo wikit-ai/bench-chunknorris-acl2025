@@ -1,4 +1,4 @@
-import time
+from typing import Literal
 
 from marker.converters.pdf import PdfConverter
 from marker.models import create_model_dict
@@ -8,12 +8,18 @@ from .abs_pipeline import AbsPipeline
 from ..utils import timeit
 
 class MarkerPipeline(AbsPipeline):
+    """Uses the Marker package : https://github.com/VikParuchuri/marker
+    """
     def __init__(self):
+        super().__init__()
         self.parser = PdfConverter(
             artifact_dict=create_model_dict(),
         )
 
-        self.parsing_result = None
+
+    @property
+    def default_chunker(self):
+        return None
 
     @timeit
     def parse_file(self, filepath:str) -> str:
@@ -30,5 +36,11 @@ class MarkerPipeline(AbsPipeline):
         return text
 
     @timeit
-    def _chunk(self):
+    def _chunk_using_default_chunker(self):
         raise NotImplementedError()
+
+    def _process_default_chunker_output(self, chunks):
+        raise NotImplementedError()
+
+    def set_device(self, device: Literal["cpu", "cuda"]):
+        raise NotImplementedError("Does not apply to Marker")
