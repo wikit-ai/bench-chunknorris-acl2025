@@ -16,10 +16,14 @@ from src.chunkers.abs_chunker import AbstractChunker
 
 from src.utils import dynamic_track_emissions
 
-class Evaluator():
+
+class Evaluator:
     """Meant to run an evaluation"""
-    def __init__(self, pipeline: AbsPipeline, chunkers: None | list[AbstractChunker] = None):
-        """Instanciate an evaluator.
+
+    def __init__(
+        self, pipeline: AbsPipeline, chunkers: None | list[AbstractChunker] = None
+    ):
+        """Instantiate an evaluator.
 
         Args:
             pipeline (AbsPipeline): the pipeline to be tested. Must inherit from AbsPipeline
@@ -33,7 +37,7 @@ class Evaluator():
     def get_chunks(self, pdf_filepaths: list[str]) -> dict[str, list[Chunk]]:
         """Considering the pipeline and the list of chunkers provided to the evaluator,
         gets the chunks obtained from the file for each chunker.
-        
+
         Args:
             pdf_filepaths (list[str]): the list of filepaths pointing to pdf to submit to test.
 
@@ -42,7 +46,7 @@ class Evaluator():
                 and the list chunks of all documents as value.
 
         """
-        chunks_dict : dict[str, list[Chunk]] = defaultdict(list)
+        chunks_dict: dict[str, list[Chunk]] = defaultdict(list)
         parsing_data: list[dict] = []
         # parse the file
         for filepath in tqdm(pdf_filepaths):
@@ -53,7 +57,7 @@ class Evaluator():
                 {
                     "filename": os.path.basename(filepath),
                     "cpu_load_percent": cpu_percent(),
-                    "parsing_latency": time.perf_counter() - start_time
+                    "parsing_latency": time.perf_counter() - start_time,
                 }
             )
             # use the result of the parsing to chunk with the chunkers
@@ -65,21 +69,23 @@ class Evaluator():
 
         with open("parsing_data.json", "w", encoding="utf8") as file:
             json.dump(parsing_data, file, indent=4, ensure_ascii=False)
-        dumped_chunks = {chunker: [chunk.model_dump() for chunk in chunks] for chunker, chunks in chunks_dict.items()}
+        dumped_chunks = {
+            chunker: [chunk.model_dump() for chunk in chunks]
+            for chunker, chunks in chunks_dict.items()
+        }
         with open("chunks.json", "w", encoding="utf8") as file:
             json.dump(dumped_chunks, file, indent=4, ensure_ascii=False)
 
         return chunks_dict
-    
+
     def evaluate(self, pdf_filepaths: list[str]):
         """Runs an experiment
-        
+
         Args:
             pdf_filepaths (list[str]): the list of filepaths pointing to pdf to submit to test.
 
         """
         chunks_dict = self.get_chunks(pdf_filepaths)
-
 
     def process_codecarbon_results(self):
         """Post process codecarbon's results"""
@@ -87,7 +93,6 @@ class Evaluator():
         codecarbon_results_path = "./codecarbon_results.csv"
         data = pd.read_csv(codecarbon_results_path)
         return
-
 
     def push_results(self, tested_package: str, hf_repo_id: str):
         """Pushes the results to huggingface"""

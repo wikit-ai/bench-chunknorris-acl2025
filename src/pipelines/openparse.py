@@ -62,10 +62,8 @@ class OpenParsePipeline(AbsPipeline):
             return self.parser.parse(filepath, ocr=False)
         except:
             return ParsedDocument(
-                nodes = [],
-                filename=os.path.basename(filepath),
-                num_pages=1
-                )
+                nodes=[], filename=os.path.basename(filepath), num_pages=1
+            )
 
     def to_markdown(self, paginated_output: bool = False):
         if paginated_output:
@@ -84,14 +82,13 @@ class OpenParsePipeline(AbsPipeline):
         md_string = "\n\n".join((node.text for node in self.parsing_result.nodes))
         md_string = md_string.replace("<br>", "\n")
         return md_string
-    
 
     # @dynamic_track_emissions
     def _chunk_using_default_chunker(self) -> list[Node]:
         """Openparse doesn't have a proper chunker so to say. But
         it has an interesting mechanic to merge the parsed nodes together.
         This pipeline is kind of part of the parsing but for the sake
-        of comparison with other tools, we run the pipeline separatly."""
+        of comparison with other tools, we run the pipeline separately."""
         try:
             return self.default_chunker.run(self.parsing_result.nodes)
         except:

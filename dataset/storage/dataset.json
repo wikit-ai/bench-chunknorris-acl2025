@@ -1,0 +1,2102 @@
+[
+    {
+        "source_file":"uksi_20200438_en.pdf",
+        "query":"What does \"new account\" mean according to the international tax compliance from 2020 ?",
+        "target_page":2,
+        "target_passage":"“new account” means a financial account maintained by a reporting financial institution opened on or after 13th May 2020",
+        "annotator":1
+    },
+    {
+        "source_file":"uksi_20200438_en.pdf",
+        "query":"Under which conditions can the funds of a non-registered pension arrengements be obtained before the age of 55 ?",
+        "target_page":2,
+        "target_passage":"non-registered pension arrangements where the annual contributions are limited to £50,000 and funds contributed cannot be accessed before the age of 55 except in circumstances of serious ill health",
+        "annotator":1
+    },
+    {
+        "source_file":"1001.2538.pdf",
+        "query":"What metrics are good indicators of the coverage of gas molecules on carbon nanotubes ?",
+        "target_page":1,
+        "target_passage":"the bind- ing energy and scattering resistance of the molecules",
+        "annotator":1
+    },
+    {
+        "source_file":"1001.2648.pdf",
+        "query":"What is the source of inaccuracy of the MSA3 model at high ionic concentrations ?",
+        "target_page":3,
+        "target_passage":"At high concentration (about 1 mol l−1), the MSA3 overestimates the free energy",
+        "annotator":1
+    },
+    {
+        "source_file":"uksi_20210582_en.pdf",
+        "query":"In the health regulation regarding coronavirus, what is considered a \"device\" ?",
+        "target_page":3,
+        "target_passage":"means an in vitro diagnostic medical device within the meaning given in regulation 2(1) of the Medical Devices Regulations 2002",
+        "annotator":1
+    },
+    {
+        "source_file":"uksi_20210582_en.pdf",
+        "query":"Regarding the regulation of Enforcement of requirement to self-isolate concerning travel and coronavirus, who are considered an \"authorised persons\" ?",
+        "target_page":19,
+        "target_passage":"For the purposes of this regulation, “authorised person” means— (a) a constable; (b) for the purposes of paragraphs (2) and (3) only, an immigration officer; or (c) a person designated by the Secretary of State for the purposes of this regulation.",
+        "annotator":1
+    },
+    {
+        "source_file":"uksi_20210582_en.pdf",
+        "query":"What is the expiracy date of the regulation regarding travel during the coronavirus pandemic made in 2021 ?",
+        "target_page":31,
+        "target_passage":"These Regulations expire at the end of 16th May 2022.",
+        "annotator":1
+    },
+    {
+        "source_file":"wikipedia2.pdf",
+        "query":"Who first suggested the notions of \"hard\" and \"easy\" problems regarding consciousness ?",
+        "target_page":1,
+        "target_passage":"The terms \"hard problem\" and \"easy problems\" were coined by the philosopher David Chalmers",
+        "annotator":1
+    },
+    {
+        "source_file":"wikipedia2.pdf",
+        "query":"What is David Chalmer's definition of \"consciousness\" ?",
+        "target_page":2,
+        "target_passage":"Chalmers uses Thomas Nagel's definition of consciousness: \"the feeling of what it is like to be something.\"",
+        "annotator":1
+    },
+    {
+        "source_file":"wikipedia2.pdf",
+        "query":"What is the role of the PhilPapers organization ?",
+        "target_page":6,
+        "target_passage":" PhilPapers is an organization that archives academic philosophy papers and periodically surveys professional philosophers about their views.",
+        "annotator":1
+    },
+    {
+        "source_file":"1001.0510.pdf",
+        "query":"What explains mostly the physical behavior that occurs in region iii of thin films ?",
+        "target_page":5,
+        "target_passage":"The observed behaviour in region iii) can be reason- ably attributed to the decreasing relevance of the con- tribution to the total energy of the system coming from the competitive interactions among NNN planes as the film thickness decreases",
+        "annotator":1
+    },
+    {
+        "source_file":"1001.0510.pdf",
+        "query":"Where are located the magnetic ions in the lattice of the studied layers ?",
+        "target_page":2,
+        "target_passage":"the magnetic ions are located on the sites of a body-centered tetragonal (BCT) lattice",
+        "annotator":1
+    },
+    {
+        "source_file":"1001.0510.pdf",
+        "query":"What is the minimum number of spin layers in a film before a correct bulk is reached ?",
+        "target_page":1,
+        "target_passage":"For n > 16, n being the number of spin layers in the film, a correct bulk limit is reached",
+        "annotator":1
+    },
+    {
+        "source_file":"NYSE_JWN_2014.pdf",
+        "query":"What the rough sales amount of the nordstrom.com website ?",
+        "target_page":3,
+        "target_passage":"$2 billion in nordstrom.com sales",
+        "annotator":1
+    },
+    {
+        "source_file":"NYSE_JWN_2014.pdf",
+        "query":"How many employees did Nordstrom count in 2014 ?",
+        "target_page":17,
+        "target_passage":"During 2014, we employed approximately 67,000 employees on a full- or part-time basis.",
+        "annotator":1
+    },
+    {
+        "source_file":"NYSE_JWN_2014.pdf",
+        "query":"How many stores did Nordstrom posses at the end of 2014 ?",
+        "target_page":22,
+        "target_passage":"Number of stores, end of year : 292",
+        "annotator":1
+    },
+    {
+        "source_file":"1001.2538.pdf",
+        "query":"What type of nanostructured material works notably well to build gas nanosensors ?",
+        "target_page":1,
+        "target_passage":"carbon nanotubes (CNT) [2] have been shown to work remarkably well as de- tectors of small gas molecules",
+        "annotator":1
+    },
+    {
+        "source_file":"1001.2538.pdf",
+        "query":"What seems to be a great technique to ensure vacancies are formed in carbon nanotubes (CNT) ?",
+        "target_page":4,
+        "target_passage":"Furthermore, it has been shown that CNT vacan- cies, which are needed for the metallic doping, may be formed in a controlled way by irradiation by Ar ion",
+        "annotator":1
+    },
+    {
+        "source_file":"NYSE_HNI_2003.pdf",
+        "query":"How many employees did HON Industries count in 2003 ?",
+        "target_page":15,
+        "target_passage":"Members (employees) at year-end : 8,926",
+        "annotator":1
+    },
+    {
+        "source_file":"pubmed8.pdf",
+        "query":"Did automating the writing of EM-to-IP handoffs notes using LLM lead to life-threatening outputs ?",
+        "target_page":8,
+        "target_passage":"none of the incorrect output text elements reached life-threatening risk",
+        "annotator":1
+    },
+    {
+        "source_file":"pubmed8.pdf",
+        "query":"How did automating the writing of EM-to-IP handoffs notes using LLM affect the usefulness of these notes ?",
+        "target_page":1,
+        "target_passage":"LLM-generated EM-to-IP handoff notes were determined superior compared with physician-written summaries via conventional automated evaluation methods, but marginally inferior in usefulness",
+        "annotator":1
+    },
+    {
+        "source_file":"arxiv5_ccby4license.pdf",
+        "query":"What company released MegatronLM ?",
+        "target_page":2,
+        "target_passage":"NVIDIA released the MegatronLM",
+        "annotator":1
+    },
+    {
+        "source_file":"arxiv5_ccby4license.pdf",
+        "query":"What is the average emission of a human being per year in terms of CO2eq ?",
+        "target_page":3,
+        "target_passage":"the average human is responsible for an estimated 5t CO2e per year",
+        "annotator":1
+    },
+    {
+        "source_file":"arxiv5_ccby4license.pdf",
+        "query":"How did the Black Lives Matter movement influence the writing of Wikipedia articles ?",
+        "target_page":5,
+        "target_passage":" the Black Lives Matter movement (BLM) influenced Wikipedia article generation and editing such that, as the BLM movement grew, articles covering shootings of Black people in- creased in coverage and were generated with reduced latency",
+        "annotator":1
+    },
+    {
+        "source_file":"1001.2648.pdf",
+        "query":"Concerning electrolyte solutions, what assumption makes the primitive model  (PM) regarding ions?",
+        "target_page":1,
+        "target_passage":"simple phenomenological models such as the primitive model (PM), for which the ions are assimi- lated to charged hard spheres",
+        "annotator":1
+    },
+    {
+        "source_file":"1001.2648.pdf",
+        "query":"What is the principle of the liquid perturbation theory (LPT) ?",
+        "target_page":2,
+        "target_passage":"The principle of LPT is to describe the properties of a given system in terms of those of a well known reference system, with the differ- ence between them treated as a perturbation in the ref- erence potential",
+        "annotator":1
+    },
+    {
+        "source_file":"NYSE_HIG_2001.pdf",
+        "query":"By how much did the Hartford group's link to AARP website account concerning buisness made over the internet ?",
+        "target_page":16,
+        "target_passage":"In 2001 the company’s link to AARP’s Web site accounted for much of the $55 million worth of auto business The Hartford generated over the Internet",
+        "annotator":1
+    },
+    {
+        "source_file":"NYSE_HIG_2001.pdf",
+        "query":"How many licensed intermediaries did Hartford group have in 2001 ?",
+        "target_page":23,
+        "target_passage":"More than 153,000 licensed intermediaries",
+        "annotator":1
+    },
+    {
+        "source_file":"NYSE_HIG_2001.pdf",
+        "query":"When did the annual sherholder meeting of Hartford happen in 2002 ?",
+        "target_page":38,
+        "target_passage":"Shareholders are cordially invited to attend The Hartford’s Annual Meeting of Shareholders, which will be held on Thursday, April 18, 2002 ",
+        "annotator":1
+    },
+    {
+        "source_file":"pubmed11.pdf",
+        "query":"Regarding climate change, to what corresponds the \"average length of flood events ?",
+        "target_page":11,
+        "target_passage":"The average length of flood events (number of days in which the cumulative daily rainfall excess is positive, compared to the 95th percentile of the baseline",
+        "annotator":1
+    },
+    {
+        "source_file":"pubmed11.pdf",
+        "query":"What is the projected situation of India regarding HCVI (Hunger and Climate Vulnerability Index)?",
+        "target_page":12,
+        "target_passage":"India is projected to see increased HCVI by all ensemble members, due to a consistent increase in length of flood events projected in all members, outweighing the beneficial impact of decreased length of drought which is again projected in all members",
+        "annotator":1
+    },
+    {
+        "source_file":"pubmed11.pdf",
+        "query":"Regarding climate change simulation, what is JULES ?",
+        "target_page":7,
+        "target_passage":"Impacts on freshwater were assessed with a version of the JULES land surface model [24,25], a coupled ecosystem–hydrology–surface exchange model which simulates land-atmosphere fluxes of water, energy and carbon in an internally consistent way",
+        "annotator":1
+    },
+    {
+        "source_file":"pubmed10.pdf",
+        "query":"Which of #climatechange and #globalwarming is the most used ?",
+        "target_page":5,
+        "target_passage":"A total of 6,662,478 tweets were retained, of which 5,774,747 contained #climatechange, and 887,731 contained #globalwarming",
+        "annotator":1
+    },
+    {
+        "source_file":"pubmed10.pdf",
+        "query":"Is the #climateaction hashtag more bound the #globalwarming of #climatechange ?",
+        "target_page":7,
+        "target_passage":"In the #climatechange network, “climateaction” was ranked third place and “sustainability” was ranked fourth place, whereas they were ranked significantly lower, 17th and 22nd, respectxively, in the #globalwarming network",
+        "annotator":1
+    },
+    {
+        "source_file":"pubmed10.pdf",
+        "query":"What are two main reasons for one's low climate concern ?",
+        "target_page":13,
+        "target_passage":"As invisible causes and disbelief in actions have long been regarded as two key reasons for low climate concern",
+        "annotator":1
+    },
+    {
+        "source_file":"infographic3.pdf",
+        "query":"How many scholarly articles are published every year ?",
+        "target_page":1,
+        "target_passage":"over 3 million scholarly articles published per year",
+        "annotator":1
+    },
+    {
+        "source_file":"infographic3.pdf",
+        "query":"For what reason a researcher's name is not a good tools to track back its works and affiliations ?",
+        "target_page":1,
+        "target_passage":"Many people have the same name Names may change through marriage or other circumstances Individuals use different alphabets, abbreviations, or naming conventions People use different versions of their name during their career",
+        "annotator":1
+    },
+    {
+        "source_file":"infographic3.pdf",
+        "query":"What is an ORCID iD ?",
+        "target_page":1,
+        "target_passage":"ORCID iD is a 16-digit identifier that researchers can register for and use for free.",
+        "annotator":1
+    },
+    {
+        "source_file":"1001.2669.pdf",
+        "query":"What type of instability causes rims in ruptured polystyrene  thin films to decay into small drops ?",
+        "target_page":3,
+        "target_passage":" The rims may further decay into lines of small drops due to a Rayleigh-type instability",
+        "annotator":1
+    },
+    {
+        "source_file":"1001.2669.pdf",
+        "query":"Concerning the dewetting of nanoparticle solutions, how does the concentration of nanoparticle affect the main finger's width ?",
+        "target_page":12,
+        "target_passage":"A quantitative analysis shows that the mean number of fingers depends only very weakly on the av- erage concentration of the nanoparticles ; only the mean finger width increases with increasing concentration",
+        "annotator":1
+    },
+    {
+        "source_file":"1001.2669.pdf",
+        "query":"Which of ultrathin film or mesoscale hydrodynamics are best explained by kinetic Monte Carlo models ? ",
+        "target_page":18,
+        "target_passage":"lthough both the kinetic Monte Carlo model and the dynamical density functional theory are able to describe well the processes in the ultrathin film, they can not be employed to describe mesoscale hydrodynamics",
+        "annotator":1
+    },
+    {
+        "source_file":"pubmed9.pdf",
+        "query":"What is AgMERRA ?",
+        "target_page":2,
+        "target_passage":" historical daily weather data (1986–2005) are from the AgMERRA dataset. AgMERRA is a post-processing of the NASA Modern-Era Retrospective Analysis for Research and Applications (MERRA) data. The dataset is proved to be suitable for agricultural modelling and features consistent, daily time-series data",
+        "annotator":1
+    },
+    {
+        "source_file":"pubmed9.pdf",
+        "query":"In 2018, what was the global proportion of maize grown in the US ?",
+        "target_page":5,
+        "target_passage":"According to statistics in 2018, the gross maize yield in the top 5 countries is almost 80% of the total maize yield of the whole world. The United States accounts for more than 32%",
+        "annotator":1
+    },
+    {
+        "source_file":"pubmed9.pdf",
+        "query":"What would be the price increase resulting from maize production changes due to 1.5°C and 2°C global temperature increase ?",
+        "target_page":10,
+        "target_passage":"In response to production changes, the price of each commodity changes under both scenarios. At the global level, the market price for maize would increase by 0.7% and 3.4% under 1.5 °C scenario and 2.0 °C scenario, respectively",
+        "annotator":1
+    },
+    {
+        "source_file":"wikipedia1.pdf",
+        "query":"What is a formal fallacy ?",
+        "target_page":8,
+        "target_passage":"For formal fallacies, the source of the error is found in the form of the argument",
+        "annotator":1
+    },
+    {
+        "source_file":"wikipedia1.pdf",
+        "query":"In early Chinese philosophy, what were the major influences regarding the philosophy of logic ?",
+        "target_page":18,
+        "target_passage":"In Chinese philosophy, the School of Names and Mohism were particularly influential",
+        "annotator":1
+    },
+    {
+        "source_file":"wikipedia1.pdf",
+        "query":"What is considered a deductively valid argument regarding logic ?",
+        "target_page":6,
+        "target_passage":"A deductively valid argument is one whose premises guarantee the truth of its conclusion",
+        "annotator":1
+    },
+    {
+        "source_file":"pubmed8.pdf",
+        "query":"What was the mean correctness score for LLM-generated handoff notes ?",
+        "target_page":7,
+        "target_passage":"Correctness 4.52",
+        "annotator":1
+    },
+    {
+        "source_file":"legal1_opengouvernementlicense.pdf",
+        "query":"What are the improvements made to possible to the HadGEM3 and CMIP5 climate change models by UKCP18 ?",
+        "target_page":1,
+        "target_passage":"mprovements include better representation of the past climate, the inclusion of more cloud and aerosol processes and the ability to model important climate phenomena ",
+        "annotator":1
+    },
+    {
+        "source_file":"legal1_opengouvernementlicense.pdf",
+        "query":"Which causes of the rise of sea level will be considered by UKCP18 ?",
+        "target_page":2,
+        "target_passage":"Sea-level rise projections will extend to 2100 and will include contributions from glaciers, ice sheets, freshwater reservoirs, groundwater and thermal expansion",
+        "annotator":1
+    },
+    {
+        "source_file":"legal1_opengouvernementlicense.pdf",
+        "query":"What perdiod is covered by the 12 km resolution projection data of the UKCP18  ?",
+        "target_page":4,
+        "target_passage":"1981-2080",
+        "annotator":1
+    },
+    {
+        "source_file":"arxiv4.pdf",
+        "query":"How many articles compose the Syntec French collective bargaining agreement ?",
+        "target_page":2,
+        "target_passage":"The Syntec French collective bargaining agree- ment comprises around 90 articles",
+        "annotator":1
+    },
+    {
+        "source_file":"arxiv4.pdf",
+        "query":"In the context of research publication, what is HAL ?",
+        "target_page":3,
+        "target_passage":"Hyper Articles en Ligne (HAL) is a French open archive of scholarly documents from all academic fields.",
+        "annotator":1
+    },
+    {
+        "source_file":"arxiv4.pdf",
+        "query":"What is the effect of embedding dimension on embedding representation quality ?",
+        "target_page":6,
+        "target_passage":"we observe a performance correla- tion with the embedding dimension and the model’s number of parameters, which are often correlated themselves",
+        "annotator":1
+    },
+    {
+        "source_file":"EN-Draft FWC for services 0142.pdf",
+        "query":"What is the maximum amount covered by the FWC of the europeean chemical agency ?",
+        "target_page":6,
+        "target_passage":"The maximum amount covering all purchases under this FWC, including all renewals and reimbursement of expenses is EUR 1 000 000 (one million)",
+        "annotator":1
+    },
+    {
+        "source_file":"EN-Draft FWC for services 0142.pdf",
+        "query":"How can I get compensation if the european chemical agency terminates a contract we have ?",
+        "target_page":11,
+        "target_passage":"If the FWC or a specific contract is terminated: a) neither party is entitled to compensation",
+        "annotator":1
+    },
+    {
+        "source_file":"EN-Draft FWC for services 0142.pdf",
+        "query":"According to the european chemical agency contracts, what is considers a grave professional misconduct ?",
+        "target_page":14,
+        "target_passage":"'Grave professional misconduct': a violation of applicable laws or regulations or ethical standards of the profession to which a contractor or a related person belongs, including any conduct leading to sexual or other exploitation or abuse, or any wrongful conduct of the contractor or a related person which has an impact on its professional credibility where such conduct denotes wrongful intent or gross negligence.",
+        "annotator":1
+    },
+    {
+        "source_file":"NYSE_GLW_2002.pdf",
+        "query":"What or Corning's corporate values ?",
+        "target_page":12,
+        "target_passage":"Quality, Integrity, Performance, Leadership, Innovation, Independence, and The Individual",
+        "annotator":1
+    },
+    {
+        "source_file":"NYSE_GLW_2002.pdf",
+        "query":"As a Corning's investor, how can I get a summary of the annual meeting of shareholders ?",
+        "target_page":11,
+        "target_passage":"A summary report of the proceedings at the annual meeting will be available without charge upon written request to Ms. Denise A. Hauselt, Secretary and Assistant General Counsel, Corning Incorporated, HQ-E2-10, Corning, NY 14831",
+        "annotator":1
+    },
+    {
+        "source_file":"NYSE_GLW_2002.pdf",
+        "query":"How many employees did Corning company count at the end of 2002 ?",
+        "target_page":5,
+        "target_passage":"We are continuing to invest in our people — all 23,200 of them",
+        "annotator":1
+    },
+    {
+        "source_file":"MSTeams_QuickStartGuide_EN_Final_4.18.22.pdf",
+        "query":"What is the shortcut to mute myself in MS teams ?",
+        "target_page":3,
+        "target_passage":"Use [Ctrl]+[Shift]+[M] for a shortcut to mute and unmute during meetings.",
+        "annotator":1
+    },
+    {
+        "source_file":"MSTeams_QuickStartGuide_EN_Final_4.18.22.pdf",
+        "query":"How can I make a channel visible to an invited member ?",
+        "target_page":4,
+        "target_passage":"Channels can be: • Shared (visible to invited team members and external members of your organization who are not on the team)",
+        "annotator":1
+    },
+    {
+        "source_file":"MSTeams_QuickStartGuide_EN_Final_4.18.22.pdf",
+        "query":"How can I notify a collegue mentionned in a chat message in Teams ?",
+        "target_page":5,
+        "target_passage":"Tag a teammate in a message by typing the @ symbol followed by their name. They will receive a special notification calling for their attention.",
+        "annotator":1
+    },
+    {
+        "source_file":"Botswana-constitution.pdf",
+        "query":"What are the 3 prerequisites to be elligible as president of Botswana ?",
+        "target_page":18,
+        "target_passage":"A person shall be qualified for election as President if, and shall not be qualified unless, he or she- (a) is a citizen of Botswana by birth or descent; (b) has attained the age of 30 years; and (c) is qualified to be elected as a Member of the National Assembly",
+        "annotator":1
+    },
+    {
+        "source_file":"Botswana-constitution.pdf",
+        "query":"What is the condition to be allowing to access the position of Director of public prosecution in Botswana ?",
+        "target_page":25,
+        "target_passage":"A person shall not be qualified to be appointed to the Office of Director of Public Prosecutions unless he or she is qualified to be appointed to the Office of a Judge of the High Court",
+        "annotator":1
+    },
+    {
+        "source_file":"Botswana-constitution.pdf",
+        "query":"What are considered \"disciplined force\" according to Botswana constitution ?",
+        "target_page":16,
+        "target_passage":"\"disciplined force\" means- (a) a naval, military or air force; (b) a police force; or (c) a prison service",
+        "annotator":1
+    },
+    {
+        "source_file":"serverless-core.pdf",
+        "query":"How much does AWS lambda charge when the function is not running ?",
+        "target_page":52,
+        "target_passage":"there is no charge when your code is not running",
+        "annotator":1
+    },
+    {
+        "source_file":"serverless-core.pdf",
+        "query":"What is the role of resource policies of lambda functions ?",
+        "target_page":60,
+        "target_passage":"resource policy: Defines which events are authorized to invoke the function.",
+        "annotator":1
+    },
+    {
+        "source_file":"serverless-core.pdf",
+        "query":"Why can't I use SnapStart on my function tagged with $LATEST ?",
+        "target_page":63,
+        "target_passage":" You can use SnapStart only on published function versions and aliases that point to versions. You can't use SnapStart on a function's unpublished version ($LATEST)",
+        "annotator":1
+    },
+    {
+        "source_file":"NASDAQ_SHEN_2003.pdf",
+        "query":"At Shentel company, what determines an employees pension ?",
+        "target_page":22,
+        "target_passage":"Pension benefits are based primarily on the employee's compensation and years of service",
+        "annotator":1
+    },
+    {
+        "source_file":"NASDAQ_SHEN_2003.pdf",
+        "query":"At the end of 2003, how many available-for-sales investments did Shenandoah company count in its portfolio ?",
+        "target_page":53,
+        "target_passage":"The Company’s available-for-sale portfolio at December 31, 2003 is made up of two investments",
+        "annotator":1
+    },
+    {
+        "source_file":"NASDAQ_SHEN_2003.pdf",
+        "query":"What was the main reason of the decrease of customer base of the Shenandoah and Virginia 10 RSA partnership ?",
+        "target_page":51,
+        "target_passage":"he decline was the result of competition with digital technologies and increased competition from national carriers in the area",
+        "annotator":1
+    },
+    {
+        "source_file":"maiis-user-manual.pdf",
+        "query":"As a product manager, how can I reject an inventory in NAIIS ?",
+        "target_page":38,
+        "target_passage":"Log in as PM.  Click on “View Inventories Progress” under sub menu “Submission Management”.  The “View Inventories Progress” screen appears. Select the appropriate inventory by clicking the Inventory name under column “Name” Press the “Reject” button ",
+        "annotator":1
+    },
+    {
+        "source_file":"maiis-user-manual.pdf",
+        "query":"What is the global warming potential of Perfluorohexane ?",
+        "target_page":48,
+        "target_passage":"7,400",
+        "annotator":1
+    },
+    {
+        "source_file":"maiis-user-manual.pdf",
+        "query":"How can I request access to NAIIS ?",
+        "target_page":5,
+        "target_passage":"Requests for access to, inquiries on the use of the software, and comments on the design and functionalities of the application should be sent to the dedicated e-mail address naiisapp@unfccc.int.",
+        "annotator":1
+    },
+    {
+        "source_file":"creative_common_ai.pdf",
+        "query":"What is the problem regarding the use of the Book3 dataset ?",
+        "target_page":2,
+        "target_passage":"The Books3 dataset contains text from over 170,000 books,2 which are a mix of in-copyright and out-of-copyright works. It is believed to have been originally sourced from a website that was not authorized to distribute all of the works",
+        "annotator":1
+    },
+    {
+        "source_file":"creative_common_ai.pdf",
+        "query":"In the United States, before which date is book out of copyright for sure ?",
+        "target_page":9,
+        "target_passage":"In the United States, all books published or released before 1929 are in the public domain. While use of these books provides maximal certainty for the AI developer to train on",
+        "annotator":1
+    },
+    {
+        "source_file":"creative_common_ai.pdf",
+        "query":"What of the main imporvement of the Pile v2 dataset in comparison to its first version ?",
+        "target_page":13,
+        "target_passage":"Among other things, v2 would “have many more books than the original Pile had, for example, and more diverse representation of non-academic non-fiction domains.” At the same time, it would only seek to include public domain books and permissively licensed content",
+        "annotator":1
+    },
+    {
+        "source_file":"news1.pdf",
+        "query":"Where will the 2024 AI + Energy summit take place ?",
+        "target_page":1,
+        "target_passage":"The AI + Energy Summit, scheduled for September 26, 2024, in Washington, D.C.",
+        "annotator":1
+    },
+    {
+        "source_file":"news1.pdf",
+        "query":"What is the United States SCSP ?",
+        "target_page":1,
+        "target_passage":"he Special Competitive Studies Project (SCSP), a nonprofit and nonpartisan initiative with a goal of making recommendations to strengthen America's long-term competitiveness in AI",
+        "annotator":1
+    },
+    {
+        "source_file":"news1.pdf",
+        "query":"What are some example of uses AI by the US departement of energy ?",
+        "target_page":1,
+        "target_passage":"The Department of Energy (DOE) already uses AI in several areas including advanced computing, emergency response, environmental modeling, climate forecasting, and materials research",
+        "annotator":1
+    },
+    {
+        "source_file":"NYSE_HNI_2003.pdf",
+        "query":"How can I contact Investor Relations of HON industries through email ?",
+        "target_page":63,
+        "target_passage":"E-mail: investorrelations@honi.com",
+        "annotator":1
+    },
+    {
+        "source_file":"NYSE_HNI_2003.pdf",
+        "query":"What explains the decrease in net sales of HON industries in 2002 ?",
+        "target_page":34,
+        "target_passage":"The decrease in 2002 was due to the decline in the office furniture market due to unstable economic conditions and the deletion of less profitable product lines in the hearth products segment",
+        "annotator":1
+    },
+    {
+        "source_file":"NASDAQ_ATRI_2003.pdf",
+        "query":"What operations were discontinued in 1997 by Atrion Corp ?",
+        "target_page":17,
+        "target_passage":"During 1997, the Company sold all of its natural gas operations. ",
+        "annotator":1
+    },
+    {
+        "source_file":"NASDAQ_ATRI_2003.pdf",
+        "query":"How much share of Atrion's revenues did its major customer representin in 2003 ? ",
+        "target_page":21,
+        "target_passage":"The Company had one major customer which represented approximately $9.1 million (14.4 percent",
+        "annotator":1
+    },
+    {
+        "source_file":"NASDAQ_ATRI_2003.pdf",
+        "query":"What was Atrion's gross profit in 2003 (in thousands) ? ",
+        "target_page":10,
+        "target_passage":"Gross Profit 22,239",
+        "annotator":1
+    },
+    {
+        "source_file":"NASDAQ_EEFT_2000.pdf",
+        "query":"What the name of the first bridge buildt over Danube ?",
+        "target_page":16,
+        "target_passage":"he Chain Bridge was the first bridge over the Danube",
+        "annotator":1
+    },
+    {
+        "source_file":"NASDAQ_EEFT_2000.pdf",
+        "query":"What was the total amount of operating expenses of 2000 by Network Wordwide in 2000 ?",
+        "target_page":17,
+        "target_passage":"Total operating expenses increased to $88.1 million for the year ended December 31, 2000",
+        "annotator":1
+    },
+    {
+        "source_file":"NASDAQ_EEFT_2000.pdf",
+        "query":"What was the share of revenues of Netwrok Wordwide made in Poland and Hungary in 2000 ?",
+        "target_page":24,
+        "target_passage":"In 2000, 30% of the Company’s revenues were generated in Poland and Hungary",
+        "annotator":1
+    },
+    {
+        "source_file":"NYSE_AIT_2012.pdf",
+        "query":"Under which name was the Applied company initially fouded ?",
+        "target_page":6,
+        "target_passage":"The Company was founded in 1923 by Joseph M. Bruening as The Ohio Ball Bearing Company",
+        "annotator":1
+    },
+    {
+        "source_file":"NYSE_AIT_2012.pdf",
+        "query":"By how much does Applied company plan to contribute to its pension benefits between 2018 and 2022 ?",
+        "target_page":36,
+        "target_passage":"2018 through 2022 15,200",
+        "annotator":1
+    },
+    {
+        "source_file":"NYSE_AIT_2012.pdf",
+        "query":"What does Applied has to say regarding the potential creadit risk it could be exposed to ?",
+        "target_page":21,
+        "target_passage":"The Company has a broad customer base representing many diverse industries primarily across North America. As such, the Company does not believe that a significant concentration of credit risk exists in its accounts receivable",
+        "annotator":1
+    },
+    {
+        "source_file":"Protege5NewOWLPizzaTutorialV3.pdf",
+        "query":"To what system of logic do OWL ontologies belong to ?",
+        "target_page":7,
+        "target_passage":"OWL ontologies are an implementation of Description Logic (DL) which is a decidable subset of First Order Logic",
+        "annotator":1
+    },
+    {
+        "source_file":"Protege5NewOWLPizzaTutorialV3.pdf",
+        "query":"Concerning ontologies, what is an anonymous class ?",
+        "target_page":30,
+        "target_passage":"They are created by the reasoner when you use class expressions. For example, if you define the range of a property to be PizzaTopping or PizzaBase then the reasoner will create an anonymous class representing the intersection of those two classes",
+        "annotator":1
+    },
+    {
+        "source_file":"Protege5NewOWLPizzaTutorialV3.pdf",
+        "query":"When to use an enumerated class in OWL ontologies ?",
+        "target_page":46,
+        "target_passage":"When a property has only a few possible values it can be useful to create a class to represent those values and to explicitly define the class by listing each possible value",
+        "annotator":1
+    },
+    {
+        "source_file":"sg246915.pdf",
+        "query":"Howcan I specify to Content Manager OnDemand to store the data on the server on which the program runs ?",
+        "target_page":121,
+        "target_passage":"Local: Content Manager OnDemand stores data in a primary storage node on the server on which the data loading program runs",
+        "annotator":1
+    },
+    {
+        "source_file":"sg246915.pdf",
+        "query":"Does the XML indexer of Content Manager OnDemand support large objects ?",
+        "target_page":188,
+        "target_passage":"No",
+        "annotator":1
+    },
+    {
+        "source_file":"sg246915.pdf",
+        "query":"Considering storage efficiency, should I store my AFP documents as PDF to distribute them over the web ?",
+        "target_page":232,
+        "target_passage":"If a requirement exists to present AFP documents in the Portable Document Format (PDF) format over the web, from a storage perspective, it is more efficient to store the documents in their native format and then convert them to PDF at retrieval tim",
+        "annotator":1
+    },
+    {
+        "source_file":"uksi_20200438_en.pdf",
+        "query":"Where can I consult a summary of the impact of the International tax compliance regulations  ?",
+        "target_page":3,
+        "target_passage":"A Tax Information and Impact Note covering the International Tax Compliance Regulations 2015 was published on 18th March 2015 and is available on the HMRC website at https:\/\/www.gov.uk\/government\/publications\/tax-administration-regulations-to-implement-the- uks-automatic-exchange-of-information-agreements",
+        "annotator":1
+    },
+    {
+        "source_file":"pubmed12.pdf",
+        "query":"What was the muscle volume of the knee flexors of the 2024 word's strongest man ?",
+        "target_page":7,
+        "target_passage":"Knee flexors 3,060 ",
+        "annotator":1
+    },
+    {
+        "source_file":"pubmed12.pdf",
+        "query":"What are the nutritionnal added components to the word's strongest man regime ?",
+        "target_page":2,
+        "target_passage":"The WSM’s nutritional supplement consumption included protein, branched-chain amino acids, and electrolytes",
+        "annotator":1
+    },
+    {
+        "source_file":"pubmed12.pdf",
+        "query":"Why constraint made the scanning of the word's strongest man's upper body impossible using a MRI ?",
+        "target_page":10,
+        "target_passage":"Despite using a wide-bore MRI scanner, due to the size of the WSM’s shoulders and arms, it was not possible to scan their upper body",
+        "annotator":1
+    },
+    {
+        "source_file":"pubmed13.pdf",
+        "query":"What is typical age at which multiple sclerosis is diagnosed ?",
+        "target_page":2,
+        "target_passage":"Multiple sclerosis (MS) is a progressive inflammatory disease of the central nervous system (CNS) that is typically diagnosed at 30– 40 years of ag",
+        "annotator":1
+    },
+    {
+        "source_file":"pubmed13.pdf",
+        "query":"What was the average year of the group that participated to the study concerning the impact of outdoor pysiotherapy on patient with multiple sclerosis",
+        "target_page":4,
+        "target_passage":"Age in years Mean 47.6",
+        "annotator":1
+    },
+    {
+        "source_file":"pubmed13.pdf",
+        "query":"What were the prerequisites allowing to be involved in the study concerning the impact of outdoor sport on patients witg multiple sclerosis ?",
+        "target_page":4,
+        "target_passage":"The inclusion criteria were as follows: had been diagnosed with MS, had a score on the Expanded Disability Status Scale (EDSS) (29) of ≤3.5, was ≥18 years, was employed (10%–100% of full-time) and residential address in the two predefined municipalities",
+        "annotator":1
+    },
+    {
+        "source_file":"ASX_STO_2004.pdf",
+        "query":"What was the sales revenue of Santos in 2004 ?",
+        "target_page":12,
+        "target_passage":" Sales  revenue was a record $1,501  million",
+        "annotator":2
+    },
+    {
+        "source_file":"1002.2525.pdf",
+        "query":"How have been confirmed nonvanishing neutrino ?",
+        "target_page":2,
+        "target_passage":"The nonvanishing neutrino masses have been confirmed by various neutrino oscillation  phenomena and indicate the evidence of new physics beyond the Standard Model.",
+        "annotator":2
+    },
+    {
+        "source_file":"1002.2525.pdf",
+        "query":"What are the dominant contributions in thermal relic density ?",
+        "target_page":5,
+        "target_passage":"In practice, the dominant contributions come from the Higgs (h and H) exchange diagrams.",
+        "annotator":2
+    },
+    {
+        "source_file":"1002.2525.pdf",
+        "query":"What happend to the annihilation and the relic density when the DM is heavier ?",
+        "target_page":6,
+        "target_passage":"When the DM is heavier, the annihilation mode into Higgs boson pairs is opened and the relic density slightly deceases",
+        "annotator":2
+    },
+    {
+        "source_file":"arxiv1.pdf",
+        "query":"What is the aim of LLM routers ?",
+        "target_page":1,
+        "target_passage":"LLM routers aim to balance quality and cost of generation by classifying queries and routing them to  a cheaper or more expensive LLM depending on their complexity. ",
+        "annotator":2
+    },
+    {
+        "source_file":"arxiv1.pdf",
+        "query":"What is an LLM control plane ?",
+        "target_page":3,
+        "target_passage":" An LLM control plane Rω is a potentially randomized algorithm.",
+        "annotator":2
+    },
+    {
+        "source_file":"arxiv1.pdf",
+        "query":"What is a confounder gadget ?",
+        "target_page":5,
+        "target_passage":" Given a query xi, we prepend a confounder gadget ci, which is a  short sequence of adversarially chosen tokens.",
+        "annotator":2
+    },
+    {
+        "source_file":"1001.2670.pdf",
+        "query":"What is called bad-cavity Ramsey laser ?",
+        "target_page":1,
+        "target_passage":"We considerthe case of a two-level  atomic beam interacting with a single-mode Ramsey cavity  of separated-oscillating-field resonators with the cavity mode  linewidth is much wider than the atomic gain linewidth. Thus  we call it bad-cavity Ramsey laser. ",
+        "annotator":2
+    },
+    {
+        "source_file":"1001.2670.pdf",
+        "query":"How the steady-state solutions for the mean values of the field and atomic variables for laser operation are obtained ?",
+        "target_page":2,
+        "target_passage":"The steady-state solutions for the mean values of the field and atomic variables for laser operation are obtained by dropping the noise terms of the c-number Langevin equations and setting the time derivatives  equal to zero.",
+        "annotator":2
+    },
+    {
+        "source_file":"1001.2670.pdf",
+        "query":"What are the consequences on the linewidth for regular and Poissonian injections ?",
+        "target_page":3,
+        "target_passage":" For regular injection (p = 1),  the linewidth is the narrowest, while for Poissonian injection  (p = 0), the linewidth is the broadest.",
+        "annotator":2
+    },
+    {
+        "source_file":"1001.2449.pdf",
+        "query":"Give me the advantages of Ferromagnetic semiconductors",
+        "target_page":1,
+        "target_passage":"Ferromagnetic (FM) semiconductors offer the prospect  of combining high-density storage and gate-controlled  logic in a single material.",
+        "annotator":2
+    },
+    {
+        "source_file":"1001.2449.pdf",
+        "query":"I do not remember on wich samples SQUID  magnetometry  measurements  were  first performed",
+        "target_page":2,
+        "target_passage":"SQUID  magnetometry  measurements  were  first performed on control Fe\/GaAs(001) and  (Ga,Mn)As\/GaAs(001) samples",
+        "annotator":2
+    },
+    {
+        "source_file":"1001.2449.pdf",
+        "query":"What are the differences observed between the Mn XMCD  hysteresis loops obtained using TEY and FY detection  modes ?",
+        "target_page":2,
+        "target_passage":"For FY the magnitude of the XMCD is similar  (but of opposite sign) at remanence and at high mag netic fields, whereas for TEY at remanence it is approx imately a factor of two larger than at 1000 Oe.",
+        "annotator":2
+    },
+    {
+        "source_file":"ASX_KCN_2013.pdf",
+        "query":"What is Kingsgate ?",
+        "target_page":2,
+        "target_passage":"Kingsgate is a highly successful gold  mining, development and exploration  company with two operating gold mines  and two advanced development projects.",
+        "annotator":2
+    },
+    {
+        "source_file":"ASX_KCN_2013.pdf",
+        "query":"What does demonstatre the feasibility study on the Nueva Esperanza Project ?",
+        "target_page":6,
+        "target_passage":"The study demonstrated that  open pit mining at two million tonnes per year  and processing by milling and agitation leaching  in cyanide was technically feasible, although  high capital and power costs negatively  impacted project economic returns. ",
+        "annotator":2
+    },
+    {
+        "source_file":"ASX_KCN_2013.pdf",
+        "query":"What is the Kingsgate net cash outflows from finiancing activities in 2013 ?",
+        "target_page":11,
+        "target_passage":" Net cash outflows from financing activities was   $1.7 million",
+        "annotator":2
+    },
+    {
+        "source_file":"uksi_20210538_en.pdf",
+        "query":"To which countries extend the marriage regulations ?",
+        "target_page":1,
+        "target_passage":"These Regulations extend to England and Wales. ",
+        "annotator":2
+    },
+    {
+        "source_file":"uksi_20210538_en.pdf",
+        "query":"What the parochial church council must provide to make marriage records ?",
+        "target_page":1,
+        "target_passage":" The parochial church council of a parish must provide books for the purpose of making  records under regulation 3 to each church and chapel of the Church of England(c) in that parish in  which banns of matrimony may be published.",
+        "annotator":2
+    },
+    {
+        "source_file":"legal4_opengouvernementlicense.pdf",
+        "query":"What is the prison population grew in average by year between 1993 and 2008 ?",
+        "target_page":8,
+        "target_passage":"The prison population grew rapidly between 1993 to 2008, at an average of  4% a year.",
+        "annotator":2
+    },
+    {
+        "source_file":"legal4_opengouvernementlicense.pdf",
+        "query":"Do you know the prison population estimation for the and of June 2020 ?",
+        "target_page":13,
+        "target_passage":"The Central Scenario estimates that the prison population will rise to 87,700  by the end of June 2015 and to 90,200 by the end of June 2020. ",
+        "annotator":2
+    },
+    {
+        "source_file":"legal4_opengouvernementlicense.pdf",
+        "query":"What is the phone number of the Ministry of Justice press office ?",
+        "target_page":30,
+        "target_passage":"Press enquiries should be directed to the Ministry of Justice press office,  telephone: 020 3334 3536 ",
+        "annotator":2
+    },
+    {
+        "source_file":"edp_s1_man_portal-version_4.3-user-manual_v1.0.pdf",
+        "query":"What is SOLR  ?",
+        "target_page":4,
+        "target_passage":"Search engine used for portal content search and dataset search ",
+        "annotator":2
+    },
+    {
+        "source_file":"edp_s1_man_portal-version_4.3-user-manual_v1.0.pdf",
+        "query":"What is the function of the Graphical Data Visualisation  Tool module ?",
+        "target_page":6,
+        "target_passage":"How to visualize graphical data from a dataset resource ",
+        "annotator":2
+    },
+    {
+        "source_file":"edp_s1_man_portal-version_4.3-user-manual_v1.0.pdf",
+        "query":"How to view “Tweets” on the EDP ?",
+        "target_page":20,
+        "target_passage":"The Home Page displays the latest tweets on the European Data Portal in the “Tweets” panel on the  right hand side. ‐ ‐  Click on any of the tweets to display the complete tweet on twitter.  Scroll vertically to see previous tweets. ",
+        "annotator":2
+    },
+    {
+        "source_file":"welcome_to_word_template.pdf",
+        "query":"Where can we open a document saved on OneDrive ?",
+        "target_page":2,
+        "target_passage":"When you save this document in OneDrive, you’ll be able to open it anywhere: on your  computer, tablet, or phone. Your changes will be saved automatically.",
+        "annotator":2
+    },
+    {
+        "source_file":"welcome_to_word_template.pdf",
+        "query":"What is the bold keyboard shortcut on word ?",
+        "target_page":4,
+        "target_passage":"Bold (keyboard shortcut: Ctrl+B)",
+        "annotator":2
+    },
+    {
+        "source_file":"welcome_to_word_template.pdf",
+        "query":"What is the advise to make the style sets and themes work well ? ",
+        "target_page":6,
+        "target_passage":"They  work best when your document is formatted with styles",
+        "annotator":2
+    },
+    {
+        "source_file":"1001.0770.pdf",
+        "query":"Where are the peaks of the VHE blazars ?",
+        "target_page":1,
+        "target_passage":" VHE blazars have double-humped spectral energy  distributions (SEDs), with one peak at UV\/X-ray energies and another at GeV\/TeV energies.",
+        "annotator":2
+    },
+    {
+        "source_file":"1001.0770.pdf",
+        "query":"What are the blazars observed in the discovery program ?",
+        "target_page":2,
+        "target_passage":"The blazars observed in the discovery program are  largely high-frequency-peaked BL Lac objects. How ever, the program also includes IBLs (intermediate peaked) and LBLs (low-peaked), as well as flat spec trum radio quasars (FSRQs), in an attempt to in crease the types of blazars known to emit VHE γ-rays.",
+        "annotator":2
+    },
+    {
+        "source_file":"1001.0770.pdf",
+        "query":"How many VHE blazar candidates were observed  by VERITAS between September 2007 andJune 2009 ?",
+        "target_page":3,
+        "target_passage":"More than 50 VHE blazar candidates were observed  by VERITAS betweenSeptember 2007 andJune 2009.",
+        "annotator":2
+    },
+    {
+        "source_file":"pubmed7_cc4.pdf",
+        "query":"For which language have been introduced the ActiveInference.jl library ?",
+        "target_page":1,
+        "target_passage":" We introduce a new software package for the Julia programming language,  the library ActiveInference.jl.",
+        "annotator":2
+    },
+    {
+        "source_file":"pubmed7_cc4.pdf",
+        "query":"To which system does the AIF apply ?",
+        "target_page":2,
+        "target_passage":"AIF was argued to be applicable to any self organising system that actively maintains a stable boundary that defines its integrity [10],  a broad category that includes cells and plants [11], as well as humans [2] and even  collectives [12].",
+        "annotator":2
+    },
+    {
+        "source_file":"pubmed7_cc4.pdf",
+        "query":"What is the definition of POMDP ?",
+        "target_page":4,
+        "target_passage":" The Partially Observable Markov Decision Process is a type of flexible  generative model that is widely used in the AIF literature. In discrete time  and usually a discrete state space, this model type is parametrised to fit a  given task by a set matrices containing probability distributions.",
+        "annotator":2
+    },
+    {
+        "source_file":"pubmed6_cc4.pdf",
+        "query":"What is dyspnea ?",
+        "target_page":2,
+        "target_passage":"Dyspnea refers to a subjective sensation of breathing  discomfort.",
+        "annotator":2
+    },
+    {
+        "source_file":"pubmed6_cc4.pdf",
+        "query":"What are the criterion to be control patient in the dyspnea study ?",
+        "target_page":3,
+        "target_passage":"Control patients reported no respiratory  symptoms in the preceding 6 months and obtained a  score of 0 on the ASQ.",
+        "annotator":2
+    },
+    {
+        "source_file":"NYSE_RSG_2004.pdf",
+        "query":"What is the revenue of Republic Services in 2002 ?",
+        "target_page":2,
+        "target_passage":" $ 2,365.1",
+        "annotator":2
+    },
+    {
+        "source_file":"NYSE_RSG_2004.pdf",
+        "query":"Who is the Vice Chairmain of the Board of Republic Services ?",
+        "target_page":5,
+        "target_passage":" Harris W. Hudson1  Vice Chairman of the Board",
+        "annotator":2
+    },
+    {
+        "source_file":"ASX_STO_2004.pdf",
+        "query":"How mush did the Moomba incident cost to Santos in 2004 ?",
+        "target_page":12,
+        "target_passage":" the Moomba incident resulted in $17 million of one-off costs in 2004.",
+        "annotator":2
+    },
+    {
+        "source_file":"ASX_STO_2004.pdf",
+        "query":"What is the main focus of the Santos 2005 program ?",
+        "target_page":19,
+        "target_passage":" Oil is the main focus of the  2005 program",
+        "annotator":2
+    },
+    {
+        "source_file":"pubmed5.pdf",
+        "query":"What is the primary aim of the OSPRO cohort study ?",
+        "target_page":2,
+        "target_passage":" The primary aim of the OSPRO cohort study was to de velop and validate review of systems (i.e. evidence of sys temic involvement) and yellow flag (i.e. pain-related  psychological distress) screening tools for use in out patient orthopedic physical therapy settings",
+        "annotator":2
+    },
+    {
+        "source_file":"pubmed5.pdf",
+        "query":"What is the range of the pain rating scale ?",
+        "target_page":3,
+        "target_passage":"Pain intensity was assessed by the numerical pain rating  scale (NPRS) ranging from “0” (no pain) to “10” (worst pain imaginable)",
+        "annotator":2
+    },
+    {
+        "source_file":"pubmed5.pdf",
+        "query":"What are the health consequences of musculoskeletal pain ?",
+        "target_page":1,
+        "target_passage":"Musculoskeletal pain is a prevalent and costly health  condition with far-reaching public health consequences  including chronic pain, disability and opioid-related ad diction [1].",
+        "annotator":2
+    },
+    {
+        "source_file":"2023-Creative-Commons-Annual-Report-2-1.pdf",
+        "query":"What is Creative Commons ?",
+        "target_page":2,
+        "target_passage":"Creative Commons (CC) is the global nonprofit organization behind the CC  Licenses and public domain tools, which power open sharing on popular  platforms like Wikipedia, Flickr, YouTube, Medium, Vimeo, and Khan Academy.",
+        "annotator":2
+    },
+    {
+        "source_file":"2023-Creative-Commons-Annual-Report-2-1.pdf",
+        "query":"When was the first CC licence created?",
+        "target_page":4,
+        "target_passage":"The first CC License was created in 2002.",
+        "annotator":2
+    },
+    {
+        "source_file":"2023-Creative-Commons-Annual-Report-2-1.pdf",
+        "query":"To what subjects Creative Commons expand its work in 2023 ?",
+        "target_page":8,
+        "target_passage":"We expanded our work in biodiversity, climate, and life sciences focused on  ensuring that science research and data are open",
+        "annotator":2
+    },
+    {
+        "source_file":"TSX_KMP_2013.pdf",
+        "query":"From which country does Killam Properties Inc originate ?",
+        "target_page":3,
+        "target_passage":"Killam Properties Inc. is a growth oriented Canadian real estate  company.",
+        "annotator":2
+    },
+    {
+        "source_file":"TSX_KMP_2013.pdf",
+        "query":"How Killam Properties Inc does increase its geographic diversification ? ",
+        "target_page":5,
+        "target_passage":"We are increasing our geographic  diversification by expanding our  apartment ownership outside Atlantic  Canada. ",
+        "annotator":2
+    },
+    {
+        "source_file":"TSX_KMP_2013.pdf",
+        "query":"What is the Killam Properties Inc 2013 performance about the Geographic Diversification objective ?",
+        "target_page":8,
+        "target_passage":"Target achieved. Killam acquired $55 million in  Ontario real estate in 2013, representing 45%  of its acquisition program in the year.  Assets  acquired included a 102-unit property  in  Ottawa,  a newly built, 179-unit, mixed-used  property in downtown Toronto and a 5.2 acre  parcel of land for development in Cambridge,  Ontario. ",
+        "annotator":2
+    },
+    {
+        "source_file":"arxiv2_taclccby4_license.pdf",
+        "query":"What is the conventional workflow for BERT ?",
+        "target_page":1,
+        "target_passage":"The conventional workflow for BERT consists  of two stages: pre-training and fine-tuning. ",
+        "annotator":2
+    },
+    {
+        "source_file":"arxiv2_taclccby4_license.pdf",
+        "query":"Is syntaxis encoded with Bert model ?",
+        "target_page":2,
+        "target_passage":" As far as how syntaxis represented, it seems  that syntactic structure is not directly encoded  in self-attention weights.",
+        "annotator":2
+    },
+    {
+        "source_file":"arxiv2_taclccby4_license.pdf",
+        "query":"Is BERT good with numbers representations ?",
+        "target_page":3,
+        "target_passage":" BERTstruggles with representations of numbers. ",
+        "annotator":2
+    },
+    {
+        "source_file":"NASDAQ_FFIN_2002.pdf",
+        "query":"How many affiliate banks has First Financial Bankshares ?",
+        "target_page":4,
+        "target_passage":"The corporation has 10 affiliate banks,  which provide services from 28 full-service locations in the Central, West  and High Plains regions of Texas. ",
+        "annotator":2
+    },
+    {
+        "source_file":"NASDAQ_FFIN_2002.pdf",
+        "query":"What was the net income of First Financial Bankshares in 1995 ?",
+        "target_page":14,
+        "target_passage":" 16,355",
+        "annotator":2
+    },
+    {
+        "source_file":"NASDAQ_FFIN_2002.pdf",
+        "query":"What is the address of the San Angelo National Bank main office ?",
+        "target_page":21,
+        "target_passage":"Main Office  301 W. Beauregard  San Angelo, Texas 76903  Chartered 1997 ",
+        "annotator":2
+    },
+    {
+        "source_file":"news3.pdf",
+        "query":"What kind of scholarship programs are available to start a financial career?",
+        "target_page":1,
+        "target_passage":"Some are offered directly through colleges and universities that have financial planning degree and  certificate programs. Others are available through nonprofits and organizations like the CFP Board Center for  Financial Planning",
+        "annotator":2
+    },
+    {
+        "source_file":"news3.pdf",
+        "query":"what are career fairs for?",
+        "target_page":1,
+        "target_passage":" In-person and virtual career fairs provide valuable opportunities to connect with prospective  employers.",
+        "annotator":2
+    },
+    {
+        "source_file":"news3.pdf",
+        "query":"What are the priorities for job seekers ?",
+        "target_page":1,
+        "target_passage":" Finding a rewarding career that offers growth potential, work-life balance and the satisfaction of  helping others is a key priority for many job seekers.",
+        "annotator":2
+    },
+    {
+        "source_file":"Understanding_Creative_Commons_license_(infographic).pdf",
+        "query":"What does ShareAlike mean in terms of licencing ?",
+        "target_page":1,
+        "target_passage":"adaptations based on this work must be licensed under the same license.",
+        "annotator":1
+    },
+    {
+        "source_file":"Understanding_Creative_Commons_license_(infographic).pdf",
+        "query":"What is the most restricive Creative Common licence ?",
+        "target_page":1,
+        "target_passage":"CC BY-NC-ND (\"Attribution-NonCommercial-NoDerivative\") allows people to use the unadapted work for noncommercial purposes only, and only as long as they give attribution to the licensor.",
+        "annotator":1
+    },
+    {
+        "source_file":"Understanding_Creative_Commons_license_(infographic).pdf",
+        "query":"In which case CC licence can't be used ?",
+        "target_page":1,
+        "target_passage":"fair use, fair dealing, or some other limitation and exception to copyright applies the the work.",
+        "annotator":1
+    },
+    {
+        "source_file":"NYSE_RSG_2004.pdf",
+        "query":"In how many regions the Republic Services operations are organized ?",
+        "target_page":9,
+        "target_passage":"As of December 31, 2004, our operations were organized into five regions whose boundaries may change  from time to time: Eastern, Central, Southern, Southwestern and Western.",
+        "annotator":2
+    },
+    {
+        "source_file":"NYSE_MGM_2004.pdf",
+        "query":"What was one of the seminal moment of 2004 for MGM MIRAGE ?",
+        "target_page":12,
+        "target_passage":"The announcement of  the merger between  MGM MIRAGE and  Mandalay Resort Group  was one of the seminal  moments of 2004",
+        "annotator":2
+    },
+    {
+        "source_file":"NYSE_MGM_2004.pdf",
+        "query":" What are the most significant piece of undeveloped land remaining on the Las  Vegas Strip ?",
+        "target_page":21,
+        "target_passage":"W  RESIDENTIAL In lofts, brown stones and high-rise buildings,  residential options abound to  populate the new city and ener gize the surrounding areas.  e have been working for some time on con ceiving the best use of the 66 acres between  Monte Carlo and Bellagio, the most significant piece of undeveloped land remaining on the Las  Vegas Strip.",
+        "annotator":2
+    },
+    {
+        "source_file":"NYSE_MGM_2004.pdf",
+        "query":"Which events negatively  impacted leisure travel and MCM Mirage high-end gaming business in late 2002 and  early 2003 ?",
+        "target_page":32,
+        "target_passage":"The war with Iraq and the outbreak of SARS in Asia, both of which negatively  impacted leisure travel and our high-end gaming business in late 2002 and  early 2003",
+        "annotator":2
+    },
+    {
+        "source_file":"00-80T-80.pdf",
+        "query":"What possess all naval aviators ?",
+        "target_page":5,
+        "target_passage":"All Naval Aviators possess a natural  interest in the basic aerodynamic factors which affect the performance  of all aircraft. ",
+        "annotator":2
+    },
+    {
+        "source_file":"00-80T-80.pdf",
+        "query":"What is the static pressure of the aire at standard sea level ?",
+        "target_page":20,
+        "target_passage":"At standard sea  level conditions the static pressure of the air  is 2,116 psf (or 14.7 psi, 29.92 in. Hg, etc.) ",
+        "annotator":2
+    },
+    {
+        "source_file":"00-80T-80.pdf",
+        "query":"What is the phenomenon associated with the production  of lift  by an airfoil ?",
+        "target_page":34,
+        "target_passage":"An important  phenomenon associated with the production  of lift  by an airfoil is the “circulation”  parted to the airstream. ",
+        "annotator":2
+    },
+    {
+        "source_file":"BD-EN_calendrier-Lauzun-2024.pdf",
+        "query":"What are the recyclable waste ?",
+        "target_page":3,
+        "target_passage":"All types of paper   and cardboard, Metal packaging,   even the smallest ones, Plastic bottles and flasks, All other packaging",
+        "annotator":2
+    },
+    {
+        "source_file":"BD-EN_calendrier-Lauzun-2024.pdf",
+        "query":"What is the day of the black container in Lachapelle ?",
+        "target_page":4,
+        "target_passage":"LACHAPELLE MONDAY green weeks",
+        "annotator":2
+    },
+    {
+        "source_file":"BD-EN_calendrier-Lauzun-2024.pdf",
+        "query":"What to do if my container is stolen ?",
+        "target_page":4,
+        "target_passage":"Container stolen: What to do?  In case of theft, your container will  be replaced on presentation of a  theft report effected at your local  police station.",
+        "annotator":2
+    },
+    {
+        "source_file":"pubmed6_cc4.pdf",
+        "query":"How many people include the Dyspnea study ?",
+        "target_page":1,
+        "target_passage":"This population-based study included 2,857 adults who were  experiencing respiratory symptoms.",
+        "annotator":2
+    },
+    {
+        "source_file":"CompostGuide.pdf",
+        "query":"Can I put my plants directly on my compost ?",
+        "target_page":2,
+        "target_passage":"Don’t\tput\tplants\tinto\t100%\tcompost.\t\tMix\t\t\t\t\t\t\t\t\t compost\tthoroughly\tinto\texisting\tsoil\tbefore\t\t\t planting.",
+        "annotator":2
+    },
+    {
+        "source_file":"CompostGuide.pdf",
+        "query":"What are fertilizers ?",
+        "target_page":4,
+        "target_passage":" Fertilizers are concentrated sources of plant nutrients, used in small  amounts to supplement natural soil fertility.  ",
+        "annotator":2
+    },
+    {
+        "source_file":"CompostGuide.pdf",
+        "query":"Explain to me what is peat moss ?",
+        "target_page":4,
+        "target_passage":"Peat Moss is partially decayed sphagnum moss from peat bogs.  It  provides soil porosity, but not the nutrients or biological diversity for  healthy soil that compost provides.",
+        "annotator":2
+    },
+    {
+        "source_file":"arxiv3.pdf",
+        "query":"How encourage temporally adjacent representations to be predictive of each other ?",
+        "target_page":2,
+        "target_passage":"One way to encourage temporally  adjacent representations to be predictive of each other  is to ensure that they vary slowly over time. ",
+        "annotator":2
+    },
+    {
+        "source_file":"arxiv3.pdf",
+        "query":"What does mean the JEPA acronym ?",
+        "target_page":3,
+        "target_passage":" joint-embedding predictive architecture (JEPA)",
+        "annotator":2
+    },
+    {
+        "source_file":"arxiv3.pdf",
+        "query":"What is the average performance of the ViT-L\/16 architecture on the K710 dataset with 700k samples ?",
+        "target_page":5,
+        "target_passage":"70.9",
+        "annotator":2
+    },
+    {
+        "source_file":"PLAW-116publ30.pdf",
+        "query":"What is appropriate authority ?",
+        "target_page":1,
+        "target_passage":"APPROPRIATE AUTHORITY.—The term ‘appropriate  authority’ means the head of a Federal agency, the Architect  of the Capitol, or other official authority responsible for the  operation of a public building. ",
+        "annotator":2
+    },
+    {
+        "source_file":"PLAW-116publ30.pdf",
+        "query":"What criteria must a lactation room meet?",
+        "target_page":1,
+        "target_passage":"LACTATION ROOM.—The term ‘lactation room’ means  a hygienic place, other than a bathroom, that—  ‘‘(A) is shielded from view;  ‘‘(B) is free from intrusion; and  ‘‘(C) contains a chair, a working surface, and, if the  public building is otherwise supplied with electricity, an  electrical outlet. ",
+        "annotator":2
+    },
+    {
+        "source_file":"PLAW-116publ30.pdf",
+        "query":"When take effect the Fairness For Breastfeeding  Mothers Act ?",
+        "target_page":2,
+        "target_passage":"The amendments made by this section  shall take effect 1 year after the date of the enactment of this  Act. ",
+        "annotator":2
+    },
+    {
+        "source_file":"uksi_20200471_en.pdf",
+        "query":"When is it not necessary to review an EHC plan ?",
+        "target_page":3,
+        "target_passage":" It is not necessary for a local authority to review an EHC plan in accordance  with section 44(1) of the Act if it is impractical to do so because of a reason relating to the  incidence or transmission of coronavirus. ",
+        "annotator":2
+    },
+    {
+        "source_file":"Excel Training Manual 1.pdf",
+        "query":"Give me some info about the scroll bars in excel",
+        "target_page":6,
+        "target_passage":"Appear at the right and on the bottom of the screen. You may click  the scroll arrows, drag the scroll box or click the scroll bar to move  through the document. ",
+        "annotator":2
+    },
+    {
+        "source_file":"Excel Training Manual 1.pdf",
+        "query":"How to rename a worksheet in Excel ?",
+        "target_page":12,
+        "target_passage":"To rename a worksheet:  1. Double click on the current name on the  worksheet tab  2. Type the new name and press   ",
+        "annotator":2
+    },
+    {
+        "source_file":"Excel Training Manual 1.pdf",
+        "query":"I want to freeze a pane in my Excel worksheet ",
+        "target_page":16,
+        "target_passage":"To freeze panes in a worksheet:  1. Click in the cell below and to the right of the  area you want to freeze\/unfreeze  2. Click on the VIEW tab  3. Click on Freeze Panes in the Window  group, then select Freeze Panes ",
+        "annotator":2
+    },
+    {
+        "source_file":"office-pdf.pdf",
+        "query":"What is the msodocexStructTypeArticle type value ?",
+        "target_page":21,
+        "target_passage":"A group of nodes forming a single flow of text that  should be read or searched as a contiguous block  of content. Some documents have a single article  and others have multiple articles.",
+        "annotator":2
+    },
+    {
+        "source_file":"office-pdf.pdf",
+        "query":"What are vector colors ?",
+        "target_page":29,
+        "target_passage":"Vector colors are any COLORREF values that the add-in receives from Publisher.",
+        "annotator":2
+    },
+    {
+        "source_file":"office-pdf.pdf",
+        "query":"What are  msodocexMetadataComments ?",
+        "target_page":35,
+        "target_passage":"Miscellaneous comments relevant to the document.",
+        "annotator":2
+    },
+    {
+        "source_file":"Wikimedia_Foundation_2024_Audited_Financial_Statements.pdf",
+        "query":"What are the total operating expenses of Wikimedia foundation in 2024 ?",
+        "target_page":6,
+        "target_passage":"178,471,109",
+        "annotator":2
+    },
+    {
+        "source_file":"Wikimedia_Foundation_2024_Audited_Financial_Statements.pdf",
+        "query":"What external events can affect Wikimedia Fundation in raising funds ?",
+        "target_page":8,
+        "target_passage":"External factors such as global geopolitics, recession, and currency  markets may impact our ability to raise funds.",
+        "annotator":2
+    },
+    {
+        "source_file":"Wikimedia_Foundation_2024_Audited_Financial_Statements.pdf",
+        "query":"What include Wikimedia Fundation restricted cash ?",
+        "target_page":9,
+        "target_passage":"Restricted cash includes standby letters of credit for (1) the Foundation’s headquarters office lease and  (2) one of the Foundation’s Employer of Record responsible for administering compensation and  benefits for non-US personnel.",
+        "annotator":2
+    },
+    {
+        "source_file":"uksi_20200471_en.pdf",
+        "query":"What is the price of the The Special Educational Needs and Disability (Coronavirus)  (Amendment) Regulations 2020 ?",
+        "target_page":8,
+        "target_passage":"£6.90",
+        "annotator":2
+    },
+    {
+        "source_file":"uksi_20200471_en.pdf",
+        "query":"When come into force the Special Educational Needs and Disability  (Coronavirus) (Amendment) Regulations 2020 ?",
+        "target_page":1,
+        "target_passage":"These Regulations may be cited as the Special Educational Needs and Disability  (Coronavirus) (Amendment) Regulations 2020 and come into force on 1st May 2020.",
+        "annotator":2
+    },
+    {
+        "source_file":"sg248459.pdf",
+        "query":"Who is Daniel Casali ?",
+        "target_page":12,
+        "target_passage":" Daniel Casali is a Thought Leader Information Technology Specialist working for 15 years at  IBM with Power Systems, high-performance computing, big data, and storage. His role at IBM  is to bring to reality solutions that address client’s needs by exploring new technologies for  different workloads. He is also fascinated by real multicloud implementations, always trying to  abstract and simplify the new challenges of the heterogeneous architectures that are intrinsic  to this new consumption model, be that on-premises or in the public cloud. ",
+        "annotator":2
+    },
+    {
+        "source_file":"sg248459.pdf",
+        "query":"When does IBM close its acquisition of Red Hat ?",
+        "target_page":20,
+        "target_passage":" On July 9th, 2019, IBM closed its acquisition of Red Hat, a leader in enterprise Linux and  open source technology",
+        "annotator":2
+    },
+    {
+        "source_file":"sg248459.pdf",
+        "query":"What does an ITMS service provide ?",
+        "target_page":30,
+        "target_passage":"An IT Service Management (ITSM) perspective can provide automation and a global  management view, and incorporate the necessary software disciplines that are required to  build a solid infrastructure for an enterprise, commercial or not. ",
+        "annotator":2
+    },
+    {
+        "source_file":"Publicdomain.pdf",
+        "query":"What are the two distinct public domain tools support by Creative Commons ?",
+        "target_page":1,
+        "target_passage":"Creative Commons supports two distinct public domain tools,  the CC0 Public Domain Dedication and the Public Domain  Mark.",
+        "annotator":2
+    },
+    {
+        "source_file":"Publicdomain.pdf",
+        "query":"What is Creative Commons ?",
+        "target_page":1,
+        "target_passage":" Creative Commons is a global nonprofit organization  dedicated to supporting an open and accessible Internet  that is enriched with free knowledge and creative resources  for people around the world to use, share, and cultivate.",
+        "annotator":2
+    },
+    {
+        "source_file":"Publicdomain.pdf",
+        "query":"How to apply the PDM to my work ?",
+        "target_page":1,
+        "target_passage":"Simply visit the PDM  chooser (http:\/\/creativecommons.org\/choose\/mark) which  will lead you through the proces. When completed, you will be  provided with the HTML code that you can copy and paste into  your website.",
+        "annotator":2
+    },
+    {
+        "source_file":"wikipedia4.pdf",
+        "query":"Which rivers flow through Lyon?",
+        "target_page":1,
+        "target_passage":"It is located at the  confluence of the rivers Rhône and Saône, ",
+        "annotator":2
+    },
+    {
+        "source_file":"wikipedia4.pdf",
+        "query":"How big was Lyon's population in 2022? ",
+        "target_page":2,
+        "target_passage":"Population (2022)  520,774",
+        "annotator":2
+    },
+    {
+        "source_file":"wikipedia4.pdf",
+        "query":"What is the climate in Lyon ?",
+        "target_page":5,
+        "target_passage":" Lyon has a  humid subtropical climate (  Köppen: Cfa), bordering an  oceanic climate  (Köppen: Cfb,  Trewartha: Do).",
+        "annotator":2
+    },
+    {
+        "source_file":"uksi_20210538_en.pdf",
+        "query":" What should do the rector, vicar or curate in charge of a church or chapel to which a register of marriage  services has been provided ?",
+        "target_page":2,
+        "target_passage":"ensure that the register is kept in that church or chapel, and  (b) do everything that is reasonably practicable to ensure that the register is protected against  theft, loss or damage.",
+        "annotator":2
+    },
+    {
+        "source_file":"tesla_form_10q.pdf",
+        "query":"What are Tesla's total liabilities and equity in 2024?",
+        "target_page":5,
+        "target_passage":"119,852",
+        "annotator":3
+    },
+    {
+        "source_file":"tesla_form_10q.pdf",
+        "query":"Where was Tesla incorporated? ",
+        "target_page":13,
+        "target_passage":"State of Delaware",
+        "annotator":3
+    },
+    {
+        "source_file":"tesla_form_10q.pdf",
+        "query":"What is the reason for the increase in Tesla's tax rate from 2023 to 2024?",
+        "target_page":26,
+        "target_passage":" increase in our effective tax rate is primarily due to the impact of releasing the valuation allowance on our U.S. deferred tax assets in the fourth quarter of 2023 and changes in the mix of our jurisdictional earnings",
+        "annotator":3
+    },
+    {
+        "source_file":"1001.0764.pdf",
+        "query":"Which is the first candidate for experimenting the case of electrons interacting with a single boson mode?",
+        "target_page":6,
+        "target_passage":"The primary candidate for such mode is an optical phonon",
+        "annotator":3
+    },
+    {
+        "source_file":"1001.0764.pdf",
+        "query":"What was the optical integral analysis proposed by Norman and Pépin?",
+        "target_page":8,
+        "target_passage":"a phenomenological model for the self energy which fits normal state scattering rate measure- ments by ARPES",
+        "annotator":3
+    },
+    {
+        "source_file":"1001.0764.pdf",
+        "query":"What is the Ferrel-Glover-Tinkham sum rule?",
+        "target_page":1,
+        "target_passage":"the redistribution of the spectral weight between normal and superconducting state",
+        "annotator":3
+    },
+    {
+        "source_file":"1001.0266.pdf",
+        "query":"What does Kitaev show about spin- 1\/2 model?",
+        "target_page":1,
+        "target_passage":"spin- 1\/2 model can be mapped to a model with one Majo- rana fermion per site coupled to Ising gauge fields on the links",
+        "annotator":3
+    },
+    {
+        "source_file":"1001.0266.pdf",
+        "query":"How can fractionalised Majorana fermion excitations be understood?",
+        "target_page":1,
+        "target_passage":"from the more familiar Jordan-Wigner transformation of 1D spin systems",
+        "annotator":3
+    },
+    {
+        "source_file":"1001.0266.pdf",
+        "query":"What happens when the spin-rotation symmetry is explicitly broken?",
+        "target_page":2,
+        "target_passage":"makes them harder to realize in solid state systems",
+        "annotator":3
+    },
+    {
+        "source_file":"basic-english-language-skills.PDF",
+        "query":"What is the Oxbridge Academy email?",
+        "target_page":59,
+        "target_passage":"Email: info@oxbridgeacademy.co.za",
+        "annotator":3
+    },
+    {
+        "source_file":"sg247938.pdf",
+        "query":"When is it necessary to use a host multipathing driver for load balancing?",
+        "target_page":340,
+        "target_passage":"For load balancing and access redundancy on the host side, the use of a host multipathing driver is required in the following situations: Protection from fabric link failures, including port failures on the IBM Spectrum Virtualize system nodes Protection from a host HBA failure (if two HBAs are in use) Protection from fabric failures if the host is connected through two HBAs to two separate fabrics  Provide load balancing across the host HBA",
+        "annotator":3
+    },
+    {
+        "source_file":"1001.0955.pdf",
+        "query":"Which orbiting instrument provides near-continuous full-sky coverage in the hard X-ray\/low-energy gamma-ray range?",
+        "target_page":1,
+        "target_passage":"Gamma ray Burst Monitor",
+        "annotator":3
+    },
+    {
+        "source_file":"1001.0955.pdf",
+        "query":"What is Cyg X-1?",
+        "target_page":3,
+        "target_passage":"is a HMXB and one of the first systems determined to contain a black hole",
+        "annotator":3
+    },
+    {
+        "source_file":"1001.0955.pdf",
+        "query":"What satellite is the Gamma Ray Burst Observatory on?",
+        "target_page":1,
+        "target_passage":" Fermi satellite",
+        "annotator":3
+    },
+    {
+        "source_file":"pubmed3.pdf",
+        "query":"When in present-day Poland did the first shift away from earlier ancestry occur?",
+        "target_page":3,
+        "target_passage":"in the Middle to Late Bronze Age (1500 bce to 1000 bce), we observe a clear shift away from preceding ancestry originally associated with Corded Ware cultures",
+        "annotator":3
+    },
+    {
+        "source_file":"pubmed3.pdf",
+        "query":"How many clusters has the Scandinavian peninsula been divided into thanks to Twigstats?",
+        "target_page":12,
+        "target_passage":"This approach results in two clusters in the Scandinavian Penin- sula, approximately separating northern from southern Scandinavia",
+        "annotator":3
+    },
+    {
+        "source_file":"pubmed3.pdf",
+        "query":"What are the cultures with which the Wielbark culture is associated?",
+        "target_page":4,
+        "target_passage":"linked to the later Chernyakhov cul- ture to the southeast and to early Goths",
+        "annotator":3
+    },
+    {
+        "source_file":"1001.0806.pdf",
+        "query":"What do the timescales during which high-amplitude flaring events occur in blazars indicate?",
+        "target_page":1,
+        "target_passage":"that much of the en- ergy is being produced deep within the jet on small, sub-parsec scales",
+        "annotator":3
+    },
+    {
+        "source_file":"1001.0806.pdf",
+        "query":"Where is the Submillimeter Array?",
+        "target_page":1,
+        "target_passage":"near the summit of Mauna Ke",
+        "annotator":3
+    },
+    {
+        "source_file":"1001.0806.pdf",
+        "query":"How many blazars were observed by the SMA in either band during the three months August-October 2008?",
+        "target_page":2,
+        "target_passage":"only 129 of the SMA blazars",
+        "annotator":3
+    },
+    {
+        "source_file":"ASX_MRM_2000.pdf",
+        "query":"How big is the Mermaid fleet?",
+        "target_page":12,
+        "target_passage":"Mermaid operates a fleet of fifteen (15) tugs, workboats and barges, undertaking all forms of offshore activity",
+        "annotator":3
+    },
+    {
+        "source_file":"ASX_MRM_2000.pdf",
+        "query":"What was the budget for the expansion of Dampier Base?",
+        "target_page":14,
+        "target_passage":"a capital budget of $13m",
+        "annotator":3
+    },
+    {
+        "source_file":"ASX_MRM_2000.pdf",
+        "query":"When did Mermaid Marine Service Base in the Port of Broome start?",
+        "target_page":22,
+        "target_passage":"1 February 2000",
+        "annotator":3
+    },
+    {
+        "source_file":"Word QS.pdf",
+        "query":"How do I create a new document in Word?",
+        "target_page":2,
+        "target_passage":"Just select File > New",
+        "annotator":3
+    },
+    {
+        "source_file":"Word QS.pdf",
+        "query":"Where can I find other Microsoft quick start guides?",
+        "target_page":4,
+        "target_passage":"To download our free Quick Start Guides for your other favorite apps, go to https:\/\/go.microsoft.com\/fwlink\/?linkid=2008317.",
+        "annotator":3
+    },
+    {
+        "source_file":"Word QS.pdf",
+        "query":"How to connect to my Microsoft account from Word?",
+        "target_page":2,
+        "target_passage":" Click File > Account to sign in with your Microsoft account",
+        "annotator":3
+    },
+    {
+        "source_file":"NYSE_HRL_2004.pdf",
+        "query":"What are the products of Hormel Foods Corporation?",
+        "target_page":4,
+        "target_passage":"meat and other food product",
+        "annotator":3
+    },
+    {
+        "source_file":"NYSE_HRL_2004.pdf",
+        "query":"Where are Hormel Foods Corporation plants located?   ",
+        "target_page":5,
+        "target_passage":"has plants in Austin, Minnesota; Fremont, Nebraska; and Beijing, China",
+        "annotator":3
+    },
+    {
+        "source_file":"NYSE_HRL_2004.pdf",
+        "query":"Does Hormel Food Corporation have any material legal proceedings pending?",
+        "target_page":8,
+        "target_passage":"The Company knows of no pending material legal proceedings.",
+        "annotator":3
+    },
+    {
+        "source_file":"Open_Data_Report.pdf",
+        "query":"What is Mexican Farm Subsidies ?",
+        "target_page":9,
+        "target_passage":"an online tool to analyze how the federal government allocates those subsidies",
+        "annotator":3
+    },
+    {
+        "source_file":"Open_Data_Report.pdf",
+        "query":"What concerns has open data raised in the insurance sector?",
+        "target_page":23,
+        "target_passage":"insurance companies may charge higher fees for life insurance to those among their customers who... put online a family tree from which it shows that they come from families with an average life expectancy lower than usual",
+        "annotator":3
+    },
+    {
+        "source_file":"Open_Data_Report.pdf",
+        "query":"What are Steinberg's concerns about the government releasing all non-private existing data?",
+        "target_page":28,
+        "target_passage":"The first reasons for Steinberg's concern is that asking for everything as soon as possible would \"stress the system too much, by spreading thin the finite amount of good will, money and political capital\". The second is that many existing old data and data archival systems are, in practice, so uninteresting that it wouldn't make sense to spend resources in opening them",
+        "annotator":3
+    },
+    {
+        "source_file":"pubmed4.pdf",
+        "query":"How did serum estradiol and progesterone levels change during pregnancy?",
+        "target_page":2,
+        "target_passage":"Serum hormone concentrations increased significantly over the course of pregnancy and dropped precipitously postpartum",
+        "annotator":3
+    },
+    {
+        "source_file":"pubmed4.pdf",
+        "query":"Which cortical sub-networks were particularly sensitive to pregnancy?",
+        "target_page":2,
+        "target_passage":"Several sensory and attention subnetworks were particu- larly sensitive to gestation, including the control (subnetwork B), sali- ence ventral attention (subnetwork A), dorsal attention (subnetwork B), default (subnetwork A) and somatomotor (subnetworks A and B) networks",
+        "annotator":3
+    },
+    {
+        "source_file":"pubmed4.pdf",
+        "query":"What may reflect the decrease in GMV during pregnancy?",
+        "target_page":6,
+        "target_passage":" Decreases in GMV may reflect ‘fine-tuning’ of the brain by neuromodulatory hormones in prepara- tion for parenthood",
+        "annotator":3
+    },
+    {
+        "source_file":"6126797.pdf",
+        "query":"How to light up my sports smart watch?",
+        "target_page":2,
+        "target_passage":"Up button: Short press to light up or turn off the screen",
+        "annotator":3
+    },
+    {
+        "source_file":"6126797.pdf",
+        "query":"Is my sports smartwatch's fitness data turned on or off by default?",
+        "target_page":4,
+        "target_passage":"Fitness data is turned on by default.",
+        "annotator":3
+    },
+    {
+        "source_file":"6126797.pdf",
+        "query":"When does my Sport smartwatch start and stop monitoring sleep?",
+        "target_page":5,
+        "target_passage":"Sleep monitoring time period: from 18:00 at night to 10:00 the next day",
+        "annotator":3
+    },
+    {
+        "source_file":"OTC_NSANY_2004.pdf",
+        "query":"Have the operating profits in Japan for Nissan gone up or down in 2004?",
+        "target_page":5,
+        "target_passage":"operating profits in Japan came to ¥341.1 billion, a decrease of 3.2 percent compared to last year",
+        "annotator":3
+    },
+    {
+        "source_file":"Microscope Manual.pdf",
+        "query":"How can CEDAR Oil be used with the AY11236 microscope?",
+        "target_page":10,
+        "target_passage":"1. Drop some cedar oil on to the top of the 100x objective when the 100x objective is being used. NOTE: To maintain a good quality image, rotate the turret right and left several times to eliminate bubbles in the cedar oil. 2. After finishing the observation, wipe off the cedar oil. 3. Do not use the 40x objective until you have wiped off all of the cedar oil.",
+        "annotator":3
+    },
+    {
+        "source_file":"Microscope Manual.pdf",
+        "query":"For the AY11230 microscope, what is the interpupillary adjustment?",
+        "target_page":7,
+        "target_passage":"Model AY11230 1. Interpupillary Adjustment: 55mm - 75mm",
+        "annotator":3
+    },
+    {
+        "source_file":"Microscope Manual.pdf",
+        "query":"The illumination of my AY11236 microscope is not very strong, what can I do to solve this?",
+        "target_page":10,
+        "target_passage":"1. Open iris diaphragm wider. 2. Raise condenser. 3. Clean lens.",
+        "annotator":3
+    },
+    {
+        "source_file":"wikipedia3.pdf",
+        "query":"What event marks the beginning of the field of artificial intelligence?",
+        "target_page":22,
+        "target_passage":"The field of AI research was founded at a workshop at Dartmouth College in 1956.",
+        "annotator":3
+    },
+    {
+        "source_file":"wikipedia3.pdf",
+        "query":"What would a superintelligence need?",
+        "target_page":27,
+        "target_passage":"possess intelligence far surpassing that of the brightest and most gifted human mind.",
+        "annotator":3
+    },
+    {
+        "source_file":"wikipedia3.pdf",
+        "query":"Where can I find the Inspect tool to evaluate the safety of our models?",
+        "target_page":21,
+        "target_passage":"The UK AI Safety Institute released in 2024 a testing toolset called 'Inspect' for AI safety evaluations available under a MIT open-source licence which is freely available on GitHub",
+        "annotator":3
+    },
+    {
+        "source_file":"legal2_opengouvernementlicense.pdf",
+        "query":"What was the age category of most new opiate\/crack users during the crime peak in the mid-1990s?",
+        "target_page":9,
+        "target_passage":"mplying that most of these individuals were in their mid-to-late teens during the crime peak of the mid-1990s",
+        "annotator":3
+    },
+    {
+        "source_file":"legal2_opengouvernementlicense.pdf",
+        "query":"According to the National Database Treatment Monitoring System, how many people started using opiates\/crack between 2005 and 2014?",
+        "target_page":22,
+        "target_passage":" Only 52,829 individuals said they had an opiate\/crack initiation date between 2005 and 2014",
+        "annotator":3
+    },
+    {
+        "source_file":"legal2_opengouvernementlicense.pdf",
+        "query":"What proportion of opiate users tested in 2004 were still positive a decade later?",
+        "target_page":18,
+        "target_passage":"Nearly ten per cent (8.9%) of individuals who tested positive for opiates at charge in 2004 also tested positive nearly a decade later in 2013 (on arrest)",
+        "annotator":3
+    },
+    {
+        "source_file":"wikipedia5.pdf",
+        "query":"Who led the Fronde des princes?",
+        "target_page":4,
+        "target_passage":"It was headed by the highest-ranking French nobles, among them Louis's uncle Gaston, Duke of Orléans and first cousin Anne Marie Louise d'Orléans, Duchess of Montpensier, known as la Grande Mademoiselle; Princes of the Blood such as Condé, his brother Armand de Bourbon, Prince of Conti, and their sister the Duchess of Longueville; dukes of legitimised royal descent, such as Henri, Duke of Longueville, and François, Duke of Beaufort; so-called \"foreign princes\" such as Frédéric Maurice, Duke of Bouillon, his brother Marshal Turenne, and Marie de Rohan, Duchess of Chevreuse; and scions of France's oldest families, such as François de La Rochefoucauld.",
+        "annotator":3
+    },
+    {
+        "source_file":"wikipedia5.pdf",
+        "query":"What was one of Louis XIV's most ill-famed decrees?",
+        "target_page":6,
+        "target_passage":"One of Louis's more infamous decrees was the Grande Ordonnance sur les Colonies of 1685, the Code Noir (black code)",
+        "annotator":3
+    },
+    {
+        "source_file":"wikipedia5.pdf",
+        "query":"What did Louis XIV do to avoid the Spanish War of Succession in 1698?",
+        "target_page":13,
+        "target_passage":"In an attempt to avoid war, Louis signed the Treaty of the Hague with William III of England in 1698. This agreement divided Spain's Italian territories between Louis's son le Grand Dauphin and Archduke Charles, with the rest of the empire awarded to Joseph Ferdinand.",
+        "annotator":3
+    },
+    {
+        "source_file":"pubmed2.pdf",
+        "query":"Does nerve transection or crushing affect small afferents within the dorsal root ganglion in the same way?",
+        "target_page":5,
+        "target_passage":"Both SNItrans (Fig. 2C) and SNIcrush (Fig. 2D) injuries resulted in a rightward shift in population distributions of the cross-sectional area of nucleated, FB-labelled DRG neurons when compared with contralateral DRG, consistent with a loss of small afferents post–nerve injury.",
+        "annotator":3
+    },
+    {
+        "source_file":"legal5_eubiodiversity_cc4.pdf",
+        "query":"What are the EU's key nature conservation commitments for 2030?",
+        "target_page":6,
+        "target_passage":"1. Legally protect a minimum of 30% of the EU’s land area and 30% of the EU’s sea area and integrate ecological corridors, as part of a true Trans-European Nature Network. 2. Strictly protect at least a third of the EU’s protected areas, including all remaining EU primary and old-growth forests. 3. Effectively manage all protected areas, defining clear conservation objectives and measures, and monitoring them appropriately.",
+        "annotator":3
+    },
+    {
+        "source_file":"legal5_eubiodiversity_cc4.pdf",
+        "query":"Was there a biodiversity governance framework in place in the EU before the European Commission's proposal?",
+        "target_page":16,
+        "target_passage":"In the EU, there is currently no comprehensive governance framework to steer the implementation of biodiversity commitments agreed at national, European or international level. To address the gap, the Commission will put in place a new European biodiversity governance framework. ",
+        "annotator":3
+    },
+    {
+        "source_file":"legal5_eubiodiversity_cc4.pdf",
+        "query":"What is the EU's tolerance for unauthorised fishing?",
+        "target_page":21,
+        "target_passage":"The EU will apply zero tolerance towards illegal, unreported and unregulated fishing",
+        "annotator":3
+    },
+    {
+        "source_file":"NYSE_SMFG_2011.pdf",
+        "query":"What are the missions of the Sumitomo Mitsui Financial Group?",
+        "target_page":7,
+        "target_passage":"• To provide optimum added value to our customers and together with them achieve growth • To create sustainable shareholder value through business growth• To create sustainable shareholder value through business growth • To provide a challenging and professionally rewarding work environment for our dedicated employees• To provide a challenging and professionally rewarding work environment for our dedicated employee",
+        "annotator":3
+    },
+    {
+        "source_file":"NYSE_SMFG_2011.pdf",
+        "query":"Did Katsutoshi Konuma participate in the August 2011 expert roundtable on the role of the Sumitomo Mitsui Financial Group's new Food and Agricultural Assessment Loan?  ",
+        "target_page":8,
+        "target_passage":"Key comments of participants Together with Our Customers Katsutoshi Konuma, Section Manager, Social & Environmental Management, Asahi Breweries Ltd",
+        "annotator":3
+    },
+    {
+        "source_file":"news2.pdf",
+        "query":"What is the trend of flood risk in Canada in 2024?",
+        "target_page":1,
+        "target_passage":"(NC) Communities in Canada are facing increased flood risks, with 1.5 million homes highly exposed",
+        "annotator":3
+    },
+    {
+        "source_file":"news2.pdf",
+        "query":"How flooding was prevented in Vancouver? ",
+        "target_page":1,
+        "target_passage":"In Vancouver, B.C., Environmental Youth Alliance and Strathcona Community Gardens created a wetland on downtown’s east side, an area historically prone to flooding. ",
+        "annotator":3
+    },
+    {
+        "source_file":"news2.pdf",
+        "query":"How can citizens in Fredericton easily access flood risk data?",
+        "target_page":1,
+        "target_passage":"New Brunswick, the City of Fredericton launched a Neighbourhood Flood Risk Tool to provide easy access to online flood prevention guidance.",
+        "annotator":3
+    },
+    {
+        "source_file":"pubmed2.pdf",
+        "query":"In these mice, which lumbar levels were the dorsal root ganglion removed from?",
+        "target_page":3,
+        "target_passage":"L3 to L5 DRGs were removed and postfixed for another 2 hours",
+        "annotator":3
+    },
+    {
+        "source_file":"pubmed2.pdf",
+        "query":"Did the researcher responsible for quantifying the cells in the dorsal root ganglion know which group each mouse belonged to?",
+        "target_page":4,
+        "target_passage":"During all image quantification, the experimenter was blind to the experimental groups.",
+        "annotator":3
+    },
+    {
+        "source_file":"basic-english-language-skills.PDF",
+        "query":"Does the Oxbridge Academy have a guide on how to apply to college?",
+        "target_page":21,
+        "target_passage":"To make the college registration process easier for you, we’ve compiled a comprehensive guide on how to register at Oxbridge Academy (www.oxbridgeacademy.co.za\/enrol-now\/).",
+        "annotator":3
+    },
+    {
+        "source_file":"basic-english-language-skills.PDF",
+        "query":"I have trouble writing effective summaries in English, do you have any tips?",
+        "target_page":29,
+        "target_passage":"To make a good summary, you need to: • Keep it brief. • Make sure to use main headings and keywords. • Focus on the main ideas. • Classify and organise the information in a logical manner. • Use your own words where possible. • Include examples. • Remember that your summaries are there to help you",
+        "annotator":3
+    },
+    {
+        "source_file":"EN-Annex II - EU-OSHA websites, SM accounts and tools.pdf",
+        "query":"Is exposure to risk factors that may affect mental wellbeing at work comparable across European countries?",
+        "target_page":25,
+        "target_passage":"The country data vary significantly. Sweden, Greece and Luxembourg report over two-thirds such exposures, and Germany, Lithuania and Czechia one-third or less.",
+        "annotator":3
+    },
+    {
+        "source_file":"EN-Annex II - EU-OSHA websites, SM accounts and tools.pdf",
+        "query":"Has the average working week for employees working full-time decreased since 2006?",
+        "target_page":31,
+        "target_passage":". The statistical data (Eurostat) show a slight decrease of the average weekly working time for full-time employees (15-64 years) from 40.2 to 39.9 hours between 2006 and 2019.",
+        "annotator":3
+    },
+    {
+        "source_file":"EN-Annex II - EU-OSHA websites, SM accounts and tools.pdf",
+        "query":"What is the definition of a work accident according to the International Labour Organisation?",
+        "target_page":38,
+        "target_passage":"ILO Definition of accident: ‘An occupational accident is an unexpected and unplanned occurrence, including acts of violence, arising out of or in connection with work, which results in one or more workers incurring a personal injury, disease or death.’",
+        "annotator":3
+    },
+    {
+        "source_file":"infographic5.pdf",
+        "query":"Was knowledge domain agnosticism a goal in the development of OLAF?",
+        "target_page":1,
+        "target_passage":"Though an ideal ontology should model a domain in an application-independent manner, in practice, concepts and relations represented largely depend on one or more business use cases. As we designed our framework with industry application in mind, we need to consider it within its real-world usage context.",
+        "annotator":3
+    },
+    {
+        "source_file":"infographic5.pdf",
+        "query":"Is OLAF a specific strategy for ontological learning or is it a toolbox of different strategies?",
+        "target_page":1,
+        "target_passage":"Our vision is to implement a toolbox of methods we can gather to build pipelines. ",
+        "annotator":3
+    },
+    {
+        "source_file":"infographic5.pdf",
+        "query":"Is Text2Onto still updated nowadays?",
+        "target_page":1,
+        "target_passage":"But it is not maintained since 2011.",
+        "annotator":3
+    },
+    {
+        "source_file":"NYSE_RCI_2013.pdf",
+        "query":"What was the proportion of revenue generated by wireless telecommunications operations in 2009?",
+        "target_page":91,
+        "target_passage":"6,685",
+        "annotator":3
+    },
+    {
+        "source_file":"NYSE_RCI_2013.pdf",
+        "query":"What has Rogers Communications done to improve its television platform?",
+        "target_page":2,
+        "target_passage":"Launched NextBox 3.0 delivering a superior TV experience and leveraged the success of Rogers AnyPlace TV, our Internet and mobile on-demand TV service.",
+        "annotator":3
+    },
+    {
+        "source_file":"NYSE_RCI_2013.pdf",
+        "query":"Until what NHL season will the Vancouver's ice hockey team be a Rogers Communications partner?",
+        "target_page":39,
+        "target_passage":"Sportsnet announced a 10-year partnership extension with the Vancouver Canucks through the 2022-2023 NHL seasons",
+        "annotator":3
+    },
+    {
+        "source_file":"NASDAQ_EMMS_2004.pdf",
+        "query":"I am a shareholder of Emmis Communication, but I will be available from the 20th of June to the 4th of July, will the Annual Meeting take place during this period?",
+        "target_page":6,
+        "target_passage":"The Annual Meeting of shareholders will be held at 10 a.m. Central Time on Wednesday, June 30, 2004, at Emmis’ Corporate office.",
+        "annotator":3
+    },
+    {
+        "source_file":"NASDAQ_EMMS_2004.pdf",
+        "query":"Who is the President of the TV Department of Emmis Communications?",
+        "target_page":6,
+        "target_passage":"Randall Bongarten Television Division President",
+        "annotator":3
+    },
+    {
+        "source_file":"NASDAQ_EMMS_2004.pdf",
+        "query":"Does the radio station 93.7 in Austin belong to Emmis Communication?",
+        "target_page":7,
+        "target_passage":"KLBJ-FM (93.7), Album Oriented Rock",
+        "annotator":3
+    },
+    {
+        "source_file":"pubmed1.pdf",
+        "query":"What are the two components considered in the expected free energy?",
+        "target_page":4,
+        "target_passage":"The former (utilitarian) objective is to realize one’s preferences, such as being satiated or safe, by minimizing the discrepancy between preferred sensa- tions (encoded as “priors over observations” in active inference) and current sensations in different modalities (e.g. interoceptive or exteroceptive). The latter (epistemic) objective is to reduce uncertainty about one’s estimated state",
+        "annotator":3
+    },
+    {
+        "source_file":"pubmed1.pdf",
+        "query":"How could the heart rate be estimated by means of an active inference paradigm?",
+        "target_page":6,
+        "target_passage":"The second panel of Fig. 2 shows the Shannon surprise of an inference model that estimates the current heart rate using the two standard components of a generative model. The for- mer component is the prior, which encodes the person’s a priori probabilistic belief (i.e. probability distribution) about her “nor- mal” heart rate range; here, the prior is a Gaussian centered on 67 and has a precision of 0.11. The latter component is the likeli- hood, which encodes the probabilistic mapping between sensory (heartbeat) observations and the hidden state (heart rate); here, the likelihood is a Gaussian centered on the current heart rate with an additional bias of 15 pulses, and the panel shows the results for 10 values for precision obtained by subdividing the range [0.1,10] into equal intervals.",
+        "annotator":3
+    },
+    {
+        "source_file":"pubmed1.pdf",
+        "query":"At what stage of childhood does the construction of narrative identity take place?",
+        "target_page":3,
+        "target_passage":"Among the challenges that adolescents have to face are the structuring of a “narrative identity” or self-story, featuring the development of a sense of personal identity that integrates past experiences with current, and future goals and meanings in a coherent whole over time ",
+        "annotator":3
+    },
+    {
+        "source_file":"OTC_NSANY_2004.pdf",
+        "query":"What was the indicator related to increasing Nissan's research and development activities in terms of publication of scientific articles in 2004?",
+        "target_page":46,
+        "target_passage":"And the number of research papers we present at societies such as The Japan Society of Mechanical Engineers rose dramatically in fiscal 2004. ",
+        "annotator":3
+    },
+    {
+        "source_file":"OTC_NSANY_2004.pdf",
+        "query":"What was Nissan's vehicle production in Mexico in 2003?",
+        "target_page":72,
+        "target_passage":"308,322",
+        "annotator":3
+    },
+    {
+        "source_file":"ASX_SEA_2014.pdf",
+        "query":"Why did Sundance Energy's oil sales improve in 2014?",
+        "target_page":18,
+        "target_passage":"The increase in oil revenues was the result of increased oil production volumes ($81.3 million) offset by a decrease in product pricing ($15.7 million). ",
+        "annotator":3
+    },
+    {
+        "source_file":"ASX_SEA_2014.pdf",
+        "query":"I heard that Sundance Energy has acquired land in South Texas in July 2014, where is it?",
+        "target_page":21,
+        "target_passage":"In July 2014, the Company completed the acquisition of approximately 5,700 net Eagle Ford acres in Dimmit County, South Texas",
+        "annotator":3
+    },
+    {
+        "source_file":"ASX_SEA_2014.pdf",
+        "query":"I am the CFO of Sundance Energy, will my base increase in 2015 as it did in 2014?",
+        "target_page":31,
+        "target_passage":"No increases to Managing Director’s or KMP’s base salary",
+        "annotator":3
+    },
+    {
+        "source_file":"sg247938.pdf",
+        "query":"What are the physical requirements for installing the Storwize V7000?",
+        "target_page":70,
+        "target_passage":"You must consider several key factors when you are planning the physical site of a Storwize V7000 installation. The physical site must have the following characteristics: \u0002 Meets power, cooling, and location requirements of the Storwize V7000 nodes. \u0002 Has two separate power sources. \u0002 Sufficient rack space exists for the installation of controller and disk expansion enclosures. \u0002 Has sufficient maximum power rating of the rack. Plan your rack placement carefully to not exceed maximum power rating of the rack. For more information about the power and environmental requirements, see this website",
+        "annotator":3
+    },
+    {
+        "source_file":"sg247938.pdf",
+        "query":"Is '1oijizer--10108453535318919918883384---jhjjzhiuhzrh--14584joiz\/\/\/KK ' valid for a pool?",
+        "target_page":218,
+        "target_passage":"Naming rules: When you choose a name for a pool, the following rules apply: \u0002 Names must begin with a letter. \u0002 The first character cannot be numeric. \u0002 The name can be a maximum of 63 characters. \u0002 Valid characters are uppercase letters (A - Z), lowercase letters (a - z), digits (0 - 9), underscore (_), period (.), hyphen (-), and space. \u0002 Names must not begin or end with a space. \u0002 Object names must be unique within the object type. For example, you can have a volume that is named ABC and a storage pool that is calledvolumes that are calledvolumes called ABC. \u0002 The default object name is valid (object prefix with an integer). \u0002 Objects can be renamed to their current names",
+        "annotator":3
+    },
+    {
+        "source_file":"news4.pdf",
+        "query":"I want to start a company that automates kitchen tasks, does that sound like a good idea for 2025?",
+        "target_page":1,
+        "target_passage":"Smart home automation Smart home automation has been around for a while, but AI is taking it to the next level. Imagine a home that not only follows your commands, but also anticipates your needs. Enhanced smart home systems can learn your daily routines and adjust settings accordingly, from lighting and temperature to security and entertainment, making your home smarter and more responsive than ever before.",
+        "annotator":3
+    },
+    {
+        "source_file":"news4.pdf",
+        "query":"I want to help my parents who are in residential care, are there any trendy AI-related devices I could help them with? ",
+        "target_page":1,
+        "target_passage":"Wearable devices equipped with this technology can offer real-time health insights, helping individuals make informed decisions about their well-being",
+        "annotator":3
+    },
+    {
+        "source_file":"news4.pdf",
+        "query":"Is the topic of finance trending among AI topics for 2015 in Canada?",
+        "target_page":1,
+        "target_passage":"Financial services",
+        "annotator":3
+    },
+    {
+        "source_file":"NYSE_CHK_2010.pdf",
+        "query":"Is there any chance that my cousin has been granted financial aid from Chesapeak Energy? He's studying at a college in Oklahoma.",
+        "target_page":26,
+        "target_passage":"hat’s why we gave $1.0 million to establish the Chesapeake Energy dormitory for students at the Oklahoma School for Science and Mathematics (OSSM",
+        "annotator":3
+    },
+    {
+        "source_file":"NYSE_SMFG_2011.pdf",
+        "query":"Has the Sumitomo Mitsui Financial Group offered help to the elderly?",
+        "target_page":6,
+        "target_passage":"Currently, the proportion of people aged 65 or over in Japan has reached 23.4%*. SMFG will help create frameworks enabling the elderly to enjoy a vibrant lifestyle with peace of mind, through support for life-cycleframeworks enabling the elderly to enjoy a vibrant lifestyle with peace of mind, through support for life-cycle planning and other measures. The SMFG Group aims to create systems and a corporate culture that foster a soundplanning and other measures. The SMFG Group aims to create systems and a corporate culture that foster a sound balance between work and care needs, given that many group employees will later need to nurse ailing relatives.balance between work and care needs, given that many group employees will later need to nurse ailing relatives",
+        "annotator":3
+    },
+    {
+        "source_file":"NYSE_CHK_2010.pdf",
+        "query":"Does Chesapeake Energy have a project to reduce excessive water use?",
+        "target_page":28,
+        "target_passage":"Created to meet the challenge of reducing our water usage, Chesapeake’s Aqua Renew® program uses state-of-the-art technology to recycle pro- duced water.",
+        "annotator":3
+    },
+    {
+        "source_file":"NYSE_CHK_2010.pdf",
+        "query":"Has the CEO of Chesapeake Energy met with the US President about America's energy production?",
+        "target_page":16,
+        "target_passage":"I am pleased to report that we have apparently finally convinced President Barack Obama and Congressional leadership to recognize that the energy path America is on today is completely unsustainable.",
+        "annotator":3
+    }
+]

@@ -131,7 +131,7 @@ class DoclingPipeline(AbsPipeline):
         Args:
             chunk (BaseChunk): The chunk returned by DocLing.
             min_or_max (Literal["min", "max"]): whether we want to return
-                the first of last page the chunkis from.
+                the first of last page the chunks from.
 
         Returns:
             list[int]: the list of all pages the chunk is sourced from.

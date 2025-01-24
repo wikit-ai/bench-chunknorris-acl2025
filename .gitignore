@@ -6,3 +6,11 @@ ChromaDB
 docker-commands.txt
 
 results
+venv/
+*.ipynb
+.vscode
+embeddings/
+.cache/
+src/dataset/storage/
+results_retrieval/
+table_retrieval.csv
