@@ -1,7 +1,11 @@
 from typing import Any, Literal
 
 from docling.document_converter import DocumentConverter, PdfFormatOption
-from docling.datamodel.pipeline_options import PdfPipelineOptions, AcceleratorDevice, AcceleratorOptions
+from docling.datamodel.pipeline_options import (
+    PdfPipelineOptions,
+    AcceleratorDevice,
+    AcceleratorOptions
+    )
 from docling.datamodel.base_models import InputFormat
 from docling.chunking import HybridChunker
 from docling_core.transforms.chunker.base import BaseChunk
@@ -10,16 +14,20 @@ from transformers import AutoTokenizer
 
 from .abs_pipeline import AbsPipeline
 from ..components import Chunk
-from ..utils import timeit
+from ..utils import dynamic_track_emissions
 
 class DoclingPipeline(AbsPipeline):
+    """Uses docling : https://github.com/DS4SD/docling"""
+    parser = DocumentConverter
+
     def __init__(
             self,
+            chunker = None,
+            device = "gpu",
             tokenizer_model: str = "sentence-transformers/all-MiniLM-L6-v2",
             ):
-        super().__init__()
+        super().__init__(chunker, device)
 
-        self.set_parser("cuda")
         self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_model)
         self.parsing_result = None
 
@@ -30,7 +38,7 @@ class DoclingPipeline(AbsPipeline):
             )
 
 
-    def set_parser(self, device: Literal["cuda", "cpu"]):
+    def _set_parser_with_device(self, device: Literal["cuda", "cpu"]):
         """Sets the parsers using specified device.
 
         Args:
@@ -57,8 +65,8 @@ class DoclingPipeline(AbsPipeline):
             )
 
 
-    @timeit
-    def parse_file(self, filepath:str) -> Any:
+    @dynamic_track_emissions
+    def _parse_file(self, filepath:str) -> Any:
         """Parses a file.
 
         Args:
@@ -67,9 +75,7 @@ class DoclingPipeline(AbsPipeline):
         Returns:
             Any: The result of the parser.
         """
-        self.parsing_result = self.parser.convert(filepath)
-
-        return self.parsing_result
+        return self.parser.convert(filepath)
 
 
     def to_markdown(self) -> str:
@@ -84,7 +90,7 @@ class DoclingPipeline(AbsPipeline):
         return self.parsing_result.document.export_to_markdown()
 
 
-    @timeit
+    @dynamic_track_emissions
     def _chunk_using_default_chunker(self) -> list[BaseChunk]:
         """Gets the chunks.
 
@@ -107,7 +113,8 @@ class DoclingPipeline(AbsPipeline):
             Chunk(
                 text=self.default_chunker.serialize(chunk),
                 page_start=DoclingPipeline._get_origin_page_of_chunk(chunk, "min"),
-                page_end=DoclingPipeline._get_origin_page_of_chunk(chunk, "max")
+                page_end=DoclingPipeline._get_origin_page_of_chunk(chunk, "max"),
+                source_file=self.filename
                 )
             for chunk in chunks
         ]
@@ -138,7 +145,3 @@ class DoclingPipeline(AbsPipeline):
                     for item in chunk.meta.doc_items
                     for prov_item in item.prov
                     )
-
-
-    def set_device(self, device: Literal["cuda", "cpu"]) -> None:
-        self.set_parser(device)

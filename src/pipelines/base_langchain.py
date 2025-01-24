@@ -6,11 +6,11 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 from .abs_pipeline import AbsPipeline
 from ..components import Chunk
-from ..utils import timeit
+from ..utils import dynamic_track_emissions
 
-class BaseLangchain(AbsPipeline):
-    def __init__(self):
-        super().__init__()
+class BaseLangchainPipeline(AbsPipeline):
+    """Basic pdf ingestion pipeline as suggested by langchain
+    on their "getting started" section : https://python.langchain.com/docs/how_to/document_loader_pdf/"""
 
     @property
     def default_chunker(self):
@@ -22,8 +22,8 @@ class BaseLangchain(AbsPipeline):
         )
 
 
-    @timeit
-    def parse_file(self, filepath:str) -> str:
+    @dynamic_track_emissions
+    def _parse_file(self, filepath:str) -> str:
         """Parses a file.
 
         Args:
@@ -44,7 +44,7 @@ class BaseLangchain(AbsPipeline):
         return "\n\n".join((page.page_content for page in self.parsing_result))
 
 
-    @timeit
+    @dynamic_track_emissions
     def _chunk_using_default_chunker(self) -> list[Document]:
         return self.default_chunker.create_documents(
             texts=[page.page_content for page in self.parsing_result],
@@ -65,11 +65,13 @@ class BaseLangchain(AbsPipeline):
             Chunk(
                 text=chunk.page_content,
                 page_start=chunk.metadata["page"],
-                page_end=chunk.metadata["page"]
+                page_end=chunk.metadata["page"],
+                source_file=self.filename
                 ) for chunk in chunks
                 ]
 
 
-    def set_device(self, device: Literal["cuda", "cpu"]):
-        pass
+    def _set_parser_with_device(self, device: Literal["cuda", "cpu"]):
+        if device == "cuda":
+            raise ValueError("BaseLangchainPipeline cannot involve usage of a gpu")
 

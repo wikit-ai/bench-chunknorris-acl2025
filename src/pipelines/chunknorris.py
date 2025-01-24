@@ -1,7 +1,6 @@
 import logging
 from typing import Literal
 
-
 from chunknorris.chunkers.tools import Chunk as ChunkNorrisChunk
 from chunknorris.parsers.markdown.components import MarkdownDoc
 from chunknorris.parsers import PdfParser
@@ -10,23 +9,21 @@ from chunknorris.pipelines import PdfPipeline
 
 from .abs_pipeline import AbsPipeline
 from ..components import Chunk
-from ..utils import timeit
+from ..utils import dynamic_track_emissions
 
 logger = logging.getLogger()
 logger.setLevel(level=logging.WARNING)
 
+
 class ChunkNorrisPipeline(AbsPipeline):
     """Uses chunknorris package"""
-    def __init__(self):
-        super().__init__()
 
-        self.parser = PdfParser(use_ocr="never")
-        self.chunker = MarkdownChunker()
-        self.pipeline = PdfPipeline(self.parser, self.chunker)
+    @property
+    def default_chunker(self) -> PdfPipeline:
+        return PdfPipeline(PdfParser(use_ocr="never"), MarkdownChunker())
 
-
-    @timeit
-    def parse_file(self, filepath:str) -> MarkdownDoc:
+    @dynamic_track_emissions
+    def _parse_file(self, filepath:str) -> MarkdownDoc:
         """Parses a pdf file.
 
         Args:
@@ -35,13 +32,12 @@ class ChunkNorrisPipeline(AbsPipeline):
         Returns:
             MarkdownDoc: the output of the parser.
         """
-        self.parsing_result = self.pipeline.parser.parse_file(filepath)
-        return self.parsing_result
+        return self.default_chunker.parser.parse_file(filepath)
 
     def to_markdown(self) -> str:
-        return self.parser.to_markdown()
+        return self.default_chunker.parser.to_markdown()
 
-    @timeit
+    @dynamic_track_emissions
     def _chunk_using_default_chunker(self) -> list[ChunkNorrisChunk]:
         """Get the chunks.
 
@@ -49,7 +45,7 @@ class ChunkNorrisPipeline(AbsPipeline):
             tuple[list[Chunk], float]: returns the list of chunks,
                 along with the latency to get them.
         """
-        return self.pipeline._get_chunks_using_strategy()
+        return self.default_chunker._get_chunks_using_strategy()
 
 
     def _process_default_chunker_output(self, chunks :list[ChunkNorrisChunk]) -> list[Chunk]:
@@ -65,12 +61,14 @@ class ChunkNorrisPipeline(AbsPipeline):
             Chunk(
                 text=chunk.get_text(),
                 page_start=chunk.start_page,
-                page_end=chunk.end_page
+                page_end=chunk.end_page,
+                source_file=self.filename
                 )
             for chunk in chunks
         ]
 
 
-    def set_device(self, device: Literal["cuda", "cpu"]):
+    def _set_parser_with_device(self, device: Literal["cuda", "cpu"]) -> None:
         """Doesn't apply to chunknorris"""
-        pass
+        if device == "cuda":
+            raise ValueError("ChunkNorris only runs on cpu")
