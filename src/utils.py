@@ -5,6 +5,10 @@ import time
 from typing import Any, Callable
 from functools import wraps
 
+from codecarbon import track_emissions
+from dotenv import load_dotenv
+load_dotenv()
+
 
 def get_pdf_filepaths(directory:str) -> list[str]:
     """Considering a directory,
@@ -21,9 +25,8 @@ def get_pdf_filepaths(directory:str) -> list[str]:
         for file in files:
             if file.endswith(".pdf"):
                 pdf_filepaths.append(os.path.abspath(os.path.join(root, file)))  
-    
-    return pdf_filepaths
 
+    return pdf_filepaths
 
 
 def timeit(function: Callable[..., Any]) -> Any:
@@ -44,5 +47,29 @@ def timeit(function: Callable[..., Any]) -> Any:
         end_time = time.perf_counter()
 
         return result, end_time - start_time
+
+    return wrapper
+
+
+def dynamic_track_emissions(func):
+    """Wrapper of the track_emission decorator so that is has
+    access to class state when called"""
+    @wraps(func)
+    def wrapper(self, *args, **kwargs):
+        experiment_id = "_".join((
+            self.__class__.__name__,
+            func.__name__,
+            self.__dict__.get('device', '')
+            ))
+        
+        print(experiment_id)
+
+        carbon_decorator = track_emissions(
+            offline=True,
+            experiment_id=experiment_id,
+            country_iso_code=os.getenv("CODECARBON_COUNTRY_ISO_CODE")
+        )
+
+        return carbon_decorator(func)(self, *args, **kwargs)
 
     return wrapper

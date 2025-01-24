@@ -6,25 +6,23 @@ from openparse.schemas import Node
 from openparse.doc_parser import ParsedDocument
 from openparse import processing, DocumentParser
 
-from dotenv import load_dotenv
-
 from ..components import Chunk
 
-load_dotenv()
-
-from ..utils import timeit
 from .abs_pipeline import AbsPipeline
+from ..utils import dynamic_track_emissions
 
 class OpenParsePipeline(AbsPipeline):
     """Uses the OpenParse package : https://github.com/Filimoa/open-parse"""
     def __init__(
         self,
-        chunking_type: Literal["basic", "semantic"],
-        table_strategy:Literal["unitable", "pymupdf", "table-transformers"]
+        chunker = None,
+        device = "cpu",
+        chunking_type: Literal["basic", "semantic"] = "basic",
+        table_strategy:Literal["unitable", "pymupdf", "table-transformers"] = "pymupdf"
         ):
-        super().__init__()
+        super().__init__(chunker, device)
 
-        self.use_semantic_chunking = chunking_type == "semantic"
+        self.chunking_type = chunking_type
 
         self.parser = DocumentParser(
             processing_pipeline=processing.NoOpIngestionPipeline(),
@@ -33,18 +31,17 @@ class OpenParsePipeline(AbsPipeline):
 
     @property
     def default_chunker(self):
-        if self.use_semantic_chunking:
+        if self.chunking_type == "semantic":
             return processing.SemanticIngestionPipeline(
                     openai_api_key=os.getenv("OPENAI_API_KEY"),
                     model="text-embedding-3-large",
                     min_tokens=64,
                     max_tokens=1024,
                 )
-        else:
-            return processing.BasicIngestionPipeline()
+        return processing.BasicIngestionPipeline()
 
-    @timeit
-    def parse_file(self, filepath: str) -> ParsedDocument:
+    @dynamic_track_emissions
+    def _parse_file(self, filepath: str) -> ParsedDocument:
         """Parses a file.
 
         Args:
@@ -53,15 +50,14 @@ class OpenParsePipeline(AbsPipeline):
         Returns:
             tuple[list[Node], float]: parser output and latency.
         """
-        self.parsing_result = self.parser.parse(filepath, ocr=False)
-        return self.parsing_result
-    
+        return self.parser.parse(filepath, ocr=False)
+
     def to_markdown(self):
         md_string = "\n\n".join((node.text for node in self.parsing_result.nodes))
         md_string = md_string.replace("<br>", "\n")
         return md_string
 
-    @timeit
+    @dynamic_track_emissions
     def _chunk_using_default_chunker(self) -> list[Node]:
         """Openparse doesn't have a proper chunker so to say. But
         it has an interesting mechanic to merge the parsed nodes together.
@@ -74,7 +70,8 @@ class OpenParsePipeline(AbsPipeline):
             Chunk(
                 text=node.text.replace("<br>", "\n"),
                 page_start=node.bbox[0].page,
-                page_end=node.bbox[0].page
+                page_end=node.bbox[0].page,
+                source_file=self.filename
             )
             for node in chunks
         ]
@@ -101,5 +98,5 @@ class OpenParsePipeline(AbsPipeline):
                 }
 
 
-    def set_device(self, device:Literal["cuda", "cpu"]):
+    def _set_parser_with_device(self, device:Literal["cuda", "cpu"]):
         openparse.config.set_device(device)
