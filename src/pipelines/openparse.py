@@ -1,3 +1,4 @@
+from collections import defaultdict
 import os
 from typing import Literal
 
@@ -52,7 +53,15 @@ class OpenParsePipeline(AbsPipeline):
         """
         return self.parser.parse(filepath, ocr=False)
 
-    def to_markdown(self):
+    def to_markdown(self, paginated_output: bool = False):
+        if paginated_output:
+            node_grouper = processing.BasicIngestionPipeline()
+            nodes = node_grouper.run(self.parsing_result.nodes)
+            md_string_by_page = defaultdict(str)
+            for node in nodes:
+                md_string_by_page[node.reading_order.min_page - 1] += node.text.replace("<br>", "\n") + "\n\n"
+            return dict(md_string_by_page)
+
         md_string = "\n\n".join((node.text for node in self.parsing_result.nodes))
         md_string = md_string.replace("<br>", "\n")
         return md_string

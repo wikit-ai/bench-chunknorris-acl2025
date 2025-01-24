@@ -7,6 +7,7 @@ from docling.datamodel.pipeline_options import (
     AcceleratorOptions
     )
 from docling.datamodel.base_models import InputFormat
+from docling.datamodel.document import ConversionResult
 from docling.chunking import HybridChunker
 from docling_core.transforms.chunker.base import BaseChunk
 
@@ -19,17 +20,17 @@ from ..utils import dynamic_track_emissions
 class DoclingPipeline(AbsPipeline):
     """Uses docling : https://github.com/DS4SD/docling"""
     parser = DocumentConverter
+    parsing_result = ConversionResult
 
     def __init__(
             self,
             chunker = None,
-            device = "gpu",
+            device : Literal["cuda", "cpu"] = "cuda",
             tokenizer_model: str = "sentence-transformers/all-MiniLM-L6-v2",
             ):
         super().__init__(chunker, device)
 
         self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_model)
-        self.parsing_result = None
 
     @property
     def default_chunker(self):
@@ -66,7 +67,7 @@ class DoclingPipeline(AbsPipeline):
 
 
     @dynamic_track_emissions
-    def _parse_file(self, filepath:str) -> Any:
+    def _parse_file(self, filepath:str) -> ConversionResult:
         """Parses a file.
 
         Args:
@@ -78,15 +79,19 @@ class DoclingPipeline(AbsPipeline):
         return self.parser.convert(filepath)
 
 
-    def to_markdown(self) -> str:
+    def to_markdown(self, paginated_output : bool = False) -> str:
         """Get the parsed document as a markdown formatted string.
-
-        Raises:
-            RuntimeError: parse_file() must be called before running this
 
         Returns:
             str: the markdown string
         """
+        if paginated_output:
+            return {
+                page.page_no - 1: self.parsing_result.document.export_to_markdown(page_no=page.page_no)
+                for page in self.parsing_result.pages
+                if page.page_no > 0 # for some reason docling has a "0" page which is an extra page
+                }
+
         return self.parsing_result.document.export_to_markdown()
 
 

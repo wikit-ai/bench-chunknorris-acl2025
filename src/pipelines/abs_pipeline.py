@@ -59,8 +59,12 @@ class AbsPipeline(ABC):
         """
 
     @abstractmethod
-    def to_markdown(self) -> str:
-        """Returns a markdown string of the parsed pdf's content
+    def to_markdown(self, paginated_output : bool = False) -> str | dict[int, str]:
+        """Convert parsed output to markdown with optional pagination.
+        
+        If `paginated_output` is True, returns a dictionary with page numbers (0-based !) as keys
+        and page content as values. Otherwise, returns the markdown string with page 
+        markers removed.
         """
 
     def chunk(self) -> tuple[list[Chunk], float]:
@@ -74,12 +78,12 @@ class AbsPipeline(ABC):
         """
         if self.external_chunker is not None:
             md_string = self.to_markdown()
-            chunks, latency = self.external_chunker.chunk(md_string)
+            chunks = self.external_chunker.chunk(md_string)
         else:
-            raw_chunks, latency = self._chunk_using_default_chunker()
+            raw_chunks = self._chunk_using_default_chunker()
             chunks = self._process_default_chunker_output(raw_chunks)
 
-        return chunks, latency
+        return chunks
 
 
     @dynamic_track_emissions
@@ -106,8 +110,8 @@ class AbsPipeline(ABC):
 
     @abstractmethod
     def _set_parser_with_device(self, device : Literal["cuda", "cpu"]):
-        """Set the parser so tat it uses the specified device.
-        This is where self.parser may be set
+        """Set the parser so that it uses the specified device.
+        --> This is where self.parser may be set
 
         Args:
             device (Literal[&quot;cuda&quot;, &quot;cpu&quot;]): the device to be used

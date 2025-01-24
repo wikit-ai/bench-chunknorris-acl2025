@@ -17,10 +17,11 @@ logger.setLevel(level=logging.WARNING)
 
 class ChunkNorrisPipeline(AbsPipeline):
     """Uses chunknorris package"""
+    parser : PdfParser
 
     @property
     def default_chunker(self) -> PdfPipeline:
-        return PdfPipeline(PdfParser(use_ocr="never"), MarkdownChunker())
+        return PdfPipeline(self.parser, MarkdownChunker())
 
     @dynamic_track_emissions
     def _parse_file(self, filepath:str) -> MarkdownDoc:
@@ -32,10 +33,12 @@ class ChunkNorrisPipeline(AbsPipeline):
         Returns:
             MarkdownDoc: the output of the parser.
         """
-        return self.default_chunker.parser.parse_file(filepath)
+        return self.parser.parse_file(filepath)
 
-    def to_markdown(self) -> str:
-        return self.default_chunker.parser.to_markdown()
+
+    def to_markdown(self, paginated_output : bool = False) -> str | dict[int, str]:
+        return self.parser.to_markdown(keep_track_of_page=paginated_output)
+
 
     @dynamic_track_emissions
     def _chunk_using_default_chunker(self) -> list[ChunkNorrisChunk]:
@@ -69,6 +72,6 @@ class ChunkNorrisPipeline(AbsPipeline):
 
 
     def _set_parser_with_device(self, device: Literal["cuda", "cpu"]) -> None:
-        """Doesn't apply to chunknorris"""
         if device == "cuda":
             raise ValueError("ChunkNorris only runs on cpu")
+        self.parser = PdfParser(use_ocr="never")
