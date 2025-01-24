@@ -40,7 +40,10 @@ class BaseLangchainPipeline(AbsPipeline):
         return pages
 
 
-    def to_markdown(self) -> str:
+    def to_markdown(self, paginated_output : bool = False) -> str | dict[int, str]:
+        if paginated_output:
+            return dict((i, page.page_content) for i, page in enumerate(self.parsing_result))
+
         return "\n\n".join((page.page_content for page in self.parsing_result))
 
 

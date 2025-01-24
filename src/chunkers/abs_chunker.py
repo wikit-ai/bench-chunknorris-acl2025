@@ -9,12 +9,13 @@ class AbstractChunker(ABC):
         pass
 
     @abstractmethod
-    def chunk(self, md_string: str) -> list[Chunk]:
+    def chunk(self, paginated_md: dict[int, str], source_file: str) -> list[Chunk]:
         """Chunks the provided string.
 
         Args:
-            md_string (str): the markdown string to chunk.
+            paginated_md (dict[int, str]): a dict of Markdown formatted strings per page.
+            source_file (str): the name of the file from which the paginated md originated.
 
         Returns:
-            list[Chunk]: a list of Chunk objects
+            list[Chunk]: a list of Chunk objects.
         """
