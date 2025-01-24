@@ -8,3 +8,5 @@ langchain-community==0.3.15
 pydantic
 chromacache @ git+https://github.com/Lyon-NLP/chroma_cache
 chunknorris @ git+https://github.com/wikit-ai/chunknorris
+torchmetrics==1.6.1
+rouge-score==0.1.2
