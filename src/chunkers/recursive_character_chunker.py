@@ -3,20 +3,20 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from src.components import Chunk
 from src.chunkers.abs_chunker import AbstractChunker
 
+
 class RecursiveCharacterChunker(AbstractChunker):
     """Simple wrapper around langchain's RecursiveCharacterTextSplitter
     to ensure in fits in the pipelines"""
-    chunker : RecursiveCharacterTextSplitter
+
+    chunker: RecursiveCharacterTextSplitter
 
     def __init__(self, *args, **kwargs):
-        self.chunker = RecursiveCharacterTextSplitter(
-            *args, **kwargs
-        )
+        self.chunker = RecursiveCharacterTextSplitter(*args, **kwargs)
 
     def chunk(self, paginated_md, source_file):
         raw_chunks = self.chunker.create_documents(
             texts=list(paginated_md.values()),
-            metadatas=[{"page": key} for key in paginated_md.keys()]
+            metadatas=[{"page": key} for key in paginated_md.keys()],
         )
 
         chunks = [

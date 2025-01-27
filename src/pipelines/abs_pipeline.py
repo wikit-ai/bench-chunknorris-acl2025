@@ -2,13 +2,9 @@ from abc import ABC, abstractmethod
 import os
 from typing import Any, Literal
 
-from dotenv import load_dotenv
-
 from ..components import Chunk
 from ..chunkers import AbstractChunker
 from ..utils import dynamic_track_emissions
-
-load_dotenv()
 
 
 class AbsPipeline(ABC):

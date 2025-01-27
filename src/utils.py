@@ -30,6 +30,45 @@ def get_pdf_filepaths(directory: str) -> list[str]:
     return pdf_filepaths
 
 
+def get_pipeline(pipeline_name: str):
+    """Gets the appropriate pipeline, depending
+    on the name specified in PACKAGE_NAME environment variable
+
+    Raises:
+        ValueError: If PACKAGE_NAME is not specified, or if name is not recognized
+
+    Returns:
+        AbsPipeline: the pipeline
+    """
+    match pipeline_name:
+        case "base":
+            from src.pipelines.base_langchain import BaseLangchainPipeline
+
+            pipe = BaseLangchainPipeline()
+        case "chunknorris":
+            from src.pipelines.chunknorris import ChunkNorrisPipeline
+
+            pipe = ChunkNorrisPipeline()
+        case "docling":
+            from src.pipelines.docling import DoclingPipeline
+
+            pipe = DoclingPipeline()
+        case "marker":
+            from src.pipelines.marker import MarkerPipeline
+
+            pipe = MarkerPipeline()
+        case "openparse":
+            from src.pipelines.openparse import OpenParsePipeline
+
+            pipe = OpenParsePipeline()
+        case None:
+            raise ValueError("Missing environment variable 'PACKAGE_NAME'")
+        case other:
+            raise ValueError(f"'{other}' not recognized as a package name available")
+
+    return pipe
+
+
 def timeit(function: Callable[..., Any]) -> Any:
     """Meant to be used as a decorator using @timeit
     in order to measure the execution time of a function.
@@ -69,7 +108,7 @@ def dynamic_track_emissions(func):
         carbon_decorator = track_emissions(
             offline=True,
             experiment_id=experiment_id,
-            country_iso_code=os.getenv("CODECARBON_COUNTRY_ISO_CODE"),
+            country_iso_code=os.getenv("COUNTRY_ISO_CODE", "USA"),
         )
 
         return carbon_decorator(func)(self, *args, **kwargs)
