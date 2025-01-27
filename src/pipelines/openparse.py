@@ -12,33 +12,40 @@ from ..components import Chunk
 from .abs_pipeline import AbsPipeline
 from ..utils import dynamic_track_emissions
 
+
 class OpenParsePipeline(AbsPipeline):
     """Uses the OpenParse package : https://github.com/Filimoa/open-parse"""
+
+    parser: DocumentParser
+    parsing_result: ParsedDocument | None
+
     def __init__(
         self,
-        chunker = None,
-        device = "cpu",
+        chunker=None,
+        device="cpu",
         chunking_type: Literal["basic", "semantic"] = "basic",
-        table_strategy:Literal["unitable", "pymupdf", "table-transformers"] = "pymupdf"
-        ):
+        table_strategy: Literal[
+            "unitable", "pymupdf", "table-transformers"
+        ] = "pymupdf",
+    ):
         super().__init__(chunker, device)
 
         self.chunking_type = chunking_type
 
         self.parser = DocumentParser(
             processing_pipeline=processing.NoOpIngestionPipeline(),
-            table_args=OpenParsePipeline._get_table_args(table_strategy)
+            table_args=OpenParsePipeline._get_table_args(table_strategy),
         )
 
     @property
     def default_chunker(self):
         if self.chunking_type == "semantic":
             return processing.SemanticIngestionPipeline(
-                    openai_api_key=os.getenv("OPENAI_API_KEY"),
-                    model="text-embedding-3-large",
-                    min_tokens=64,
-                    max_tokens=1024,
-                )
+                openai_api_key=os.getenv("OPENAI_API_KEY"),
+                model="text-embedding-3-large",
+                min_tokens=64,
+                max_tokens=1024,
+            )
         return processing.BasicIngestionPipeline()
 
     @dynamic_track_emissions
@@ -59,7 +66,9 @@ class OpenParsePipeline(AbsPipeline):
             nodes = node_grouper.run(self.parsing_result.nodes)
             md_string_by_page = defaultdict(str)
             for node in nodes:
-                md_string_by_page[node.reading_order.min_page - 1] += node.text.replace("<br>", "\n") + "\n\n"
+                md_string_by_page[node.reading_order.min_page - 1] += (
+                    node.text.replace("<br>", "\n") + "\n\n"
+                )
             return dict(md_string_by_page)
 
         md_string = "\n\n".join((node.text for node in self.parsing_result.nodes))
@@ -80,32 +89,28 @@ class OpenParsePipeline(AbsPipeline):
                 text=node.text.replace("<br>", "\n"),
                 page_start=node.bbox[0].page,
                 page_end=node.bbox[0].page,
-                source_file=self.filename
+                source_file=self.filename,
             )
             for node in chunks
         ]
 
     @staticmethod
     def _get_table_args(
-        table_strategy:Literal["unitable", "pymupdf", "table-transformers"]
-        ):
+        table_strategy: Literal["unitable", "pymupdf", "table-transformers"]
+    ):
         match table_strategy:
             case "unitable":
-                return {
-                    "parsing_algorithm": "unitable",
-                    "table_output_format": "html"
-                }
+                return {"parsing_algorithm": "unitable", "table_output_format": "html"}
             case "pymupdf":
                 return {
                     "parsing_algorithm": "pymupdf",
-                    "table_output_format": "markdown"
+                    "table_output_format": "markdown",
                 }
             case "table-transformers":
                 return {
                     "parsing_algorithm": "table-transformers",
-                    "table_output_format": "markdown"
+                    "table_output_format": "markdown",
                 }
 
-
-    def _set_parser_with_device(self, device:Literal["cuda", "cpu"]):
+    def _set_parser_with_device(self, device: Literal["cuda", "cpu"]):
         openparse.config.set_device(device)

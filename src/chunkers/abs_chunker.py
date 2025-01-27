@@ -2,9 +2,11 @@ from abc import ABC, abstractmethod
 
 from ..components import Chunk
 
+
 class AbstractChunker(ABC):
     """Intended to be used as a base class for all
     chunker that are being used in pipelines"""
+
     def __init__(self):
         pass
 

@@ -7,10 +7,11 @@ from functools import wraps
 
 from codecarbon import track_emissions
 from dotenv import load_dotenv
+
 load_dotenv()
 
 
-def get_pdf_filepaths(directory:str) -> list[str]:
+def get_pdf_filepaths(directory: str) -> list[str]:
     """Considering a directory,
     get the filpath of every pdf file in it.
 
@@ -24,7 +25,7 @@ def get_pdf_filepaths(directory:str) -> list[str]:
     for root, _, files in os.walk(directory):
         for file in files:
             if file.endswith(".pdf"):
-                pdf_filepaths.append(os.path.abspath(os.path.join(root, file)))  
+                pdf_filepaths.append(os.path.abspath(os.path.join(root, file)))
 
     return pdf_filepaths
 
@@ -54,20 +55,21 @@ def timeit(function: Callable[..., Any]) -> Any:
 def dynamic_track_emissions(func):
     """Wrapper of the track_emission decorator so that is has
     access to class state when called"""
+
     @wraps(func)
     def wrapper(self, *args, **kwargs):
-        experiment_id = "_".join((
-            self.__class__.__name__,
-            func.__name__,
-            self.__dict__.get('device', '')
-            ))
-        
-        print(experiment_id)
-
+        experiment_id = "___".join(
+            (
+                self.__class__.__name__,
+                func.__name__,
+                self.__dict__.get("device", ""),
+                self.__dict__.get("filename", ""),
+            )
+        )
         carbon_decorator = track_emissions(
             offline=True,
             experiment_id=experiment_id,
-            country_iso_code=os.getenv("CODECARBON_COUNTRY_ISO_CODE")
+            country_iso_code=os.getenv("CODECARBON_COUNTRY_ISO_CODE"),
         )
 
         return carbon_decorator(func)(self, *args, **kwargs)

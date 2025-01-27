@@ -1,11 +1,11 @@
-from typing import Any, Literal
+from typing import Literal
 
 from docling.document_converter import DocumentConverter, PdfFormatOption
 from docling.datamodel.pipeline_options import (
     PdfPipelineOptions,
     AcceleratorDevice,
-    AcceleratorOptions
-    )
+    AcceleratorOptions,
+)
 from docling.datamodel.base_models import InputFormat
 from docling.datamodel.document import ConversionResult
 from docling.chunking import HybridChunker
@@ -17,17 +17,19 @@ from .abs_pipeline import AbsPipeline
 from ..components import Chunk
 from ..utils import dynamic_track_emissions
 
+
 class DoclingPipeline(AbsPipeline):
     """Uses docling : https://github.com/DS4SD/docling"""
+
     parser = DocumentConverter
-    parsing_result = ConversionResult
+    parsing_result = ConversionResult | None
 
     def __init__(
-            self,
-            chunker = None,
-            device : Literal["cuda", "cpu"] = "cuda",
-            tokenizer_model: str = "sentence-transformers/all-MiniLM-L6-v2",
-            ):
+        self,
+        chunker=None,
+        device: Literal["cuda", "cpu"] = "cuda",
+        tokenizer_model: str = "sentence-transformers/all-MiniLM-L6-v2",
+    ):
         super().__init__(chunker, device)
 
         self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_model)
@@ -35,9 +37,8 @@ class DoclingPipeline(AbsPipeline):
     @property
     def default_chunker(self):
         return HybridChunker(
-            tokenizer = self.tokenizer,
-            )
-
+            tokenizer=self.tokenizer,
+        )
 
     def _set_parser_with_device(self, device: Literal["cuda", "cpu"]):
         """Sets the parsers using specified device.
@@ -55,19 +56,17 @@ class DoclingPipeline(AbsPipeline):
                     num_threads=4, device=AcceleratorDevice.CUDA
                 )
         pipeline_options = PdfPipelineOptions(
-            do_ocr=False,
-            accelerator_options=accelerator_options
-            )
+            do_ocr=False, accelerator_options=accelerator_options
+        )
 
         self.parser = DocumentConverter(
             format_options={
                 InputFormat.PDF: PdfFormatOption(pipeline_options=pipeline_options)
-                }
-            )
-
+            }
+        )
 
     @dynamic_track_emissions
-    def _parse_file(self, filepath:str) -> ConversionResult:
+    def _parse_file(self, filepath: str) -> ConversionResult:
         """Parses a file.
 
         Args:
@@ -78,8 +77,7 @@ class DoclingPipeline(AbsPipeline):
         """
         return self.parser.convert(filepath)
 
-
-    def to_markdown(self, paginated_output : bool = False) -> str:
+    def to_markdown(self, paginated_output: bool = False) -> str:
         """Get the parsed document as a markdown formatted string.
 
         Returns:
@@ -87,13 +85,16 @@ class DoclingPipeline(AbsPipeline):
         """
         if paginated_output:
             return {
-                page.page_no - 1: self.parsing_result.document.export_to_markdown(page_no=page.page_no)
+                page.page_no
+                - 1: self.parsing_result.document.export_to_markdown(
+                    page_no=page.page_no
+                )
                 for page in self.parsing_result.pages
-                if page.page_no > 0 # for some reason docling has a "0" page which is an extra page
-                }
+                if page.page_no
+                > 0  # for some reason docling has a "0" page which is an extra page
+            }
 
         return self.parsing_result.document.export_to_markdown()
-
 
     @dynamic_track_emissions
     def _chunk_using_default_chunker(self) -> list[BaseChunk]:
@@ -104,8 +105,7 @@ class DoclingPipeline(AbsPipeline):
         """
         return self.default_chunker.chunk(self.parsing_result.document)
 
-
-    def _process_default_chunker_output(self, chunks:list[BaseChunk]) -> list[Chunk]:
+    def _process_default_chunker_output(self, chunks: list[BaseChunk]) -> list[Chunk]:
         """Formats the chunks from docling's object to Chunk object
 
         Args:
@@ -119,11 +119,10 @@ class DoclingPipeline(AbsPipeline):
                 text=self.default_chunker.serialize(chunk),
                 page_start=DoclingPipeline._get_origin_page_of_chunk(chunk, "min"),
                 page_end=DoclingPipeline._get_origin_page_of_chunk(chunk, "max"),
-                source_file=self.filename
-                )
+                source_file=self.filename,
+            )
             for chunk in chunks
         ]
-
 
     @staticmethod
     def _get_origin_page_of_chunk(chunk: BaseChunk, min_or_max: Literal["min", "max"]):
@@ -143,10 +142,10 @@ class DoclingPipeline(AbsPipeline):
                     prov_item.page_no
                     for item in chunk.meta.doc_items
                     for prov_item in item.prov
-                    )
+                )
             case "max":
                 return max(
                     prov_item.page_no
                     for item in chunk.meta.doc_items
                     for prov_item in item.prov
-                    )
+                )
