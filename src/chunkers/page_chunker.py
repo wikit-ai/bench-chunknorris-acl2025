@@ -1,5 +1,5 @@
-from .abs_chunker import AbstractChunker
-from ..components import Chunk
+from src.chunkers.abs_chunker import AbstractChunker
+from src.components import Chunk
 
 
 class PageChunker(AbstractChunker):

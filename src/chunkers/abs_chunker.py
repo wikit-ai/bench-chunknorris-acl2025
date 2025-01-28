@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from ..components import Chunk
+from src.components import Chunk
 
 
 class AbstractChunker(ABC):

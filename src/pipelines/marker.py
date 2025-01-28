@@ -16,6 +16,9 @@ class MarkerPipeline(AbsPipeline):
     parser: PdfConverter
     parsing_result: MarkdownOutput | None
 
+    def __init__(self, chunker = None, device = "cuda"):
+        super().__init__(chunker, device)
+
     @property
     def default_chunker(self):
         return None
@@ -45,7 +48,7 @@ class MarkerPipeline(AbsPipeline):
             renderer=config_parser.get_renderer(),
         )
 
-    @dynamic_track_emissions
+    # @dynamic_track_emissions
     def _parse_file(self, filepath: str) -> MarkdownOutput:
         """Parses a .pdf file.
 
@@ -95,7 +98,7 @@ class MarkerPipeline(AbsPipeline):
 
         return re.sub(pattern, "\n", self.parsing_result.markdown)
 
-    @dynamic_track_emissions
+    # @dynamic_track_emissions
     def _chunk_using_default_chunker(self):
         raise NotImplementedError()
 

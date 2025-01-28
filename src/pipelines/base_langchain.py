@@ -25,7 +25,7 @@ class BaseLangchainPipeline(AbsPipeline):
             is_separator_regex=False,
         )
 
-    @dynamic_track_emissions
+    # @dynamic_track_emissions
     def _parse_file(self, filepath: str) -> str:
         """Parses a file.
 
@@ -36,7 +36,10 @@ class BaseLangchainPipeline(AbsPipeline):
             tuple[str, float]: the parsed string.
         """
         loader = PyPDFLoader(filepath)
-        pages = list(loader.lazy_load())
+        try:
+            pages = list(loader.lazy_load())
+        except UnboundLocalError: # sometime pypdf struggle to read
+            pages = []
 
         return pages
 
@@ -48,7 +51,7 @@ class BaseLangchainPipeline(AbsPipeline):
 
         return "\n\n".join((page.page_content for page in self.parsing_result))
 
-    @dynamic_track_emissions
+    # @dynamic_track_emissions
     def _chunk_using_default_chunker(self) -> list[Document]:
         return self.default_chunker.create_documents(
             texts=[page.page_content for page in self.parsing_result],

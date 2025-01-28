@@ -2,6 +2,7 @@ from collections import defaultdict
 import os
 from typing import Literal
 
+from PIL import UnidentifiedImageError
 import openparse
 from openparse.schemas import Node
 from openparse.doc_parser import ParsedDocument
@@ -47,7 +48,7 @@ class OpenParsePipeline(AbsPipeline):
             )
         return processing.BasicIngestionPipeline()
 
-    @dynamic_track_emissions
+    # @dynamic_track_emissions
     def _parse_file(self, filepath: str) -> ParsedDocument:
         """Parses a file.
 
@@ -62,7 +63,10 @@ class OpenParsePipeline(AbsPipeline):
     def to_markdown(self, paginated_output: bool = False):
         if paginated_output:
             node_grouper = processing.BasicIngestionPipeline()
-            nodes = node_grouper.run(self.parsing_result.nodes)
+            try:
+                nodes = node_grouper.run(self.parsing_result.nodes)
+            except:
+                nodes = []
             md_string_by_page = defaultdict(str)
             for node in nodes:
                 md_string_by_page[node.reading_order.min_page - 1] += (
@@ -73,14 +77,18 @@ class OpenParsePipeline(AbsPipeline):
         md_string = "\n\n".join((node.text for node in self.parsing_result.nodes))
         md_string = md_string.replace("<br>", "\n")
         return md_string
+    
 
-    @dynamic_track_emissions
+    # @dynamic_track_emissions
     def _chunk_using_default_chunker(self) -> list[Node]:
         """Openparse doesn't have a proper chunker so to say. But
         it has an interesting mechanic to merge the parsed nodes together.
         This pipeline is kind of part of the parsing but for the sake
         of comparison with other tools, we run the pipeline separatly."""
-        return self.default_chunker.run(self.parsing_result.nodes)
+        try:
+            return self.default_chunker.run(self.parsing_result.nodes)
+        except:
+            return []
 
     def _process_default_chunker_output(self, chunks: list[Node]) -> list[Chunk]:
         return [
@@ -113,3 +121,14 @@ class OpenParsePipeline(AbsPipeline):
 
     def _set_parser_with_device(self, device: Literal["cuda", "cpu"]):
         openparse.config.set_device(device)
+        match device:
+            case "cuda":
+                self.parser = DocumentParser(
+                    processing_pipeline=processing.NoOpIngestionPipeline(),
+                    table_args=OpenParsePipeline._get_table_args("unitable"),
+                )
+            case "cpu":
+                self.parser = DocumentParser(
+                    processing_pipeline=processing.NoOpIngestionPipeline(),
+                    table_args=OpenParsePipeline._get_table_args("pymupdf"),
+                )

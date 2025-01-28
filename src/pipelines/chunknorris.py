@@ -25,7 +25,7 @@ class ChunkNorrisPipeline(AbsPipeline):
     def default_chunker(self) -> PdfPipeline:
         return PdfPipeline(self.parser, MarkdownChunker())
 
-    @dynamic_track_emissions
+    # @dynamic_track_emissions
     def _parse_file(self, filepath: str) -> MarkdownDoc:
         """Parses a pdf file.
 
@@ -40,7 +40,7 @@ class ChunkNorrisPipeline(AbsPipeline):
     def to_markdown(self, paginated_output: bool = False) -> str | dict[int, str]:
         return self.parser.to_markdown(keep_track_of_page=paginated_output)
 
-    @dynamic_track_emissions
+    # @dynamic_track_emissions
     def _chunk_using_default_chunker(self) -> list[ChunkNorrisChunk]:
         """Get the chunks.
 

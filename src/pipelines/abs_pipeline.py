@@ -1,10 +1,11 @@
 from abc import ABC, abstractmethod
 import os
 from typing import Any, Literal
-
+from torch.cuda import is_available
 from src.components import Chunk
 from src.chunkers.abs_chunker import AbstractChunker
 from src.utils import dynamic_track_emissions
+
 
 
 class AbsPipeline(ABC):
@@ -44,6 +45,18 @@ class AbsPipeline(ABC):
         self.parsing_result = self._parse_file(filepath)
         self.filename = os.path.basename(filepath)
 
+
+    @dynamic_track_emissions
+    def parse_files(self, filepaths: list[str]) -> None:
+        """Parses a list of files and measures the energy consumption.
+
+        Args:
+            filepaths (list[str]): a list of files to parse
+
+        """
+        _ = [self.parse_file(filepath) for filepath in filepaths]
+
+
     @dynamic_track_emissions
     @abstractmethod
     def _parse_file(self, filepath: str) -> Any:
@@ -79,7 +92,7 @@ class AbsPipeline(ABC):
         """
         if self.external_chunker is not None:
             paginated_md = self.to_markdown(paginated_output=True)
-            chunks = self.external_chunker.chunk(paginated_md)
+            chunks = self.external_chunker.chunk(paginated_md, self.filename)
         else:
             raw_chunks = self._chunk_using_default_chunker()
             chunks = self._process_default_chunker_output(raw_chunks)
@@ -123,5 +136,7 @@ class AbsPipeline(ABC):
         Args:
             device (Any): the device to be set
         """
+        device = device if is_available() else "cpu"
+        print(f"Running pipeline on {device}")
         self._set_parser_with_device(device)
         self.device = device

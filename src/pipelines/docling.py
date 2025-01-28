@@ -65,7 +65,7 @@ class DoclingPipeline(AbsPipeline):
             }
         )
 
-    @dynamic_track_emissions
+    # @dynamic_track_emissions
     def _parse_file(self, filepath: str) -> ConversionResult:
         """Parses a file.
 
@@ -96,7 +96,7 @@ class DoclingPipeline(AbsPipeline):
 
         return self.parsing_result.document.export_to_markdown()
 
-    @dynamic_track_emissions
+    # @dynamic_track_emissions
     def _chunk_using_default_chunker(self) -> list[BaseChunk]:
         """Gets the chunks.
 

@@ -7,6 +7,7 @@ from functools import wraps
 
 from codecarbon import track_emissions
 from dotenv import load_dotenv
+from psutil import cpu_percent
 
 load_dotenv()
 
@@ -97,7 +98,7 @@ def dynamic_track_emissions(func):
 
     @wraps(func)
     def wrapper(self, *args, **kwargs):
-        experiment_id = "___".join(
+        project_name = "___".join(
             (
                 self.__class__.__name__,
                 func.__name__,
@@ -107,7 +108,7 @@ def dynamic_track_emissions(func):
         )
         carbon_decorator = track_emissions(
             offline=True,
-            experiment_id=experiment_id,
+            project_name=project_name,
             country_iso_code=os.getenv("COUNTRY_ISO_CODE", "USA"),
         )
 

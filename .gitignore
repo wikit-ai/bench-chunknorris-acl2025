@@ -3,3 +3,6 @@ __pycache__
 .env
 
 ChromaDB
+docker-commands.txt
+
+results
