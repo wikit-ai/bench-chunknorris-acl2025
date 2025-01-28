@@ -17,12 +17,15 @@ load_dotenv()
 
 
 # Config variables
-HF_ANNOTATION_REPO = "Wikit/retrieval-pdf-acl2025" # the HF repo used to store annotations
+HF_ANNOTATION_REPO = (
+    "Wikit/retrieval-pdf-acl2025"  # the HF repo used to store annotations
+)
 CHUNKS_PATH = "./tools/chunks_250_wordcount.json"
-MODEL_NAME = "Alibaba-NLP/gte-large-en-v1.5" # a HF path to an embedding model
+MODEL_NAME = "Alibaba-NLP/gte-large-en-v1.5"  # a HF path to an embedding model
 PATH_TO_CHROMDB = "./tools/ChromaDB"
 TOPN_TO_RETRIEVE = 10
 FILES_PER_USER = "./tools/files_per_annotator.json"
+
 
 @st.cache_resource
 def load_annotations(user_name: str):
@@ -39,7 +42,7 @@ def load_annotations(user_name: str):
 @st.cache_resource
 def load_chunks(chunks_path: str):
     """Initializes the backend file.
-    Uses the JSON file containing the chunks 
+    Uses the JSON file containing the chunks
     output by the get_standard_chunks.py script
 
     Args:
@@ -48,9 +51,11 @@ def load_chunks(chunks_path: str):
     with open(chunks_path, "r", encoding="utf8") as file:
         chunks = json.load(file)
 
-    chunks = [chunk | {"source_file": filename}
-              for filename, filechunks in chunks.items()
-              for chunk in filechunks]
+    chunks = [
+        chunk | {"source_file": filename}
+        for filename, filechunks in chunks.items()
+        for chunk in filechunks
+    ]
 
     dataset = datasets.Dataset.from_list(chunks)
     dataset = dataset.add_column("embedding", MODEL.encode(dataset["text"]))
@@ -63,31 +68,35 @@ def get_new_filename():
     we don't have annotations for.
     """
     annotated_filenames = Counter(st.session_state.annotations["source_file"])
-    annotated_filenames = [filename for filename, count in annotated_filenames.items() if count >= 3]
+    annotated_filenames = [
+        filename for filename, count in annotated_filenames.items() if count >= 3
+    ]
 
     # if file has already 3 annotations, get new file
-    if st.session_state.current_filename in annotated_filenames or not st.session_state.current_filename:
+    if (
+        st.session_state.current_filename in annotated_filenames
+        or not st.session_state.current_filename
+    ):
         non_annotated_files = [
             filename
             for filename in st.session_state.user_files_to_annotate
             if filename not in annotated_filenames
-            ]
+        ]
 
         return random.choice(non_annotated_files)
-    
+
     return st.session_state.current_filename
 
 
 def save_backend():
-    """Saves the annotations to a HF repo
-    """
+    """Saves the annotations to a HF repo"""
     filename = f"{st.session_state.user_name.lower()}.json"
     st.session_state.annotations.to_json(
         filename,
         lines=False,
         force_ascii=False,
         indent=4,
-        )
+    )
 
     api = HfApi()
     api.upload_file(
@@ -99,7 +108,7 @@ def save_backend():
 
 
 @st.cache_resource
-def setup_chroma_embedder(model_name:str, path_to_chromadb:str):
+def setup_chroma_embedder(model_name: str, path_to_chromadb: str):
     """Sets up a chromaDB embedder to retrieve top documents
 
     Args:
@@ -115,8 +124,8 @@ def setup_chroma_embedder(model_name:str, path_to_chromadb:str):
         SentenceTransformerEmbeddingFunction(model_name),
         path_to_chromadb=path_to_chromadb,
         save_embbedings=True,
-        batch_size=16
-        )
+        batch_size=16,
+    )
 
 
 def get_files_for_user(user_name: str):
@@ -125,15 +134,20 @@ def get_files_for_user(user_name: str):
 
     with open(FILES_PER_USER, "r", encoding="utf8") as file:
         files_per_user = json.load(file)
-    
+
     if user_name not in files_per_user:
-        st.warning("Invalid user name. Available user names are list(files_per_user.keys())", icon="⚠️")
+        st.warning(
+            "Invalid user name. Available user names are list(files_per_user.keys())",
+            icon="⚠️",
+        )
         return
-    
-    st.session_state.user_files_to_annotate = [file["pdf_file_name"] for file in files_per_user[user_name]]
+
+    st.session_state.user_files_to_annotate = [
+        file["pdf_file_name"] for file in files_per_user[user_name]
+    ]
 
 
-def retrieve_topn_docs(query:str):
+def retrieve_topn_docs(query: str):
     """Retrieve the top documents corresponding to the user's input query,
     so that related chunks can be added.
 
@@ -147,29 +161,33 @@ def retrieve_topn_docs(query:str):
     cosims = cos_sim(query_emb, st.session_state.chunks_dataset["embedding"]).squeeze()
     top_indexes = torch.topk(cosims, k=TOPN_TO_RETRIEVE)
     st.session_state.top_chunks = [
-        st.session_state.chunks_dataset[idx]
-        for idx in top_indexes.indices.tolist()
-        ]
+        st.session_state.chunks_dataset[idx] for idx in top_indexes.indices.tolist()
+    ]
 
 
 def save_and_load_new_page():
-    """Save the current backend state, reset user's input and display new chunk to label
-    """
+    """Save the current backend state, reset user's input and display new chunk to label"""
     if not st.session_state.anno_page.isnumeric():
-        st.warning('Annotated page should be an int', icon="⚠️")
+        st.warning("Annotated page should be an int", icon="⚠️")
         return
-    
+
     st.session_state.annotations = load_annotations(st.session_state.user_name)
 
-    st.session_state.annotations = datasets.concatenate_datasets([
-        st.session_state.annotations,
-        datasets.Dataset.from_list([{
-            "source_file": st.session_state.current_filename,
-            "query": st.session_state.query,
-            "target_page": int(st.session_state.anno_page),
-            "target_passage": st.session_state.anno_passage
-        }])
-    ])
+    st.session_state.annotations = datasets.concatenate_datasets(
+        [
+            st.session_state.annotations,
+            datasets.Dataset.from_list(
+                [
+                    {
+                        "source_file": st.session_state.current_filename,
+                        "query": st.session_state.query,
+                        "target_page": int(st.session_state.anno_page),
+                        "target_passage": st.session_state.anno_passage,
+                    }
+                ]
+            ),
+        ]
+    )
 
     save_backend()
     st.session_state.current_filename = get_new_filename()
@@ -180,11 +198,14 @@ def save_and_load_new_page():
     st.session_state.top_chunks = []
 
     annotated_docs = len(st.session_state.annotations)
-    st.success(f'Label saved. (Current labeled docs : {annotated_docs})', icon="✅")
+    st.success(f"Label saved. (Current labeled docs : {annotated_docs})", icon="✅")
+
 
 # Setup logger
 logging.basicConfig(
-    format="%(asctime)s - %(message)s", datefmt="%Y-%m-%d %H:%M:%S", level=logging.INFO,
+    format="%(asctime)s - %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+    level=logging.INFO,
 )
 LOGGER = logging.getLogger(__name__)
 
@@ -228,28 +249,33 @@ if st.session_state.user_files_to_annotate:
     col1, col2 = st.columns(2)
     with col1:
         st.button(
-            "Retrieve related chunks", 
+            "Retrieve related chunks",
             on_click=retrieve_topn_docs,
             args=(st.session_state.query,),
             type="primary",
             disabled=False,
-            use_container_width=True
-            )
+            use_container_width=True,
+        )
     with col2:
         st.button(
-            "Skip", 
+            "Skip",
             on_click=get_new_filename(),
             type="secondary",
             disabled=False,
-            use_container_width=False
-            )
+            use_container_width=False,
+        )
 
     if st.session_state.top_chunks:
         st.subheader("Chunks likely to contain answer", divider="blue")
         for i, chunk in enumerate(st.session_state.top_chunks):
             cont = st.container(border=True)
             with cont:
-                st.markdown("Source file : " + chunk["source_file"] + " page " + str(chunk["page"]))
+                st.markdown(
+                    "Source file : "
+                    + chunk["source_file"]
+                    + " page "
+                    + str(chunk["page"])
+                )
                 st.markdown(chunk["text"])
         st.button(
             "Submit",
