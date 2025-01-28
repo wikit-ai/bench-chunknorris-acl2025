@@ -53,16 +53,22 @@ for filepath in tqdm(pdf_filepaths):
             n_splits = len(text_split_by_words) // N_WORDS_PER_CHUNKS + 1
             n_words_per_chunk = len(text_split_by_words) // n_splits + 1
             splitted_text = [
-                " ".join(text_split_by_words[i*n_words_per_chunk : (i+1)*n_words_per_chunk])
+                " ".join(
+                    text_split_by_words[
+                        i * n_words_per_chunk : (i + 1) * n_words_per_chunk
+                    ]
+                )
                 for i in range(n_splits)
-                ]
+            ]
         else:
             splitted_text = [text]
 
-        chunks[filename].extend([
-            {"page": page_id, "text": subtext, "uuid": str(uuid4()), "order": i}
-            for i, subtext in enumerate(splitted_text)
-        ])
+        chunks[filename].extend(
+            [
+                {"page": page_id, "text": subtext, "uuid": str(uuid4()), "order": i}
+                for i, subtext in enumerate(splitted_text)
+            ]
+        )
 
     with open(OUTPUT_FILENAME, "w", encoding="utf8") as file:
         json.dump(chunks, file, ensure_ascii=False, indent=4)
