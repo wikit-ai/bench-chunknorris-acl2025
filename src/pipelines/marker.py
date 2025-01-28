@@ -6,8 +6,8 @@ from marker.models import create_model_dict
 from marker.output import MarkdownOutput
 from marker.config.parser import ConfigParser
 
-from .abs_pipeline import AbsPipeline
-from ..utils import dynamic_track_emissions
+from src.pipelines.abs_pipeline import AbsPipeline
+from src.utils import dynamic_track_emissions
 
 
 class MarkerPipeline(AbsPipeline):

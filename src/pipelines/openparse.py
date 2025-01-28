@@ -7,10 +7,9 @@ from openparse.schemas import Node
 from openparse.doc_parser import ParsedDocument
 from openparse import processing, DocumentParser
 
-from ..components import Chunk
-
-from .abs_pipeline import AbsPipeline
-from ..utils import dynamic_track_emissions
+from src.components import Chunk
+from src.pipelines.abs_pipeline import AbsPipeline
+from src.utils import dynamic_track_emissions
 
 
 class OpenParsePipeline(AbsPipeline):

@@ -2,9 +2,9 @@ from abc import ABC, abstractmethod
 import os
 from typing import Any, Literal
 
-from ..components import Chunk
-from ..chunkers import AbstractChunker
-from ..utils import dynamic_track_emissions
+from src.components import Chunk
+from src.chunkers.abs_chunker import AbstractChunker
+from src.utils import dynamic_track_emissions
 
 
 class AbsPipeline(ABC):

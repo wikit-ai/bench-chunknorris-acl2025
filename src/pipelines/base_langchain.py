@@ -4,9 +4,9 @@ from langchain_community.document_loaders import PyPDFLoader
 from langchain_core.documents.base import Document
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
-from .abs_pipeline import AbsPipeline
-from ..components import Chunk
-from ..utils import dynamic_track_emissions
+from src.pipelines.abs_pipeline import AbsPipeline
+from src.components import Chunk
+from src.utils import dynamic_track_emissions
 
 
 class BaseLangchainPipeline(AbsPipeline):

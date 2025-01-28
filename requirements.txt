@@ -7,5 +7,6 @@ marker-pdf==1.2.7
 langchain-community==0.3.15
 chromacache @ git+https://github.com/Lyon-NLP/chroma_cache
 chunknorris @ git+https://github.com/wikit-ai/chunknorris
-codecarbon==2.8.3
+#codecarbon @ git+https://github.com/MathieuCiancone/codecarbon
+codecarbon==3.0.0rc0
 pydantic

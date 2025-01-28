@@ -24,7 +24,7 @@ def get_pdf_filepaths(directory: str) -> list[str]:
     pdf_filepaths: list[str] = []
     for root, _, files in os.walk(directory):
         for file in files:
-            if file.endswith(".pdf"):
+            if file.lower().endswith(".pdf"):
                 pdf_filepaths.append(os.path.abspath(os.path.join(root, file)))
 
     return pdf_filepaths

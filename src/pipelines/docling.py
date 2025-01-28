@@ -13,9 +13,9 @@ from docling_core.transforms.chunker.base import BaseChunk
 
 from transformers import AutoTokenizer
 
-from .abs_pipeline import AbsPipeline
-from ..components import Chunk
-from ..utils import dynamic_track_emissions
+from src.pipelines.abs_pipeline import AbsPipeline
+from src.components import Chunk
+from src.utils import dynamic_track_emissions
 
 
 class DoclingPipeline(AbsPipeline):

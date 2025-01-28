@@ -2,8 +2,8 @@ from datetime import datetime
 from dotenv import load_dotenv
 from huggingface_hub import HfApi
 
-from .config.config import read_config
-from .utils import get_pdf_filepaths, get_pipeline
+from src.config.config import read_config
+from src.utils import get_pdf_filepaths, get_pipeline
 
 load_dotenv()
 
