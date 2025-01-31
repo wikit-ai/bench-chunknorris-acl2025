@@ -58,7 +58,14 @@ class OpenParsePipeline(AbsPipeline):
         Returns:
             tuple[list[Node], float]: parser output and latency.
         """
-        return self.parser.parse(filepath, ocr=False)
+        try:
+            return self.parser.parse(filepath, ocr=False)
+        except:
+            return ParsedDocument(
+                nodes = [],
+                filename=os.path.basename(filepath),
+                num_pages=1
+                )
 
     def to_markdown(self, paginated_output: bool = False):
         if paginated_output:

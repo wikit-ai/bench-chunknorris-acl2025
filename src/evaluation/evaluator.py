@@ -57,11 +57,11 @@ class Evaluator():
                 }
             )
             # use the result of the parsing to chunk with the chunkers
-            for chunker in self.chunkers:
-                self.pipeline.external_chunker = chunker
-                chunker_name = "Default" if chunker is None else self.pipeline.external_chunker.__class__.__name__
-                chunks = self.pipeline.chunk()
-                chunks_dict[chunker_name].extend(chunks)
+            # for chunker in self.chunkers:
+            #     self.pipeline.external_chunker = chunker
+            #     chunker_name = "Default" if chunker is None else self.pipeline.external_chunker.__class__.__name__
+            #     chunks = self.pipeline.chunk()
+            #     chunks_dict[chunker_name].extend(chunks)
 
         with open("parsing_data.json", "w", encoding="utf8") as file:
             json.dump(parsing_data, file, indent=4, ensure_ascii=False)
