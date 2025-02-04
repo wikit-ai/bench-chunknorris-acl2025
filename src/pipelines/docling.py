@@ -117,8 +117,8 @@ class DoclingPipeline(AbsPipeline):
         return [
             Chunk(
                 text=self.default_chunker.serialize(chunk),
-                page_start=DoclingPipeline._get_origin_page_of_chunk(chunk, "min"),
-                page_end=DoclingPipeline._get_origin_page_of_chunk(chunk, "max"),
+                page_start=DoclingPipeline._get_origin_page_of_chunk(chunk, "min") - 1,
+                page_end=DoclingPipeline._get_origin_page_of_chunk(chunk, "max") - 1,
                 source_file=self.filename,
             )
             for chunk in chunks

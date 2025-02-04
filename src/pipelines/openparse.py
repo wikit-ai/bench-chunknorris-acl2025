@@ -24,18 +24,9 @@ class OpenParsePipeline(AbsPipeline):
         chunker=None,
         device="cpu",
         chunking_type: Literal["basic", "semantic"] = "basic",
-        table_strategy: Literal[
-            "unitable", "pymupdf", "table-transformers"
-        ] = "pymupdf",
     ):
         super().__init__(chunker, device)
-
         self.chunking_type = chunking_type
-
-        self.parser = DocumentParser(
-            processing_pipeline=processing.NoOpIngestionPipeline(),
-            table_args=OpenParsePipeline._get_table_args(table_strategy),
-        )
 
     @property
     def default_chunker(self):
@@ -61,6 +52,7 @@ class OpenParsePipeline(AbsPipeline):
         try:
             return self.parser.parse(filepath, ocr=False)
         except:
+            print(f"File {filepath} could not be read")
             return ParsedDocument(
                 nodes = [],
                 filename=os.path.basename(filepath),
@@ -76,7 +68,7 @@ class OpenParsePipeline(AbsPipeline):
                 nodes = []
             md_string_by_page = defaultdict(str)
             for node in nodes:
-                md_string_by_page[node.reading_order.min_page - 1] += (
+                md_string_by_page[node.reading_order.min_page] += (
                     node.text.replace("<br>", "\n") + "\n\n"
                 )
             return dict(md_string_by_page)

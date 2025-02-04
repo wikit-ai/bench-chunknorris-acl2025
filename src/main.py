@@ -34,12 +34,8 @@ def main():
         pipeline.set_device(config.DEVICE)
     config.DEVICE = pipeline.device # use the config device enabled by the pipeline
 
-    chunkers = [None, PageChunker(), RecursiveCharacterChunker()]\
-    if pipeline.default_chunker\
-    else [PageChunker(), RecursiveCharacterChunker()]
-
-    evaluator = Evaluator(pipeline, chunkers=chunkers)
-    evaluator.evaluate(filepaths)
+    evaluator = Evaluator(pipeline)
+    evaluator.evaluate_file_parsing(filepaths)
 
 
     with open("run_config.json", "w", encoding="utf8") as file:
@@ -48,7 +44,7 @@ def main():
     push_results(
         pipeline.__class__.__name__,
         config.HF_REPO_FOR_RESULTS,
-        ["codecarbon_results.csv", "chunks.json", "parsing_data.json", "run_config.json"]
+        ["codecarbon_results.csv", "parsing_data.json", "run_config.json"]
         )
 
 

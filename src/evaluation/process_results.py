@@ -4,6 +4,26 @@ from typing import Any
 from huggingface_hub import snapshot_download
 import pandas as pd
 
+
+def get_run_dirs(local_dir: str = "./results"):
+    """Get the results from HF and aggregate results
+
+    Args:
+        local_dir (str, optional): the local directory where to clone the repo.
+            Defaults to "./results".
+    """
+    # get the directory paths to all experiment runs
+    pipeline_dirs = [dir for _, dirs, _ in os.walk(local_dir) for dir in dirs if "Pipeline" in dir]
+    runs_dirs  = {
+        os.path.join(local_dir, pipeline_dir, timestamp)
+        for pipeline_dir in pipeline_dirs
+        for _, timestamps, _ in os.walk(os.path.join(local_dir, pipeline_dir))
+        for timestamp in timestamps
+        }
+
+    return runs_dirs
+
+
 def get_results(hf_repo: str = "Wikit/pdf-parsing-bench-results", local_dir: str = "./results"):
     """Get the results from HF and aggregate results
 
@@ -14,18 +34,10 @@ def get_results(hf_repo: str = "Wikit/pdf-parsing-bench-results", local_dir: str
             Defaults to "./results".
     """
     # get the data locally
-    snapshot_download(repo_id=hf_repo, repo_type="dataset", local_dir=local_dir)
-    # get the directory paths to all experiment runs
-    pipeline_dirs = [dir for _, dirs, _ in os.walk(local_dir) for dir in dirs if "Pipeline" in dir]
-    runs_dirs  = {
-        os.path.join(local_dir, pipeline_dir, timestamp)
-        for pipeline_dir in pipeline_dirs
-        for _, timestamps, _ in os.walk(os.path.join(local_dir, pipeline_dir))
-        for timestamp in timestamps
-        }
+    snapshot_download(repo_id=hf_repo, repo_type="dataset", local_dir=local_dir, ignore_patterns=["data/", "*.md"])
 
+    runs_dirs = get_run_dirs(local_dir)
     runs_perfs, parsing_perfs = list(zip(*[aggregate_results_from_run(run_dir) for run_dir in runs_dirs]))
-
     runs_perfs = pd.DataFrame.from_records(runs_perfs)
     runs_perfs = runs_perfs.sort_values(by="timestamp")
     parsing_perfs = pd.concat(parsing_perfs)

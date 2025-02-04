@@ -18,12 +18,7 @@ class BaseLangchainPipeline(AbsPipeline):
 
     @property
     def default_chunker(self):
-        return RecursiveCharacterTextSplitter(
-            chunk_size=200,
-            chunk_overlap=50,
-            length_function=len,
-            is_separator_regex=False,
-        )
+        return RecursiveCharacterTextSplitter()
 
     # @dynamic_track_emissions
     def _parse_file(self, filepath: str) -> str:
@@ -39,6 +34,7 @@ class BaseLangchainPipeline(AbsPipeline):
         try:
             pages = list(loader.lazy_load())
         except UnboundLocalError: # sometime pypdf struggle to read
+            print(f"File {filepath} could not be read")
             pages = []
 
         return pages
