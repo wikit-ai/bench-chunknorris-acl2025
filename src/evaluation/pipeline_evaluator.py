@@ -6,7 +6,8 @@ from datasets import load_dataset, Dataset
 import numpy as np
 import numpy.typing as npt
 
-from src.components import Chunk, ReferenceSection
+from src.components import Chunk, RagItem, ReferenceSection
+from src.evaluation.metrics.generation.generator import Generator
 from src.evaluation.metrics.evaluator import RetrievalEvaluator
 from src.evaluation.sentence_embeddings.utils import retrieve_top_k_chunks
 from src.evaluation.sentence_embeddings.model import model
@@ -254,5 +255,70 @@ class PipelinePerformanceEvaluator:
 
         return results_retrieval
 
-    # def evaluate_generation(self):
-    #     pass
+    def _get_already_generated_answers_per_path(self, path_retrieval: str) -> list[str]:
+        """
+        Retrieve the queries of already generated answers for a given retrieval path.
+
+        Args:
+            path_retrieval (str): The path to the retrieval results file.
+
+        Returns:
+            list[str]: A list of queries for which answers have already been generated.
+        """
+        directory = "results_generation"
+        os.makedirs(directory, exist_ok=True)
+        file_path = os.path.join(directory, "results.json")
+
+        already_generated = []
+        if os.path.exists(file_path):
+            with open(file_path, "r", encoding="utf-8") as f:
+                results_history = json.load(f)
+
+            pipeline_name = path_retrieval.split("retrieval_")[1]
+
+            for item in results_history:
+                if pipeline_name in [
+                    x["name_pipeline"] for x in item["generated_answers"]
+                ]:
+                    already_generated.append(item["reference"]["query"])
+
+        return already_generated
+
+    def run_generation(self, file_path: str, batch_size: int) -> None:
+        """
+        Run the generation process for a given retrieval history file.
+
+        Args:
+            file_path (str): The path to the retrieval results file.
+            batch_size (int): The size of the batch for generating answers.
+
+        Returns:
+            None
+        """
+        generator = Generator(path=file_path)
+        with open(file_path, "r", encoding="utf-8") as f:
+            retrieval_history = json.load(f)
+
+        already_generated = self._get_already_generated_answers_per_path(
+            path_retrieval=file_path
+        )
+
+        list_to_generate = [
+            RagItem(
+                reference_section=ReferenceSection(
+                    source_file=item["references"]["source_file"],
+                    query=item["references"]["query"],
+                    target_page=item["references"]["target_page"],
+                    target_passage=item["references"]["target_passage"],
+                ),
+                top_chunks=[chunk["text"] for chunk in item["top_chunk"]],
+                correct_chunk=item["references"]["chunk_present"]["index"],
+            )
+            for item in retrieval_history[1][0:30]
+            if item["references"]["chunk_present"]["presence"]
+            and item["references"]["query"] not in already_generated
+        ]
+
+        generator.generation_per_batch(
+            batch=batch_size, items_to_generate=list_to_generate
+        )

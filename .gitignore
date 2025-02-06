@@ -13,4 +13,5 @@ embeddings/
 .cache/
 src/dataset/storage/
 results_retrieval/
+results_generation/
 table_retrieval.csv

@@ -2,7 +2,7 @@ from typing import Literal
 
 import numpy as np
 
-from src.components import Chunk, GeneratedAnswer, ReferenceSection
+from src.components import Chunk, ReferenceSection
 
 from src.evaluation.metrics.generation.schema import GenerationMetrics
 from src.evaluation.metrics.retrieval.metrics import MRR, Rouge, Recall
@@ -16,7 +16,7 @@ class GenerationEvaluator:
     def evaluate_overlapping(
         self,
         list_references: list[ReferenceSection],
-        list_generated_answers: list[GeneratedAnswer],
+        list_generated_answers: list[str],
     ) -> list[float]:
         """
         Evaluate the overlapping between generated answers and reference passages using ROUGE precision.
@@ -28,7 +28,7 @@ class GenerationEvaluator:
         Returns:
             list[float]: A list of ROUGE precision scores for each pair of generated answer and reference passage.
         """
-        list_generation = [answer.generation for answer in list_generated_answers]
+        list_generation = [answer for answer in list_generated_answers]
         list_references_passage = [
             reference.target_passage for reference in list_references
         ]
@@ -41,7 +41,7 @@ class GenerationEvaluator:
     def __call__(
         self,
         list_references: list[ReferenceSection],
-        list_generated_answers: list[GeneratedAnswer],
+        list_generated_answers: list[str],
     ) -> GenerationMetrics:
         """
         Evaluate the generated answers and return a GenerationMetrics object.
@@ -59,7 +59,7 @@ class GenerationEvaluator:
                 list_generated_answers=list_generated_answers,
             ),
             avg_generation_token_counts=np.mean(
-                [len(answer.generation) for answer in list_generated_answers]
+                [len(answer) for answer in list_generated_answers]
             ),
         )
 

@@ -29,6 +29,13 @@ class ReferenceSection(BaseModel):
     )
 
 
-class GeneratedAnswer(BaseModel):
-    llm: str = Field(description="The name of the LLM used to generate the answer.")
-    generation: str = Field(description="The text of the generated answer.")
+class RagItem(BaseModel):
+    reference_section: ReferenceSection = Field(
+        description="The reference section associated with the RAG item."
+    )
+    top_chunks: list[str] = Field(
+        description="A list of top chunks retrieved for the RAG item."
+    )
+    correct_chunk: int = Field(
+        description="The index of the correct chunk within the top chunks."
+    )
