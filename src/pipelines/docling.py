@@ -85,13 +85,10 @@ class DoclingPipeline(AbsPipeline):
         """
         if paginated_output:
             return {
-                page.page_no
-                - 1: self.parsing_result.document.export_to_markdown(
-                    page_no=page.page_no
+                page.page_no : self.parsing_result.document.export_to_markdown(
+                    page_no=page.page_no + 1 # argument must be passed as 1-based
                 )
                 for page in self.parsing_result.pages
-                if page.page_no
-                > 0  # for some reason docling has a "0" page which is an extra page
             }
 
         return self.parsing_result.document.export_to_markdown()

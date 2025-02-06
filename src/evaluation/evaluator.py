@@ -85,7 +85,8 @@ class Evaluator():
                 chunks_dict[chunker_name].extend(chunks)
 
         dumped_chunks = {chunker: [chunk.model_dump() for chunk in chunks] for chunker, chunks in chunks_dict.items()}
-        with open("chunks.json", "w", encoding="utf8") as file:
+        pipeline_name = self.pipeline.__class__.__name__
+        with open(f"{pipeline_name}_chunks.json", "w", encoding="utf8") as file:
             json.dump(dumped_chunks, file, indent=4, ensure_ascii=False)
 
         return chunks_dict

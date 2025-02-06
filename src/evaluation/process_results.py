@@ -34,7 +34,7 @@ def get_results(hf_repo: str = "Wikit/pdf-parsing-bench-results", local_dir: str
             Defaults to "./results".
     """
     # get the data locally
-    snapshot_download(repo_id=hf_repo, repo_type="dataset", local_dir=local_dir, ignore_patterns=["data/", "*.md"])
+    snapshot_download(repo_id=hf_repo, repo_type="dataset", local_dir=local_dir, ignore_patterns=["data/", "*.md", "*.git*", "results_retrieval*"])
 
     runs_dirs = get_run_dirs(local_dir)
     runs_perfs, parsing_perfs = list(zip(*[aggregate_results_from_run(run_dir) for run_dir in runs_dirs]))
