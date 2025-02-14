@@ -1,0 +1,5 @@
+PACKAGE_TO_TEST: chunknorris # must be matched in get_pipeline function of main.py
+DEVICE: null # cpu or cuda or null to leave default of the package
+FILES_DIR: ./data/pdf # where the pdf files are located
+HF_REPO: Wikit/pdf-parsing-bench-results # where the results are stored
+COUNTRY_ISO_CODE: FRA # country 3 letter code for codecarbon emissions
