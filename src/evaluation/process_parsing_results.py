@@ -3,6 +3,7 @@ import os
 from typing import Any
 from huggingface_hub import snapshot_download
 import pandas as pd
+from src.evaluation.filters import N_PAGE_PER_DOC
 
 
 def get_run_dirs(local_dir: str = "./results"):
@@ -67,11 +68,18 @@ def aggregate_results_from_run(run_dir: str) -> tuple[dict[str, Any], pd.DataFra
     parsing_info["device"] = config_info["DEVICE"]
     parsing_info["cpu_model"] = carbon_info["cpu_model"]
     parsing_info["run_id"] = carbon_info["run_id"]
+    parsing_info["n_doc_pages"] = [N_PAGE_PER_DOC[filename] for filename in parsing_info["filename"]]
 
     aggragate = carbon_info | config_info | {
         "avg_latency": float(parsing_info["parsing_latency"].mean()),
         "median_latency": float(parsing_info["parsing_latency"].median()),
         "std_latency": float(parsing_info["parsing_latency"].std()),
+        "avg_latency_per_page": float(
+            (parsing_info["parsing_latency"]/parsing_info["n_doc_pages"]).mean()
+            ),
+        "std_latency_per_page": float(
+            (parsing_info["parsing_latency"]/parsing_info["n_doc_pages"]).std()
+            ),
         "avg_cpu_load": float(parsing_info["cpu_load_percent"].mean()),
         "median_cpu_load": float(parsing_info["cpu_load_percent"].median()),
         "std_cpu_load": float(parsing_info["cpu_load_percent"].std()),

@@ -13,6 +13,8 @@ COLS_TO_KEEP = [
     "avg_latency",
     "median_latency",
     "std_latency",
+    "avg_latency_per_page",
+    "std_latency_per_page",
     "avg_cpu_load",
     "computing_config",
     "total_parsing_latency"

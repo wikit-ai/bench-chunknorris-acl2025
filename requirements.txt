@@ -1,12 +1,14 @@
+# For running the parsing pipelines
+pydantic
 sentence-transformers==3.3.1
 datasets==3.2.0
 # openparse[ml]==0.7.0
 openparse @ git+https://github.com/MathieuCiancone/open-parse.git # fork that corrects bugs in openparse==0.7.0
 docling==2.15.1
-llmsherpa
 marker-pdf==1.2.7
 langchain-community==0.3.15
-# chromacache @ git+https://github.com/Lyon-NLP/chroma_cache
 chunknorris @ git+https://github.com/wikit-ai/chunknorris
 codecarbon==2.8.3
-pydantic
+# For running results with embedding models
+einops
+# chromacache @ git+https://github.com/Lyon-NLP/chroma_cache
