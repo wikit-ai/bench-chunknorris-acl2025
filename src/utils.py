@@ -110,6 +110,7 @@ def dynamic_track_emissions(func):
             offline=True,
             project_name=project_name,
             country_iso_code=os.getenv("COUNTRY_ISO_CODE", "USA"),
+            output_dir=self.__dict__.get("results_dir") or "./results"
         )
 
         return carbon_decorator(func)(self, *args, **kwargs)
