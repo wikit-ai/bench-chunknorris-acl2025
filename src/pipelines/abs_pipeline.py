@@ -7,7 +7,6 @@ from src.chunkers.abs_chunker import AbstractChunker
 from src.utils import dynamic_track_emissions
 
 
-
 class AbsPipeline(ABC):
     """The abstract pipeline from which each of the package's pipeline
     should be derived.
@@ -47,7 +46,6 @@ class AbsPipeline(ABC):
         self.parsing_result = self._parse_file(filepath)
         self.filename = os.path.basename(filepath)
 
-
     @dynamic_track_emissions
     def parse_files(self, filepaths: list[str]) -> None:
         """Parses a list of files and measures the energy consumption.
@@ -57,7 +55,6 @@ class AbsPipeline(ABC):
 
         """
         _ = [self.parse_file(filepath) for filepath in filepaths]
-
 
     @dynamic_track_emissions
     @abstractmethod

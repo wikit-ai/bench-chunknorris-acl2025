@@ -14,15 +14,12 @@ from src.utils import dynamic_track_emissions
 from src.evaluation.parsing_evaluator_utils import aggregate_results_from_run
 
 
-class ParsingEvaluator():
+class ParsingEvaluator:
     """Meant to run an evaluation on a parser."""
-    timestamp : str # timestamp of the experiment
 
-    def __init__(
-            self,
-            pipeline: AbsPipeline,
-            results_dir : str = "./results"
-            ):
+    timestamp: str  # timestamp of the experiment
+
+    def __init__(self, pipeline: AbsPipeline, results_dir: str = "./results"):
         """Instanciate an evaluator.
 
         Args:
@@ -45,22 +42,22 @@ class ParsingEvaluator():
         """Saves a dict as a JSON file"""
         if not filename.endswith(".json"):
             raise ValueError("Provided filename must end with .json")
-        with open(os.path.join(
-            self.results_dir, filename), "w", encoding="utf8") as file:
+        with open(
+            os.path.join(self.results_dir, filename), "w", encoding="utf8"
+        ) as file:
             json.dump(dict_to_save, file, indent=4, ensure_ascii=False)
 
     def save_config(self):
         """Saves information about the run config"""
         tmp = {
             "pipeline": self.pipeline.__class__.__name__,
-            "device": self.pipeline.device
-            }
+            "device": self.pipeline.device,
+        }
         self.save_as_json(tmp, "run_config.json")
-
 
     def evaluate_parsing(self, pdf_filepaths: list[str]):
         """Parses the pdf files and processes the results obtained
-        
+
         Args:
             pdf_filepaths (list[str]) : the paths to the pdf files.
         """
@@ -68,12 +65,11 @@ class ParsingEvaluator():
         processed_results, _ = aggregate_results_from_run(self.results_dir)
         self.save_as_json(processed_results, "processed_results.json")
 
-
     @dynamic_track_emissions
     def run_parsing(self, pdf_filepaths: list[str]) -> dict[str, list[Chunk]]:
         """Considering the pipeline and the list of chunkers provided to the evaluator,
         gets the chunks obtained from the file for each chunker.
-        
+
         Args:
             pdf_filepaths (list[str]): the list of filepaths pointing to pdf to submit to test.
 
@@ -90,12 +86,11 @@ class ParsingEvaluator():
                 {
                     "filename": os.path.basename(filepath),
                     "cpu_load_percent": cpu_percent(),
-                    "parsing_latency": time.perf_counter() - start_time
+                    "parsing_latency": time.perf_counter() - start_time,
                 }
             )
 
         self.save_as_json(parsing_data, "cpuload_latencies.json")
-
 
     def push_results_to_hf(self, hf_repo_id: str):
         """Pushes the results to huggingface"""

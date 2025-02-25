@@ -33,7 +33,7 @@ class BaseLangchainPipeline(AbsPipeline):
         loader = PyPDFLoader(filepath)
         try:
             pages = list(loader.lazy_load())
-        except UnboundLocalError: # sometime pypdf struggle to read
+        except UnboundLocalError:  # sometime pypdf struggle to read
             print(f"File {filepath} could not be read")
             pages = []
 

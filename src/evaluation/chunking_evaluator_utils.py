@@ -8,9 +8,8 @@ from tqdm import tqdm
 from unidecode import unidecode
 from sentence_transformers.util import cos_sim
 
-def chunks_to_dataset(
-    path_to_chunks_jsonfile : str
-    ) -> datasets.DatasetDict:
+
+def chunks_to_dataset(path_to_chunks_jsonfile: str) -> datasets.DatasetDict:
     """Builds a DatasetDict object from chunks saved in json file obtained from the an evaluator.get_chunks()
 
     Args:
@@ -30,7 +29,10 @@ def chunks_to_dataset(
 
     return dataset_dict
 
-def retrieve_chunks(query_sample: datasets.Dataset, chunks_dataset: datasets.Dataset, k : int =10) -> datasets.Dataset:
+
+def retrieve_chunks(
+    query_sample: datasets.Dataset, chunks_dataset: datasets.Dataset, k: int = 10
+) -> datasets.Dataset:
     """Considering a sample of the "queries" dataset, retrieves k chunks.
     Both query_sample and "chunks_dataset" must have a "emb" column which is the embedding.
 
@@ -45,7 +47,12 @@ def retrieve_chunks(query_sample: datasets.Dataset, chunks_dataset: datasets.Dat
 
     return top_chunks
 
-def _map_labeled_passage_to_chunk(queries_dataset: datasets.Dataset, chunks_dataset: datasets.Dataset, rouge_threshold: float = .7) -> tuple[datasets.Dataset, datasets.Dataset]:
+
+def _map_labeled_passage_to_chunk(
+    queries_dataset: datasets.Dataset,
+    chunks_dataset: datasets.Dataset,
+    rouge_threshold: float = 0.7,
+) -> tuple[datasets.Dataset, datasets.Dataset]:
     """Adds a column "chunks_idx" to the queries dataset
     that contains the corresponding indexes of the chunks
     that contain the passages labeled as relevant.
@@ -74,25 +81,32 @@ def _map_labeled_passage_to_chunk(queries_dataset: datasets.Dataset, chunks_data
                 query_sample["source_file"],
                 query_sample["target_pages"],
                 query_sample["target_passages"],
-                )
+            )
             for page, passage in zip(target_pages, target_passages)
         ]
         # creates masks from list of tuples
         filename_mask, page_mask, passages = zip(*passage_filename_page_combinations)
-        filename_mask, page_mask = np.array(filename_mask)[:, np.newaxis], np.array(page_mask)[:, np.newaxis]
+        filename_mask, page_mask = (
+            np.array(filename_mask)[:, np.newaxis],
+            np.array(page_mask)[:, np.newaxis],
+        )
         # find pairs of potential passage-chunk matches
         passages_idx, chunks_idx = np.where(
-            (filename_mask == filenames_chunks) & 
-            (page_start_chunks <= page_mask) & 
-            (page_end_chunks >= page_mask)
+            (filename_mask == filenames_chunks)
+            & (page_start_chunks <= page_mask)
+            & (page_end_chunks >= page_mask)
         )
         # get the list of chunks labeled as relevant for the query
         chunks_idx_of_queries = [
-            chunk_idx for chunk_idx, passage_idx in zip(chunks_idx, passages_idx)
-            if get_rouge_score(passages[int(passage_idx)], chunks_dataset[int(chunk_idx)]["text"]) >= rouge_threshold
+            chunk_idx
+            for chunk_idx, passage_idx in zip(chunks_idx, passages_idx)
+            if get_rouge_score(
+                passages[int(passage_idx)], chunks_dataset[int(chunk_idx)]["text"]
+            )
+            >= rouge_threshold
         ]
         column_buffer.append(chunks_idx_of_queries)
-    
+
     queries_dataset = queries_dataset.add_column("chunks_idx", column_buffer)
     chunks_dataset = chunks_dataset.add_column("idx", list(range(len(chunks_dataset))))
 
@@ -113,10 +127,14 @@ def get_rouge_score(passage_text: str, chunk_text: str) -> float:
     norm_chunk = unidecode(chunk_text.lower())
     passage_words = re.findall(r"\w+", norm_passage)
 
-    return len([word for word in passage_words if word in norm_chunk]) / len(passage_words)
+    return len([word for word in passage_words if word in norm_chunk]) / len(
+        passage_words
+    )
 
 
-def _compute_recall(OK_chunks_idxes: list[int], top_chunks_indexes: list[int], k : int = 10) -> float:
+def _compute_recall(
+    OK_chunks_idxes: list[int], top_chunks_indexes: list[int], k: int = 10
+) -> float:
     """Considering a query, computes the recall.
 
     Args:
@@ -128,12 +146,21 @@ def _compute_recall(OK_chunks_idxes: list[int], top_chunks_indexes: list[int], k
         float: the recall.
     """
     return (
-        len([idx for idx in top_chunks_indexes[:k] if idx in OK_chunks_idxes])
-        / len(set(OK_chunks_idxes))
-        ) if OK_chunks_idxes else 0
+        (
+            len([idx for idx in top_chunks_indexes[:k] if idx in OK_chunks_idxes])
+            / len(set(OK_chunks_idxes))
+        )
+        if OK_chunks_idxes
+        else 0
+    )
 
 
-def _compute_ndcg(OK_chunks_idxes: list[int], top_chunks_indexes: list[int], top_cosims_values: list[float], k : int = 10) -> float:
+def _compute_ndcg(
+    OK_chunks_idxes: list[int],
+    top_chunks_indexes: list[int],
+    top_cosims_values: list[float],
+    k: int = 10,
+) -> float:
     """Considering a query, computes the NDCG.
 
     Args:
@@ -147,13 +174,12 @@ def _compute_ndcg(OK_chunks_idxes: list[int], top_chunks_indexes: list[int], top
     """
     # Get array of True/False if chunk is labaled relevant
     correct_chunks = [idx in OK_chunks_idxes for idx in top_chunks_indexes]
-    return ndcg_score(
-            [correct_chunks],
-            [top_cosims_values],
-            k=k)
+    return ndcg_score([correct_chunks], [top_cosims_values], k=k)
 
 
-def run_scoring(queries_dataset: datasets.Dataset, chunks_dataset: datasets.Dataset, k:int=10) -> tuple[float,float]:
+def run_scoring(
+    queries_dataset: datasets.Dataset, chunks_dataset: datasets.Dataset, k: int = 10
+) -> tuple[float, float]:
     """Returns metrics considering a dataset of queries and chunks.
 
     Args:
@@ -168,19 +194,16 @@ def run_scoring(queries_dataset: datasets.Dataset, chunks_dataset: datasets.Data
     topk_sim_scores, topk_indices = topk(sim_matrix, len(chunks_dataset), dim=1)
     queries_dataset, chunks_dataset = _map_labeled_passage_to_chunk(
         queries_dataset, chunks_dataset
-        )
-    metrics: list[tuple[float, float]] = [(
-        _compute_recall(
-            query_sample["chunks_idx"],
-            topk_indices[i].tolist(),
-            k
+    )
+    metrics: list[tuple[float, float]] = [
+        (
+            _compute_recall(query_sample["chunks_idx"], topk_indices[i].tolist(), k),
+            _compute_ndcg(
+                query_sample["chunks_idx"],
+                topk_indices[i].tolist(),
+                topk_sim_scores[i].tolist(),
+                k,
             ),
-        _compute_ndcg(
-            query_sample["chunks_idx"],
-            topk_indices[i].tolist(),
-            topk_sim_scores[i].tolist(),
-            k
-            )
         )
         for i, query_sample in enumerate(tqdm(queries_dataset))
     ]

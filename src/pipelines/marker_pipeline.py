@@ -16,7 +16,7 @@ class MarkerPipeline(AbsPipeline):
     parser: PdfConverter
     parsing_result: MarkdownOutput | None
 
-    def __init__(self, chunker = None, device = "cuda", use_ocr: bool = False):
+    def __init__(self, chunker=None, device="cuda", use_ocr: bool = False):
         super().__init__(chunker, device, use_ocr)
 
     @property
