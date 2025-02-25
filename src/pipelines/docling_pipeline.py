@@ -86,8 +86,8 @@ class DoclingPipeline(AbsPipeline):
         """
         if paginated_output:
             return {
-                page.page_no : self.parsing_result.document.export_to_markdown(
-                    page_no=page.page_no + 1 # argument must be passed as 1-based
+                page.page_no: self.parsing_result.document.export_to_markdown(
+                    page_no=page.page_no + 1  # argument must be passed as 1-based
                 )
                 for page in self.parsing_result.pages
             }

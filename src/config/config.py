@@ -10,7 +10,7 @@ class Config(BaseModel):
 
     FILES_DIR: str = Field(
         default="./data",
-        description="Path to the directory where pdf files are located."
+        description="Path to the directory where pdf files are located.",
     )
     PACKAGE_TO_TEST: str = Field(
         default="chunknorris",

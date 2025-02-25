@@ -1,6 +1,4 @@
-from datetime import datetime
 from dotenv import load_dotenv
-from huggingface_hub import HfApi
 
 from src.config.config import read_config
 from src.utils import get_pdf_filepaths, get_pipeline
@@ -17,7 +15,7 @@ def main():
     pipeline = get_pipeline(config.PACKAGE_TO_TEST)
     if config.DEVICE is not None:
         pipeline.set_device(config.DEVICE)
-    config.DEVICE = pipeline.device # use the config device enabled by the pipeline
+    config.DEVICE = pipeline.device  # use the config device enabled by the pipeline
 
     evaluator = ParsingEvaluator(pipeline)
     evaluator.evaluate_parsing(filepaths)

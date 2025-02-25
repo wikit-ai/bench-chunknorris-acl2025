@@ -55,10 +55,8 @@ class OpenParsePipeline(AbsPipeline):
         except:
             print(f"File {filepath} could not be read")
             return ParsedDocument(
-                nodes = [],
-                filename=os.path.basename(filepath),
-                num_pages=1
-                )
+                nodes=[], filename=os.path.basename(filepath), num_pages=1
+            )
 
     def to_markdown(self, paginated_output: bool = False):
         if paginated_output:
@@ -77,7 +75,6 @@ class OpenParsePipeline(AbsPipeline):
         md_string = "\n\n".join((node.text for node in self.parsing_result.nodes))
         md_string = md_string.replace("<br>", "\n")
         return md_string
-    
 
     # @dynamic_track_emissions
     def _chunk_using_default_chunker(self) -> list[Node]:
