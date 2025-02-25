@@ -1,6 +1,5 @@
 import json
 import re
-from typing import Any
 import datasets
 import numpy as np
 from sklearn.metrics import ndcg_score
