@@ -43,23 +43,23 @@ def get_pipeline(pipeline_name: str):
     """
     match pipeline_name:
         case "base":
-            from src.pipelines.base_langchain import BaseLangchainPipeline
+            from src.pipelines.base_langchain_pipeline import BaseLangchainPipeline
 
             pipe = BaseLangchainPipeline()
         case "chunknorris":
-            from src.pipelines.chunknorris import ChunkNorrisPipeline
+            from src.pipelines.chunknorris_pipeline import ChunkNorrisPipeline
 
             pipe = ChunkNorrisPipeline()
         case "docling":
-            from src.pipelines.docling import DoclingPipeline
+            from src.pipelines.docling_pipeline import DoclingPipeline
 
             pipe = DoclingPipeline()
         case "marker":
-            from src.pipelines.marker import MarkerPipeline
+            from src.pipelines.marker_pipeline import MarkerPipeline
 
             pipe = MarkerPipeline()
         case "openparse":
-            from src.pipelines.openparse import OpenParsePipeline
+            from src.pipelines.openparse_pipeline import OpenParsePipeline
 
             pipe = OpenParsePipeline()
         case None:
@@ -110,7 +110,7 @@ def dynamic_track_emissions(func):
             offline=True,
             project_name=project_name,
             country_iso_code=os.getenv("COUNTRY_ISO_CODE", "USA"),
-            output_dir=self.__dict__.get("results_dir") or "./results"
+            output_dir=self.__dict__.get("results_dir") or "./results",
         )
 
         return carbon_decorator(func)(self, *args, **kwargs)
