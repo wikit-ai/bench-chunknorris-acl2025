@@ -28,9 +28,10 @@ class DoclingPipeline(AbsPipeline):
         self,
         chunker=None,
         device: Literal["cuda", "cpu"] = "cuda",
+        use_ocr: bool = False,
         tokenizer_model: str = "sentence-transformers/all-MiniLM-L6-v2",
     ):
-        super().__init__(chunker, device)
+        super().__init__(chunker, device, use_ocr)
 
         self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_model)
 
@@ -56,7 +57,7 @@ class DoclingPipeline(AbsPipeline):
                     num_threads=4, device=AcceleratorDevice.CUDA
                 )
         pipeline_options = PdfPipelineOptions(
-            do_ocr=False, accelerator_options=accelerator_options
+            do_ocr=self.use_ocr, accelerator_options=accelerator_options
         )
 
         self.parser = DocumentConverter(

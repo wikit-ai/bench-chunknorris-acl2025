@@ -23,9 +23,10 @@ class OpenParsePipeline(AbsPipeline):
         self,
         chunker=None,
         device="cpu",
+        use_ocr: bool = False,
         chunking_type: Literal["basic", "semantic"] = "basic",
     ):
-        super().__init__(chunker, device)
+        super().__init__(chunker, device, use_ocr)
         self.chunking_type = chunking_type
 
     @property
@@ -50,7 +51,7 @@ class OpenParsePipeline(AbsPipeline):
             tuple[list[Node], float]: parser output and latency.
         """
         try:
-            return self.parser.parse(filepath, ocr=False)
+            return self.parser.parse(filepath, ocr=self.use_ocr)
         except:
             print(f"File {filepath} could not be read")
             return ParsedDocument(

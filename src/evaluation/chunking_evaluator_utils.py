@@ -154,7 +154,7 @@ def _compute_ndcg(OK_chunks_idxes: list[int], top_chunks_indexes: list[int], top
             k=k)
 
 
-def run_scoring(queries_dataset: datasets.Dataset, chunks_dataset: datasets.Dataset, k:int=10) -> tuple[float, float]:
+def run_scoring(queries_dataset: datasets.Dataset, chunks_dataset: datasets.Dataset, k:int=10) -> tuple[float,float]:
     """Returns metrics considering a dataset of queries and chunks.
 
     Args:
@@ -162,7 +162,7 @@ def run_scoring(queries_dataset: datasets.Dataset, chunks_dataset: datasets.Data
         chunks (datasets.Dataset): the dataset of chunks.
 
     Returns:
-        tuple[float, float]: recall and ndcg
+        tuple[float,float]: recall and ndcg
     """
     datasets.disable_progress_bars()
     sim_matrix = cos_sim(queries_dataset["emb"], chunks_dataset["emb"])

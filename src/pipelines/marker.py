@@ -16,8 +16,8 @@ class MarkerPipeline(AbsPipeline):
     parser: PdfConverter
     parsing_result: MarkdownOutput | None
 
-    def __init__(self, chunker = None, device = "cuda"):
-        super().__init__(chunker, device)
+    def __init__(self, chunker = None, device = "cuda", use_ocr: bool = False):
+        super().__init__(chunker, device, use_ocr)
 
     @property
     def default_chunker(self):
@@ -28,7 +28,7 @@ class MarkerPipeline(AbsPipeline):
         """the config for marker"""
         return {
             "output_format": "markdown",
-            "force_ocr": False,
+            "force_ocr": self.use_ocr,
             "paginate_output": True,
             "disable_multiprocessing": True,  # ? maybe not
             "disable_image_extraction": True,

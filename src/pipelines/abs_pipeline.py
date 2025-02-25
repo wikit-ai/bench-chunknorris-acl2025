@@ -23,8 +23,10 @@ class AbsPipeline(ABC):
         self,
         chunker: AbstractChunker | None = None,
         device: Literal["gpu", "cpu"] = "cpu",
+        use_ocr: bool = False,
     ):
         self.external_chunker = chunker
+        self.use_ocr = use_ocr
         self.set_device(device)
 
     @property

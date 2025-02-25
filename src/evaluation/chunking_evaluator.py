@@ -79,7 +79,7 @@ class ChunkingEvaluator():
                 NOTE : Pass "None" in the list of chunkers to also use the pipeline's default chunker.
 
         Returns:
-            dict[str, list[Chunk]] : a dict with the chunker's name as key
+            dict[str,list[Chunk]] : a dict with the chunker's name as key
                 and the list chunks of all documents as value.
         """
         chunks_dict : dict[str, list[Chunk]] = defaultdict(list)
