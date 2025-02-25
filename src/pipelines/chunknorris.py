@@ -74,4 +74,4 @@ class ChunkNorrisPipeline(AbsPipeline):
     def _set_parser_with_device(self, device: Literal["cuda", "cpu"]) -> None:
         if device == "cuda":
             raise ValueError("ChunkNorris only runs on cpu")
-        self.parser = PdfParser(use_ocr="never")
+        self.parser = PdfParser(use_ocr="auto" if self.use_ocr else "never")
