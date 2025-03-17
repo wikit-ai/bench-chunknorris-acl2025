@@ -17,6 +17,7 @@ from unidecode import unidecode
 from src.pipelines.abs_pipeline import AbsPipeline
 from src.chunkers.abs_chunker import AbstractChunker
 from src.retrievers.abs_retriever import AbsRetriever
+from src.rerankers.abs_reranker import AbsReranker
 from src.components import Chunk
 from src.utils import LOGGER
 
@@ -29,23 +30,26 @@ class ChunkingEvaluator:
     def __init__(
         self,
         pipeline: AbsPipeline,
-        chunkers: list[AbstractChunker | None],
         retrievers: list[AbsRetriever],
+        chunkers: list[AbstractChunker | None] | None = None,
+        rerankers: list[AbsReranker | None] | None = None,
         results_dir: str = "./results",
     ):
         """Instanciate an evaluator.
 
         Args:
             pipeline (AbsPipeline): the pipeline to be tested. Must inherit from AbsPipeline
-            chunkers (list[AbstractChunker] | None): list of chunker to be tester.
+            chunkers (list[AbstractChunker] | None): list of chunker to be tested.
                 NOTE: If "None" is passed in the list, then the default_chunker of the pipeline will be used.
-            retrievers (list[AbsRetriever]) : a list of retrievers to use for evaluation.
-            sentence_transformer_hf_repo (str): the HF repo of a model compatible with SentenceTransformer.
-                Used to embed chunks and queries to compute metrics. Defaults to BAAI/bge-small-en-v1.5.
+            retrievers (list[AbsRetriever]) : a list of retrievers to use for evaluation. Defaults to BM25Retriever.
+            rerankers (list[AbsReranker | None] | None) : a list of rerankers to be tested. One might
+                want to add "None" to the list to try without reranker. Defaults to None.
+
         """
         self.pipeline = pipeline
-        self.chunkers = chunkers
+        self.chunkers = chunkers or [None]
         self.retrievers = retrievers
+        self.rerankers = rerankers or [None]
         self.results_dir = self._set_result_dir(results_dir)
 
     def _set_result_dir(self, results_dir) -> str:
@@ -180,32 +184,37 @@ class ChunkingEvaluator:
         results: list[dict[str, str | float]] = []
         for retriever in self.retrievers:
             retriever.queries_dataset = queries_dataset
+
             for split in chunks_datadict.keys():
                 parser_name, chunker_name = split.split("__")
                 chunks = chunks_datadict[split]
                 retriever.chunks_dataset = chunks
+                
+                for reranker in self.rerankers:
+                    recalls, ndcgs = ChunkingEvaluator.run_scoring(
+                        queries_dataset, chunks, retriever, reranker, retriever.default_k
+                        )
 
-                recalls, ndcgs = ChunkingEvaluator.run_scoring(
-                    queries_dataset, chunks, retriever, retriever.default_k
+                    results.append(
+                        {
+                            "parser": parser_name,
+                            "chunker": chunker_name,
+                            "retriever": retriever.__class__.__name__,
+                            "retriever_description": retriever.description,
+                            "reranker": reranker.__class__.__name__ if reranker is not None else None,
+                            "reranker_description": reranker.description if reranker is not None else None,
+                            "n_top_chunks_reranked": reranker.n_to_rerank if reranker is not None else None,
+                            "dataset_name": queries_dataset.info.dataset_name,
+                            "dataset_subset": queries_dataset.config_name,
+                            "dataset_split": str(queries_dataset.split),
+                            f"recalls@{retriever.default_k}": recalls,
+                            f"recall_mean@{retriever.default_k}": float(np.mean(recalls)),
+                            f"ndcgs@{retriever.default_k}": ndcgs,
+                            f"ndcg_mean@{retriever.default_k}": float(np.mean(ndcgs)),
+                        }
                     )
 
-                results.append(
-                    {
-                        "parser": parser_name,
-                        "chunker": chunker_name,
-                        "retriever": retriever.__class__.__name__,
-                        "retriever_description": retriever.description,
-                        "dataset_name": queries_dataset.info.dataset_name,
-                        "dataset_subset": queries_dataset.config_name,
-                        "dataset_split": str(queries_dataset.split),
-                        f"recalls@{retriever.default_k}": recalls,
-                        f"recall_mean@{retriever.default_k}": float(np.mean(recalls)),
-                        f"ndcgs@{retriever.default_k}": ndcgs,
-                        f"ndcg_mean@{retriever.default_k}": float(np.mean(ndcgs)),
-                    }
-                )
-
-        self.save_as_json(results, f"{str(queries_dataset.split)}_results.json")
+                self.save_as_json(results, f"{str(queries_dataset.split)}_results.json")
 
 
     def push_results_to_hf(self, hf_repo_id: str):
@@ -353,7 +362,11 @@ class ChunkingEvaluator:
 
     @staticmethod
     def run_scoring(
-        queries_dataset: datasets.Dataset, chunks_dataset: datasets.Dataset, retriever: AbsRetriever, k: int = 10
+        queries_dataset: datasets.Dataset,
+        chunks_dataset: datasets.Dataset,
+        retriever: AbsRetriever,
+        reranker: AbsReranker | None = None,
+        k: int = 10
     ) -> tuple[list[float],list[float]]:
         """Returns metrics considering a dataset of queries and chunks.
 
@@ -370,6 +383,11 @@ class ChunkingEvaluator:
             queries_dataset, chunks_dataset
         )
         ranked_chunks_idxes, ranked_chunks_scores = retriever.rank_chunks_by_relevance_2d()
+        if reranker is not None:
+            ranked_chunks_idxes, ranked_chunks_scores = reranker.rerank_chunks_by_relevance_2d(
+                ranked_chunks_idxes, ranked_chunks_scores, queries_dataset, chunks_dataset, reranker.n_to_rerank
+            )
+
         metrics: list[tuple[float, float]] = [
             (
                 ChunkingEvaluator._compute_recall(query_sample["chunks_idx"], ranked_chunks_idxes[i], k),
