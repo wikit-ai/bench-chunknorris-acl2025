@@ -7,6 +7,7 @@ import re
 
 import datasets
 import numpy as np
+from kneed import KneeLocator
 
 from huggingface_hub import HfApi
 from tqdm import tqdm
@@ -33,6 +34,8 @@ class ChunkingEvaluator:
         retrievers: list[AbsRetriever],
         chunkers: list[AbstractChunker | None] | None = None,
         rerankers: list[AbsReranker | None] | None = None,
+        apply_kneedle: bool = False,
+        k: int = 10,
         results_dir: str = "./results",
     ):
         """Instanciate an evaluator.
@@ -44,12 +47,15 @@ class ChunkingEvaluator:
             retrievers (list[AbsRetriever]) : a list of retrievers to use for evaluation. Defaults to BM25Retriever.
             rerankers (list[AbsReranker | None] | None) : a list of rerankers to be tested. One might
                 want to add "None" to the list to try without reranker. Defaults to None.
-
+            k (bool): whether Kneedle algo should be used to filter out irrelevant chunks. Defaults to False.
+            default_k (int): the value of k to use to compute metrics. Defaults to 10.
         """
         self.pipeline = pipeline
         self.chunkers = chunkers or [None]
         self.retrievers = retrievers
         self.rerankers = rerankers or [None]
+        self.k = k
+        self.apply_kneedle = apply_kneedle
         self.results_dir = self._set_result_dir(results_dir)
 
     def _set_result_dir(self, results_dir) -> str:
@@ -191,8 +197,8 @@ class ChunkingEvaluator:
                 retriever.chunks_dataset = chunks
                 
                 for reranker in self.rerankers:
-                    recalls, ndcgs = ChunkingEvaluator.run_scoring(
-                        queries_dataset, chunks, retriever, reranker, retriever.default_k
+                    recalls, ndcgs = self.run_scoring(
+                        queries_dataset, chunks, retriever, reranker,
                         )
 
                     results.append(
@@ -360,13 +366,12 @@ class ChunkingEvaluator:
         correct_chunks = [idx in OK_chunks_idxes for idx in top_chunks_indexes]
         return ndcg_score([correct_chunks], [top_cosims_values], k=k)
 
-    @staticmethod
     def run_scoring(
+        self,
         queries_dataset: datasets.Dataset,
         chunks_dataset: datasets.Dataset,
         retriever: AbsRetriever,
         reranker: AbsReranker | None = None,
-        k: int = 10
     ) -> tuple[list[float],list[float]]:
         """Returns metrics considering a dataset of queries and chunks.
 
@@ -374,6 +379,7 @@ class ChunkingEvaluator:
             queries (datasets.Dataset): the dataset of queries.
             chunks (datasets.Dataset): the dataset of chunks.
             retriever (AbsRetriever): the retriever to use.
+            reranker (AbsReRanker): the reranker to use.
 
         Returns:
             tuple[list[float],list[float]]: the recalls and ndcgs for each query in dataset.
@@ -388,6 +394,16 @@ class ChunkingEvaluator:
                 ranked_chunks_idxes, ranked_chunks_scores, queries_dataset, chunks_dataset, reranker.n_to_rerank
             )
 
+        if self.apply_kneedle:
+            ks = [
+                self.get_k_based_on_kneedle(query_scores)
+                for query_scores in ranked_chunks_scores
+                ]
+            print("Average k :", sum(ks)/len(ks))
+        else:
+            ks = [self.k] * len(queries_dataset)
+
+
         metrics: list[tuple[float, float]] = [
             (
                 ChunkingEvaluator._compute_recall(query_sample["chunks_idx"], ranked_chunks_idxes[i], k),
@@ -398,8 +414,31 @@ class ChunkingEvaluator:
                     k,
                 )
             )
-            for i, query_sample in enumerate(tqdm(queries_dataset))
+            for i, (query_sample, k) in enumerate(zip(queries_dataset, ks))
         ]
         recalls, ndcgs = zip(*metrics)
 
         return recalls, ndcgs
+
+
+    def get_k_based_on_kneedle(self, ranked_scores: list[float]) -> int:
+        """Uses the Kneedle algorithm (https://raghavan.usc.edu/papers/kneedle-simplex11.pdf)
+        to detect the index of the chunk from which we should consider the chunks irrelevant.
+
+        NOTE : if the detected knee index is higher than k, then k is returned.
+
+        Args:
+            ranked_scores (list[float]): a list of ranked decreasing scores.
+
+        Returns:
+            int: the index of the chunks marking the "knee" in the scores curvature.
+                Can be used as k to compute the metrics.
+        """
+        ranked_scores = ranked_scores[:int(self.k * 1.5)] # only take first scores ()
+        knee = KneeLocator(
+            x=range(len(ranked_scores)), y=ranked_scores,
+            S=1, curve="convex", direction="decreasing"
+        ).knee
+
+        return min(int(knee)+1, self.k) if knee is not None else self.k
+

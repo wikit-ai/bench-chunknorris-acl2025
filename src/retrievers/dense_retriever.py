@@ -1,11 +1,11 @@
-from typing import Any
+from typing import Any, Callable
 import datasets
 from datasets.features.features import Value
 from chromacache import ChromaCache
 import numpy as np
 from sentence_transformers import SentenceTransformer
 from sentence_transformers.util import cos_sim
-from torch import topk
+from torch import topk # pylint: disable=no-name-in-module
 
 from src.retrievers.abs_retriever import AbsRetriever
 
@@ -13,7 +13,8 @@ class DenseRetriever(AbsRetriever):
     """A basic dense retriever. It uses embedding and cosine similarity to retrieve most relevant chunks"""
     def __init__(
             self,
-            model: ChromaCache | SentenceTransformer | Any,
+            queries_embedding_function: Callable[[list[str]], list[list[float]]],
+            documents_embedding_function : Callable[[list[str]], list[list[float]]],
             default_k : int = 10,
             queries_dataset: datasets.Dataset | None = None,
             chunks_dataset: datasets.Dataset | None = None,
@@ -22,8 +23,10 @@ class DenseRetriever(AbsRetriever):
         """Initialises a dense retriever. Dense retriever uses embedding
 
         Args:
-            model (ChromaCache | SentenceTransformer | Any): The model uses to encode queries/chunks into the embedding used for retrieval.
-                NOTE: Must have an model.encode() method which takes a list[str] as input and returns a list of embeddings.
+            queries_embedding_function: (Callable): The function to use to get the embeddings of queries.
+                NOTE: Must takes a list[str] as input and returns a list of embeddings.
+            documents_embedding_function: (Callable): The function to use to get the embeddings of documents.
+                NOTE: Must takes a list[str] as input and returns a list of embeddings.
             default_k (int): the amount of chunks to retrieve by default when calling to retriever. Defaults to 10.
             queries_dataset (datasets.Dataset | None): the dataset of queries. Can be set to None if you plan to provided them later.
                 NOTE: Must have a column "query" of type str which contains the queries.
@@ -32,8 +35,9 @@ class DenseRetriever(AbsRetriever):
             description (str |None): an additional description of the retriever. Mainly used to
                 keep tracks of which retriever is which during evaluation. Defaults to None.
         """
+        self.queries_embedding_function = queries_embedding_function
+        self.documents_embedding_function = documents_embedding_function
         super().__init__(default_k=default_k, queries_dataset=queries_dataset, chunks_dataset=chunks_dataset, description=description)
-        self.model = model
 
     @property
     def queries_dataset(self):
@@ -46,7 +50,7 @@ class DenseRetriever(AbsRetriever):
     def queries_dataset(self, dataset: datasets.Dataset):
         if dataset is not None:
             DenseRetriever._validate_dataset_schema(dataset, {"query": Value("string")})
-            dataset = dataset.add_column("emb", self.model.encode(dataset["query"]))
+            dataset = dataset.add_column("emb", self.queries_embedding_function(dataset["query"]))
         self._queries_dataset = dataset
 
     @property
@@ -60,7 +64,7 @@ class DenseRetriever(AbsRetriever):
     def chunks_dataset(self, dataset: datasets.Dataset):
         if dataset is not None:
             DenseRetriever._validate_dataset_schema(dataset, {"text": Value("string")})
-            dataset = dataset.add_column("emb", self.model.encode(dataset["text"]))
+            dataset = dataset.add_column("emb", self.documents_embedding_function(dataset["text"]))
         self._chunks_dataset = dataset
 
 
@@ -78,7 +82,7 @@ class DenseRetriever(AbsRetriever):
             dataset.Dataset: a dataset where each sample a chunk retrieved.
         """
         k = k or self.default_k
-        query_emb = self.model.encode(query)
+        query_emb = self.queries_embedding_function([query])
         sim_matrix = cos_sim(
             np.array(query_emb, dtype=np.float32),
             np.array(self.chunks_dataset["emb"], dtype=np.float32)

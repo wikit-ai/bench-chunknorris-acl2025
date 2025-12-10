@@ -1,4 +1,5 @@
 from collections import defaultdict
+from typing import Callable, Literal
 import datasets
 from datasets.features.features import Value
 import numpy as np
@@ -12,6 +13,7 @@ class HybridRetriever(AbsRetriever):
             default_k : int = 10,
             queries_dataset: datasets.Dataset | None = None,
             chunks_dataset: datasets.Dataset | None = None,
+            score_fusion_method: Literal["rrf", "minmax_rescaling"] = "rrf",
             description : str = ""
             ):
         """Initialises a dense retriever. Dense retriever uses embedding
@@ -27,7 +29,17 @@ class HybridRetriever(AbsRetriever):
                 keep tracks of which retriever is which during evaluation. Defaults to None.
         """
         self.retrievers = retrievers
+        self.score_fusion_method = score_fusion_method
         super().__init__(default_k=default_k, queries_dataset=queries_dataset, chunks_dataset=chunks_dataset, description=description)
+
+    @property
+    def score_rescaling_function(self) -> Callable[[list[float]], list[float]]:
+        """Returns the function used to rescale the scores,
+        based on the chosen score fusion method."""
+        return {
+            "rrf": HybridRetriever.rescale_scores_with_rrf,
+            "minmax_rescaling": HybridRetriever.rescale_scores_with_min_max,
+        }[self.score_fusion_method]
 
     @property
     def queries_dataset(self):
@@ -81,7 +93,7 @@ class HybridRetriever(AbsRetriever):
             for tops in [
                 retriever.retrieve_chunks(query, k) for retriever in self.retrievers
                 ]
-            for index, norm_score in zip(tops["index"], self.normalize_scores(tops["score"]))
+            for index, norm_score in zip(tops["index"], self.score_rescaling_function(tops["score"]))
         ]
         idx_score_mapping = defaultdict(float)
         for index, score in idx_score_tuples:
@@ -94,22 +106,6 @@ class HybridRetriever(AbsRetriever):
         top_chunks = top_chunks.add_column("score", topk_scores[:k])
 
         return top_chunks
-
-    @staticmethod
-    def normalize_scores(scores: list[float]) -> list[float]:
-        """Normalizes the scores of the chunks returned by a retriever
-        between 0 an 1.
-
-        Args:
-            scores (list[float]): the list of scores to normalize
-
-        Returns:
-            list[float]: the normalized scores
-        """
-        min_score, max_score = min(scores), max(scores)
-        if min_score == max_score:
-            return [1 for _ in scores] # avoid division by zero
-        return [(score - min_score) / (max_score - min_score) for score in scores]
 
     def rank_chunks_by_relevance_2d(self) -> tuple[list[list[int]], list[list[float]]]:
         """Considering the queries and chunks datasets,
@@ -125,7 +121,7 @@ class HybridRetriever(AbsRetriever):
         sorted_scores_all : list[np.array] = []
         for retriever in self.retrievers:
             ranked_indices, ranked_scores = retriever.rank_chunks_by_relevance_2d()
-            ranked_scores = np.array([self.normalize_scores(scores) for scores in ranked_scores])
+            ranked_scores = np.array([self.score_rescaling_function(scores) for scores in ranked_scores])
             # Reorder the scores by indices instead of score value so that we can add up the scores of each chunk
             sorted_indices = np.argsort(ranked_indices, axis=1)
             sorted_scores = np.take_along_axis(ranked_scores, sorted_indices, axis=1)
@@ -137,3 +133,33 @@ class HybridRetriever(AbsRetriever):
         sorted_scores = np.take_along_axis(summed_scores, sorted_indices, axis=1)
 
         return sorted_indices.tolist(), sorted_scores.tolist()
+
+    @staticmethod
+    def rescale_scores_with_rrf(ranked_scores: list[float], k_value: int = 60) -> list[float]:
+        """Uses the reciprocal rank formula to rescale the scores.
+
+        Args:
+            ranked_scores (list[float]): the scores to rerank (values actually doesn't matter, as only the rank is used.)
+            k_value (int): the value of k in the formula.
+
+        Returns:
+            list[float]: the new scores
+        """
+        return [1/(k_value + i) for i in range(len(ranked_scores))]
+
+
+    @staticmethod
+    def rescale_scores_with_min_max(scores: list[float]) -> list[float]:
+        """Normalizes the scores of the chunks returned by a retriever
+        between 0 an 1.
+
+        Args:
+            scores (list[float]): the list of scores to normalize
+
+        Returns:
+            list[float]: the normalized scores
+        """
+        min_score, max_score = min(scores), max(scores)
+        if min_score == max_score:
+            return [1 for _ in scores] # avoid division by zero
+        return [(score - min_score) / (max_score - min_score) for score in scores]
