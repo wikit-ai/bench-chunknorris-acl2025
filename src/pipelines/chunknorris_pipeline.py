@@ -1,11 +1,11 @@
 import logging
 from typing import Literal
 
-from chunknorris.chunkers.tools import Chunk as ChunkNorrisChunk
-from chunknorris.parsers.markdown.components import MarkdownDoc
+from chunknorris.core.components import Chunk as ChunkNorrisChunk
+from chunknorris.core.components import MarkdownDoc
 from chunknorris.parsers import PdfParser
 from chunknorris.chunkers import MarkdownChunker
-from chunknorris.pipelines import PdfPipeline
+from chunknorris.pipelines import BasePipeline
 
 from src.pipelines.abs_pipeline import AbsPipeline
 from src.components import Chunk
@@ -22,8 +22,8 @@ class ChunkNorrisPipeline(AbsPipeline):
     parsing_result: MarkdownDoc | None
 
     @property
-    def default_chunker(self) -> PdfPipeline:
-        return PdfPipeline(self.parser, MarkdownChunker())
+    def default_chunker(self) -> MarkdownChunker:
+        return MarkdownChunker()
 
     # @dynamic_track_emissions
     def _parse_file(self, filepath: str) -> MarkdownDoc:
@@ -48,7 +48,7 @@ class ChunkNorrisPipeline(AbsPipeline):
             tuple[list[Chunk], float]: returns the list of chunks,
                 along with the latency to get them.
         """
-        return self.default_chunker._get_chunks_using_strategy()
+        return self.default_chunker.chunk(self.parsing_result)
 
     def _process_default_chunker_output(
         self, chunks: list[ChunkNorrisChunk]

@@ -1,9 +1,9 @@
-"""Utility functions"""
-
 import os
 import time
 from typing import Any, Callable
 from functools import wraps
+import logging
+
 
 from codecarbon import track_emissions
 from dotenv import load_dotenv
@@ -11,6 +11,21 @@ from psutil import cpu_percent
 
 load_dotenv()
 
+#############
+## LOGGING ##
+#############
+
+logging.basicConfig(
+    format="%(asctime)s:%(name)s:%(levelname)s:%(message)s",
+    level=logging.INFO,
+    datefmt="%Y-%m-%d %H:%M",
+)
+
+LOGGER = logging.getLogger("ParsingBench")
+
+#######################
+## Utility functions ##
+#######################
 
 def get_pdf_filepaths(directory: str) -> list[str]:
     """Considering a directory,
@@ -69,6 +84,9 @@ def get_pipeline(pipeline_name: str):
 
     return pipe
 
+################
+## DECORATORS ##
+################
 
 def timeit(function: Callable[..., Any]) -> Any:
     """Meant to be used as a decorator using @timeit

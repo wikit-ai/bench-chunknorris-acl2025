@@ -1,19 +1,26 @@
+from typing import Any
 from collections import defaultdict
 from datetime import datetime
 import json
 import os
+import re
 
-from typing import Any, Literal
 import datasets
+import numpy as np
+from kneed import KneeLocator
+
 from huggingface_hub import HfApi
 from tqdm import tqdm
-from chromacache import ChromaCache
-from chromacache.embedding_functions import SentenceTransformerEmbeddingFunction
+from sklearn.metrics import ndcg_score
+from unidecode import unidecode
+
 
 from src.pipelines.abs_pipeline import AbsPipeline
-from src.components import Chunk
 from src.chunkers.abs_chunker import AbstractChunker
-from src.evaluation.chunking_evaluator_utils import chunks_to_dataset, run_scoring
+from src.retrievers.abs_retriever import AbsRetriever
+from src.rerankers.abs_reranker import AbsReranker
+from src.components import Chunk
+from src.utils import LOGGER
 
 
 class ChunkingEvaluator:
@@ -24,23 +31,32 @@ class ChunkingEvaluator:
     def __init__(
         self,
         pipeline: AbsPipeline,
-        chunkers: list[AbstractChunker | None],
+        retrievers: list[AbsRetriever],
+        chunkers: list[AbstractChunker | None] | None = None,
+        rerankers: list[AbsReranker | None] | None = None,
+        apply_kneedle: bool = False,
+        k: int = 10,
         results_dir: str = "./results",
-        sentence_transformer_hf_repo: str = "BAAI/bge-small-en-v1.5",
     ):
         """Instanciate an evaluator.
 
         Args:
             pipeline (AbsPipeline): the pipeline to be tested. Must inherit from AbsPipeline
-            chunkers (None | list[AbstractChunker]): list of chunker to be tester.
+            chunkers (list[AbstractChunker] | None): list of chunker to be tested.
                 NOTE: If "None" is passed in the list, then the default_chunker of the pipeline will be used.
-            sentence_transformer_hf_repo (str): the HF repo of a model compatible with SentenceTransformer.
-                Used to embed chunks and queries to compute metrics. Defaults to BAAI/bge-small-en-v1.5.
+            retrievers (list[AbsRetriever]) : a list of retrievers to use for evaluation. Defaults to BM25Retriever.
+            rerankers (list[AbsReranker | None] | None) : a list of rerankers to be tested. One might
+                want to add "None" to the list to try without reranker. Defaults to None.
+            k (bool): whether Kneedle algo should be used to filter out irrelevant chunks. Defaults to False.
+            default_k (int): the value of k to use to compute metrics. Defaults to 10.
         """
         self.pipeline = pipeline
-        self.chunkers = chunkers
+        self.chunkers = chunkers or [None]
+        self.retrievers = retrievers
+        self.rerankers = rerankers or [None]
+        self.k = k
+        self.apply_kneedle = apply_kneedle
         self.results_dir = self._set_result_dir(results_dir)
-        self.sentence_transformer_hf_repo = sentence_transformer_hf_repo
 
     def _set_result_dir(self, results_dir) -> str:
         """Set the directory in which results will be stored"""
@@ -48,6 +64,7 @@ class ChunkingEvaluator:
         results_dir = os.path.join(results_dir, "chunking", self.timestamp)
         if not os.path.exists(results_dir):
             os.makedirs(results_dir)
+        LOGGER.info("Results will be stored in %s", results_dir)
 
         return results_dir
 
@@ -62,33 +79,35 @@ class ChunkingEvaluator:
 
     def evaluate_chunking(
         self,
-        pdf_filepaths: list[str],
-        queries_dataset: datasets.Dataset | None,
+        queries_dataset: datasets.Dataset,
+        pdf_filepaths: list[str] | None = None,
+        path_to_chunks: str | None = None,
     ):
         """Runs an experiment.
 
         Args:
-            pdf_filepaths (list[str]): the list of filepaths pointing to pdf files of the evaluation dataset.
             queries_dataset (datasets.Dataset | None): the dataset a queries to use for evaluation.
                 NOTE: The dataset schema (column names, types, and overall structure) must be equivalent
                 to Wikit's PIRE dataset. For more info see : https://huggingface.co/datasets/Wikit/PIRE.
                 If None, Wikit/PIRE dataset will be used, assuming the pdf filepaths point to the PDF files from this dataset.
+            pdf_filepaths (list[str] | None): the list of filepaths pointing to pdf files of the evaluation dataset. If None,
+                you must provided "path_to_chunks" to reuse the chunks obtained from previous runs.
+            path_to_chunks (str | None): the path to the json file where chunks from previous runs are stored.
         """
-        _ = self.get_chunks(pdf_filepaths)
-        chunks_datadict = chunks_to_dataset(
-            os.path.join(self.results_dir, "chunks.json")
-        )
-        if queries_dataset is None:
-            queries_dataset = ChunkingEvaluator._load_eval_dataset(
-                eval_split="chunk.multi"
+        if pdf_filepaths is not None:
+            _ = self.get_chunks(pdf_filepaths)
+            chunks_datadict = ChunkingEvaluator.chunks_to_dataset(
+                os.path.join(self.results_dir, "chunks.json")
             )
-            self.run_chunking_evaluation(chunks_datadict, queries_dataset)
-            queries_dataset = ChunkingEvaluator._load_eval_dataset(
-                eval_split="chunk.single"
+        elif path_to_chunks is not None:
+            chunks_datadict = ChunkingEvaluator.chunks_to_dataset(
+                path_to_chunks
             )
-            self.run_chunking_evaluation(chunks_datadict, queries_dataset)
         else:
-            self.run_chunking_evaluation(chunks_datadict, queries_dataset)
+            raise ValueError(
+                "Either pdf_filepaths or path_to_chunks must be provided."
+            )
+        self.run_chunking_evaluation(chunks_datadict, queries_dataset)
 
     def get_chunks(
         self, pdf_filepaths: list[str]
@@ -117,7 +136,7 @@ class ChunkingEvaluator:
                     else self.pipeline.external_chunker.__class__.__name__
                 )
                 chunks = self.pipeline.chunk()
-                chunks_dict[chunker_name].extend(chunks)
+                chunks_dict[chunker_name].extend(c for c in chunks if c.text)
 
         pipeline_name = self.pipeline.__class__.__name__
         dumped_chunks = {
@@ -130,27 +149,33 @@ class ChunkingEvaluator:
 
         return chunks_dict
 
+
     @staticmethod
-    def _load_eval_dataset(
-        eval_dataset_repo: str = "Wikit/PIRE",
-        eval_split: Literal["chunk.multi", "chunk.single"] = "chunk.multi",
-    ):
-        """Loads the evaluation dataset.
+    def chunks_to_dataset(path_to_chunks_jsonfile: str) -> datasets.DatasetDict:
+        """Builds a DatasetDict object from chunks saved in json file obtained from the an evaluator.get_chunks()
 
         Args:
-            eval_dataset_repo (str, optional): the repo of the dataset to load. Defaults to "Wikit/PIRE".
-            eval_split (Literal[&quot;chunks.single&quot;, &quot;chunks.multi&quot;], optional):
-                The split of the evaluation dataset. Defaults to "chunks.multi". For more info, see https://huggingface.co/datasets/Wikit/PIRE
-        """
-        queries = datasets.load_dataset(eval_dataset_repo)[eval_split]
+            path_to_chunks_jsonfile (str): the filepath to the json file where chunks are stored.
 
-        return queries
+        Returns:
+            datasets.DatasetDict: a dataset dict where each combination of parser/chunker as a split.
+        """
+        dataset_dict = datasets.DatasetDict()
+        with open(path_to_chunks_jsonfile, encoding="utf8") as file:
+            all_chunks = json.load(file)
+        for pipeline_name in all_chunks.keys():
+            for chunker_name, chunks in all_chunks[pipeline_name].items():
+                dataset = datasets.Dataset.from_list(chunks)
+                split_name = pipeline_name + "__" + chunker_name
+                dataset_dict[split_name] = dataset
+
+        return dataset_dict
+
 
     def run_chunking_evaluation(
         self,
         chunks_datadict: datasets.DatasetDict,
         queries_dataset: datasets.Dataset,
-        sentence_transformer_hf_repo: str | None = None,
     ):
         """Runs an evaluation to assess the chunking performance.
 
@@ -161,46 +186,42 @@ class ChunkingEvaluator:
             queries_dataset (datasets.Dataset): the dataset a queries to use for evaluation.
                 NOTE: The dataset schema (column names, types, and overall structure) must be equivalent
                 to Wikit's PIRE dataset. For more info see : https://huggingface.co/datasets/Wikit/PIRE
-            sentence_transformer_hf_repo (str): the HF repo of a model compatible with SentenceTransformer.
-                Used to embed chunks and queries to compute metrics. Defaults to None, which leads to using
-                the model passed to __init__.
         """
-        if sentence_transformer_hf_repo is None:
-            sentence_transformer_hf_repo = self.sentence_transformer_hf_repo
-        model = ChunkingEvaluator._get_model(sentence_transformer_hf_repo)
-
-        queries_dataset = queries_dataset.add_column(
-            "emb", model.encode(queries_dataset["query"])
-        )
-
         results: list[dict[str, str | float]] = []
-        for split in chunks_datadict.keys():
-            parser_name, chunker_name = split.split("__")
-            chunks = chunks_datadict[split]
-            chunks = chunks.add_column("emb", model.encode(chunks["text"]))
-            recall, ndcg = run_scoring(queries_dataset, chunks)
+        for retriever in self.retrievers:
+            retriever.queries_dataset = queries_dataset
 
-            results.append(
-                {
-                    "model": sentence_transformer_hf_repo,
-                    "parser": parser_name,
-                    "chunker": chunker_name,
-                    "recall": recall,
-                    "ndcg": ndcg,
-                    "eval_split": str(queries_dataset.split),
-                }
-            )
+            for split in chunks_datadict.keys():
+                parser_name, chunker_name = split.split("__")
+                chunks = chunks_datadict[split]
+                retriever.chunks_dataset = chunks
+                
+                for reranker in self.rerankers:
+                    recalls, ndcgs = self.run_scoring(
+                        queries_dataset, chunks, retriever, reranker,
+                        )
 
-        self.save_as_json(results, f"{str(queries_dataset.split)}_results.json")
+                    results.append(
+                        {
+                            "parser": parser_name,
+                            "chunker": chunker_name,
+                            "retriever": retriever.__class__.__name__,
+                            "retriever_description": retriever.description,
+                            "reranker": reranker.__class__.__name__ if reranker is not None else None,
+                            "reranker_description": reranker.description if reranker is not None else None,
+                            "n_top_chunks_reranked": reranker.n_to_rerank if reranker is not None else None,
+                            "dataset_name": queries_dataset.info.dataset_name,
+                            "dataset_subset": queries_dataset.config_name,
+                            "dataset_split": str(queries_dataset.split),
+                            f"recalls@{retriever.default_k}": recalls,
+                            f"recall_mean@{retriever.default_k}": float(np.mean(recalls)),
+                            f"ndcgs@{retriever.default_k}": ndcgs,
+                            f"ndcg_mean@{retriever.default_k}": float(np.mean(ndcgs)),
+                        }
+                    )
 
-    @staticmethod
-    def _get_model(sentence_transformer_hf_repo: str) -> ChromaCache:
-        return ChromaCache(
-            SentenceTransformerEmbeddingFunction(sentence_transformer_hf_repo),
-            save_embbedings=True,
-            path_to_chromadb="./ChromaDB",
-            batch_size=32,
-        )
+                self.save_as_json(results, f"{str(queries_dataset.split)}_results.json")
+
 
     def push_results_to_hf(self, hf_repo_id: str):
         """Pushes the results to huggingface"""
@@ -212,3 +233,212 @@ class ChunkingEvaluator:
                 repo_id=hf_repo_id,
                 repo_type="dataset",
             )
+
+
+    @staticmethod
+    def _map_labeled_passage_to_chunk(
+        queries_dataset: datasets.Dataset,
+        chunks_dataset: datasets.Dataset,
+        rouge_threshold: float = 0.7,
+    ) -> tuple[datasets.Dataset, datasets.Dataset]:
+        """Adds a column "chunks_idx" to the queries dataset
+        that contains the corresponding indexes of the chunks
+        that contain the passages labeled as relevant.
+
+        Args:
+            queries_dataset (datasets.Dataset): the dataset of queries.
+            chunks_dataset (datasets.Dataset): the dataset of chunks.
+            rouge_threshold (float, optional): the minimum score rouge score between the chunk's text
+                and labeled passage to consider the chunk contains the passage. Defaults to .7.
+
+        Returns:
+            tuple(datasets.Dataset, datasets.Dataset): the queries dataset with the "chunks_idx" column added
+                and the chunks dataset with a "idx" column added.
+        """
+        # create masks from chunks features
+        filenames_chunks = np.array(chunks_dataset["source_file"])
+        page_start_chunks = np.array(chunks_dataset["page_start"])
+        page_end_chunks = np.array(chunks_dataset["page_end"])
+        # store results in buffer
+        column_buffer = []
+        for query_sample in queries_dataset:
+            # Get a list of tuples (source_doc, page, passage)
+            passage_filename_page_combinations = [
+                (filename, page, passage)
+                for filename, target_pages, target_passages in zip(
+                    query_sample["source_file"],
+                    query_sample["target_pages"],
+                    query_sample["target_passages"],
+                )
+                for page, passage in zip(target_pages, target_passages)
+            ]
+            # creates masks from list of tuples
+            filename_mask, page_mask, passages = zip(*passage_filename_page_combinations)
+            filename_mask, page_mask = (
+                np.array(filename_mask)[:, np.newaxis],
+                np.array(page_mask)[:, np.newaxis],
+            )
+            # find pairs of potential passage-chunk matches
+            passages_idx, chunks_idx = np.where(
+                (filename_mask == filenames_chunks)
+                & (page_start_chunks <= page_mask)
+                & (page_end_chunks >= page_mask)
+            )
+            # get the list of chunks labeled as relevant for the query
+            chunks_idx_of_queries = [
+                chunk_idx
+                for chunk_idx, passage_idx in zip(chunks_idx, passages_idx)
+                if ChunkingEvaluator.get_rouge_score(
+                    passages[int(passage_idx)], chunks_dataset[int(chunk_idx)]["text"]
+                )
+                >= rouge_threshold
+            ]
+            column_buffer.append(chunks_idx_of_queries)
+
+        queries_dataset = queries_dataset.add_column("chunks_idx", column_buffer)
+        chunks_dataset = chunks_dataset.add_column("idx", list(range(len(chunks_dataset))))
+
+        return queries_dataset, chunks_dataset
+
+
+    @staticmethod
+    def get_rouge_score(passage_text: str, chunk_text: str) -> float:
+        """Computes ROUGE score on unigrams
+
+        Args:
+            passage_text (str): the target passage
+            chunk_text (str): the text of the chunk
+
+        Returns:
+            float: A score. 1 if all word of passage are in chunk
+        """
+        norm_passage = unidecode(passage_text.lower())
+        norm_chunk = unidecode(chunk_text.lower())
+        passage_words = re.findall(r"\w+", norm_passage)
+
+        return len([word for word in passage_words if word in norm_chunk]) / len(
+            passage_words
+        )
+
+
+    @staticmethod
+    def _compute_recall(
+        OK_chunks_idxes: list[int], top_chunks_indexes: list[int], k: int = 10
+    ) -> float:
+        """Considering a query, computes the recall.
+
+        Args:
+            OK_chunks_idxes (list[int]): the indexes of the chunks labeled as relevant.
+            top_chunks_indexes (list[int]):  the indexes of the chunks retrieved sorted by similarity scores. (return of torch.topk)
+            k (int, optional): mount of chunks to consider to compute recall. Defaults to 10.
+
+        Returns:
+            float: the recall.
+        """
+        return (
+            (
+                len([idx for idx in top_chunks_indexes[:k] if idx in OK_chunks_idxes])
+                / len(set(OK_chunks_idxes))
+            )
+            if OK_chunks_idxes
+            else 0
+        )
+
+    @staticmethod
+    def _compute_ndcg(
+        OK_chunks_idxes: list[int],
+        top_chunks_indexes: list[int],
+        top_cosims_values: list[float],
+        k: int = 10,
+    ) -> float:
+        """Considering a query, computes the NDCG.
+
+        Args:
+            OK_chunks_idxes (list[int]): the indexes of the chunks labeled as relevant.
+            top_chunks_indexes (list[int]): the indexes of the chunks retrieved sorted by similarity scores. (return of torch.topk)
+            top_cosims_values (list[float]): the sorted similarity scores. (return of torch.topk)
+            k (int, optional): amount of chunks to consider to compute NDCG. Defaults to 10.
+
+        Returns:
+            float: the NDCG score.
+        """
+        # Get array of True/False if chunk is labaled relevant
+        correct_chunks = [idx in OK_chunks_idxes for idx in top_chunks_indexes]
+        return ndcg_score([correct_chunks], [top_cosims_values], k=k)
+
+    def run_scoring(
+        self,
+        queries_dataset: datasets.Dataset,
+        chunks_dataset: datasets.Dataset,
+        retriever: AbsRetriever,
+        reranker: AbsReranker | None = None,
+    ) -> tuple[list[float],list[float]]:
+        """Returns metrics considering a dataset of queries and chunks.
+
+        Args:
+            queries (datasets.Dataset): the dataset of queries.
+            chunks (datasets.Dataset): the dataset of chunks.
+            retriever (AbsRetriever): the retriever to use.
+            reranker (AbsReRanker): the reranker to use.
+
+        Returns:
+            tuple[list[float],list[float]]: the recalls and ndcgs for each query in dataset.
+        """
+        datasets.disable_progress_bars()
+        queries_dataset, chunks_dataset = ChunkingEvaluator._map_labeled_passage_to_chunk(
+            queries_dataset, chunks_dataset
+        )
+        ranked_chunks_idxes, ranked_chunks_scores = retriever.rank_chunks_by_relevance_2d()
+        if reranker is not None:
+            ranked_chunks_idxes, ranked_chunks_scores = reranker.rerank_chunks_by_relevance_2d(
+                ranked_chunks_idxes, ranked_chunks_scores, queries_dataset, chunks_dataset, reranker.n_to_rerank
+            )
+
+        if self.apply_kneedle:
+            ks = [
+                self.get_k_based_on_kneedle(query_scores)
+                for query_scores in ranked_chunks_scores
+                ]
+            print("Average k :", sum(ks)/len(ks))
+        else:
+            ks = [self.k] * len(queries_dataset)
+
+
+        metrics: list[tuple[float, float]] = [
+            (
+                ChunkingEvaluator._compute_recall(query_sample["chunks_idx"], ranked_chunks_idxes[i], k),
+                ChunkingEvaluator._compute_ndcg(
+                    query_sample["chunks_idx"],
+                    ranked_chunks_idxes[i],
+                    ranked_chunks_scores[i],
+                    k,
+                )
+            )
+            for i, (query_sample, k) in enumerate(zip(queries_dataset, ks))
+        ]
+        recalls, ndcgs = zip(*metrics)
+
+        return recalls, ndcgs
+
+
+    def get_k_based_on_kneedle(self, ranked_scores: list[float]) -> int:
+        """Uses the Kneedle algorithm (https://raghavan.usc.edu/papers/kneedle-simplex11.pdf)
+        to detect the index of the chunk from which we should consider the chunks irrelevant.
+
+        NOTE : if the detected knee index is higher than k, then k is returned.
+
+        Args:
+            ranked_scores (list[float]): a list of ranked decreasing scores.
+
+        Returns:
+            int: the index of the chunks marking the "knee" in the scores curvature.
+                Can be used as k to compute the metrics.
+        """
+        ranked_scores = ranked_scores[:int(self.k * 1.5)] # only take first scores ()
+        knee = KneeLocator(
+            x=range(len(ranked_scores)), y=ranked_scores,
+            S=1, curve="convex", direction="decreasing"
+        ).knee
+
+        return min(int(knee)+1, self.k) if knee is not None else self.k
+
